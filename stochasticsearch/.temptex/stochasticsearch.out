@@ -1,0 +1,9 @@
+\BOOKMARK [2][]{Outline0.1}{Motivação e Perguntas de Pesquisa}{}% 1
+\BOOKMARK [2][]{Outline0.2}{Autotuning\040&\040OpenTuner}{}% 2
+\BOOKMARK [3][]{Outline0.2.1.9}{OpenTuner}{Outline0.2}% 3
+\BOOKMARK [2][]{Outline0.3}{Busca Estocástica Local}{}% 4
+\BOOKMARK [2][]{Outline0.4}{StochasticSearch.jl}{}% 5
+\BOOKMARK [3][]{Outline0.4.1.18}{Programação Concorrente, Paralela e Distribuída em Julia}{Outline0.4}% 6
+\BOOKMARK [3][]{Outline0.4.2.25}{Busca Estocástica Local}{Outline0.4}% 7
+\BOOKMARK [3][]{Outline0.4.3.27}{Comparando\040com\040o\040OpenTuner}{Outline0.4}% 8
+\BOOKMARK [2][]{Outline0.5}{Trabalhos\040Futuros}{}% 9

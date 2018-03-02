@@ -1,0 +1,24 @@
+==7466== NVPROF is profiling process 7466, command: ./vectorAdd
+==7466== Warning: Unified Memory Profiling is not supported on devices of compute capability less than 3.0
+==7466== Profiling application: ./vectorAdd
+==7466== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 61.50%  259.50us         2  129.75us  129.38us  130.12us  [CUDA memcpy HtoD]
+ 29.03%  122.50us         1  122.50us  122.50us  122.50us  [CUDA memcpy DtoH]
+  9.47%  39.972us         1  39.972us  39.972us  39.972us  vectorAdd(float const *, float const *, float*, int)
+
+==7466== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+ 61.13%  54.157ms         3  18.052ms  6.7670us  54.142ms  cudaMalloc
+ 37.52%  33.238ms         1  33.238ms  33.238ms  33.238ms  cudaDeviceReset
+  0.63%  555.84us         3  185.28us  72.958us  307.73us  cudaMemcpy
+  0.34%  304.71us        91  3.3480us     141ns  129.49us  cuDeviceGetAttribute
+  0.16%  143.57us         3  47.857us  6.2140us  115.11us  cudaFree
+  0.11%  93.725us         1  93.725us  93.725us  93.725us  cuDeviceTotalMem
+  0.04%  39.500us         1  39.500us  39.500us  39.500us  cudaLaunch
+  0.04%  32.512us         1  32.512us  32.512us  32.512us  cuDeviceGetName
+  0.02%  21.356us         4  5.3390us     309ns  20.034us  cudaSetupArgument
+  0.00%  1.8710us         3     623ns     164ns  1.1280us  cuDeviceGetCount
+  0.00%  1.3290us         1  1.3290us  1.3290us  1.3290us  cudaConfigureCall
+  0.00%     659ns         1     659ns     659ns     659ns  cudaGetLastError
+  0.00%     641ns         3     213ns     154ns     283ns  cuDeviceGet

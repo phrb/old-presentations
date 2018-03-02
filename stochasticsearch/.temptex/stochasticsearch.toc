@@ -1,0 +1,11 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {brazilian}
+\beamer@sectionintoc {1}{Motivação e Perguntas de Pesquisa}{3}{0}{1}
+\beamer@sectionintoc {2}{Autotuning \& OpenTuner}{8}{0}{2}
+\beamer@subsectionintoc {2}{1}{OpenTuner}{9}{0}{2}
+\beamer@sectionintoc {3}{Busca Estocástica Local}{12}{0}{3}
+\beamer@sectionintoc {4}{StochasticSearch.jl}{16}{0}{4}
+\beamer@subsectionintoc {4}{1}{Programação Concorrente, Paralela e Distribuída em Julia}{18}{0}{4}
+\beamer@subsectionintoc {4}{2}{Busca Estocástica Local}{25}{0}{4}
+\beamer@subsectionintoc {4}{3}{Comparando com o OpenTuner}{27}{0}{4}
+\beamer@sectionintoc {5}{Trabalhos Futuros}{37}{0}{5}

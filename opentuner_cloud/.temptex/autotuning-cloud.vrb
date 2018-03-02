@@ -1,0 +1,10 @@
+\frametitle{Normalização de Resultados}
+  \textbf{RQ1}: Como aplicar os resultados obtidos em máquinas virtuais
+  \alert{diferentes da máquina local}?
+
+  \begin{itemize}
+      \item Autotuning do \alert{modelo de desempenho}
+      \item \alert{Combinar} resultados diferentes
+      \item \alert{Simular} a máquina local
+      \item Executar o autotuner na \alert{nuvem}
+  \end{itemize}

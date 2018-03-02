@@ -1,0 +1,105 @@
+\beamer@endinputifotherversion {3.33pt}
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\sectionentry {1}{Motivação e Perguntas de Pesquisa}{3}{Motivação e Perguntas de Pesquisa}{0}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\slideentry {1}{0}{3}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\slideentry {1}{0}{4}{4/4}{}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {1}{0}{5}{5/5}{}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {1}{0}{6}{6/6}{}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\slideentry {1}{0}{7}{7/7}{}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\sectionentry {2}{Autotuning \& OpenTuner}{8}{Autotuning \& OpenTuner}{0}}
+\headcommand {\beamer@sectionpages {3}{7}}
+\headcommand {\beamer@subsectionpages {3}{7}}
+\headcommand {\slideentry {2}{0}{8}{8/8}{}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{9}{OpenTuner}}\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\slideentry {2}{1}{1}{9/9}{OpenTuner}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {2}{1}{2}{10/10}{OpenTuner}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {2}{1}{3}{11/11}{OpenTuner}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\sectionentry {3}{Busca Estocástica Local}{12}{Busca Estocástica Local}{0}}
+\headcommand {\beamer@sectionpages {8}{11}}
+\headcommand {\beamer@subsectionpages {9}{11}}
+\headcommand {\slideentry {3}{0}{4}{12/12}{}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\slideentry {3}{0}{5}{13/13}{}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {3}{0}{6}{14/14}{}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {3}{0}{7}{15/15}{}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\sectionentry {4}{StochasticSearch.jl}{16}{StochasticSearch.jl}{0}}
+\headcommand {\beamer@sectionpages {12}{15}}
+\headcommand {\beamer@subsectionpages {12}{15}}
+\headcommand {\slideentry {4}{0}{8}{16/16}{}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {4}{0}{9}{17/17}{}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{18}{Programação Concorrente, Paralela e Distribuída em Julia}}\headcommand {\beamer@subsectionpages {16}{17}}
+\headcommand {\slideentry {4}{1}{1}{18/18}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\slideentry {4}{1}{2}{19/19}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {4}{1}{3}{20/20}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {4}{1}{4}{21/21}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {4}{1}{5}{22/22}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {4}{1}{6}{23/23}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\slideentry {4}{1}{7}{24/24}{Programação Concorrente, Paralela e Distribuída em Julia}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{25}{Busca Estocástica Local}}\headcommand {\beamer@subsectionpages {18}{24}}
+\headcommand {\slideentry {4}{2}{1}{25/25}{Busca Estocástica Local}{0}}
+\headcommand {\beamer@framepages {25}{25}}
+\headcommand {\slideentry {4}{2}{2}{26/26}{Busca Estocástica Local}{0}}
+\headcommand {\beamer@framepages {26}{26}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{27}{Comparando com o OpenTuner}}\headcommand {\beamer@subsectionpages {25}{26}}
+\headcommand {\slideentry {4}{3}{1}{27/27}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {27}{27}}
+\headcommand {\slideentry {4}{3}{2}{28/28}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {28}{28}}
+\headcommand {\slideentry {4}{3}{3}{29/29}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {29}{29}}
+\headcommand {\slideentry {4}{3}{4}{30/30}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {30}{30}}
+\headcommand {\slideentry {4}{3}{5}{31/31}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {31}{31}}
+\headcommand {\slideentry {4}{3}{6}{32/32}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {32}{32}}
+\headcommand {\slideentry {4}{3}{7}{33/33}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {33}{33}}
+\headcommand {\slideentry {4}{3}{8}{34/34}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {34}{34}}
+\headcommand {\slideentry {4}{3}{9}{35/35}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {35}{35}}
+\headcommand {\slideentry {4}{3}{10}{36/36}{Comparando com o OpenTuner}{0}}
+\headcommand {\beamer@framepages {36}{36}}
+\headcommand {\sectionentry {5}{Trabalhos Futuros}{37}{Trabalhos Futuros}{0}}
+\headcommand {\beamer@sectionpages {16}{36}}
+\headcommand {\beamer@subsectionpages {27}{36}}
+\headcommand {\slideentry {5}{0}{11}{37/37}{}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {5}{0}{12}{38/38}{}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {5}{0}{13}{39/39}{}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\slideentry {5}{0}{14}{40/40}{}{0}}
+\headcommand {\beamer@framepages {40}{40}}
+\headcommand {\beamer@partpages {1}{40}}
+\headcommand {\beamer@subsectionpages {37}{40}}
+\headcommand {\beamer@sectionpages {37}{40}}
+\headcommand {\beamer@documentpages {40}}
+\headcommand {\def \inserttotalframenumber {40}}

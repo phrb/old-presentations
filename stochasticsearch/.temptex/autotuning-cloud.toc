@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.33pt}
+\select@language {portuguese}
+\beamer@sectionintoc {1}{Motivações}{2}{0}{1}
+\beamer@sectionintoc {2}{Autotuning}{4}{0}{2}
+\beamer@sectionintoc {3}{OpenTuner}{6}{0}{3}
+\beamer@sectionintoc {4}{Objetivos}{7}{0}{4}
+\beamer@sectionintoc {5}{Cronograma}{18}{0}{5}

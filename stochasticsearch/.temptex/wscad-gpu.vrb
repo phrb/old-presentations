@@ -1,0 +1,8 @@
+\frametitle{Conclusion}
+  \begin{itemize}
+      \item \alert{\bf 30\%} speedup for \alert{\bf \#1} in the \alert{\bf GTX-680}
+          \pause
+      \item \alert{\bf Different} parameters for each GPU
+          \pause
+      \item \alert{\bf Always} assert the results
+  \end{itemize}

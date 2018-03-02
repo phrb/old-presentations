@@ -1,0 +1,30 @@
+\frametitle{Cronograma}
+\newcolumntype{K}{>{\centering\arraybackslash}m{2.3cm}}
+\newcommand{\specialcell}[2][c]{%
+  \begin{tabular}[#1]{@{}K@{}}#2\end{tabular}}
+
+\begin{table}[htpb]
+    \centering
+    \scriptsize
+    \begin{tabular}{@{}KKKK@{}}
+        \toprule
+        \specialcell{\bf AP2 \& PR \\ \bf 25/09} & \specialcell{\bf AR1 \\ \bf 16/10} & \specialcell{\bf AP3 \& AR2 \\ \bf 13/11} & \specialcell{\bf AR3 \\ \bf 25/11} \\ \midrule
+        \specialcell{ \scriptsize Paper proposal. \\[0.15cm]
+            \scriptsize 10-minute presentation. \\[0.15cm]
+            \scriptsize Preliminary experiments at GCE. \\[0.15cm]
+            \scriptsize High and low-level views of the implementation.}
+            & \specialcell{ \scriptsize First version of the paper. \\[0.15cm]
+            \scriptsize Measurement Client implementation. \\[0.15cm]
+            \scriptsize GCE Interface implementation. \\[0.15cm]
+            \scriptsize Measurement Server implementation.}
+            & \specialcell{ \scriptsize Second version of the paper. \\[0.15cm]
+            \scriptsize 20-minute presentation. \\[0.15cm]
+            \scriptsize Result normalization techniques. \\[0.15cm]
+            \scriptsize Benchmark choice. \\[0.15cm]
+            \scriptsize Application protocol full specification.}
+            & \specialcell{ \scriptsize Final version of the paper. \\[0.15cm]
+            \scriptsize Experiments, results and analysis.} \\ \bottomrule
+    \end{tabular}
+    \caption{Cronograma do Projeto.}
+    \label{tab:sched}
+\end{table}

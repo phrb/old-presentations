@@ -1,0 +1,12 @@
+\frametitle{Trabalhos Futuros}
+    Responder às perguntas:
+    \begin{itemize}
+        \item \alert{RQ1}: Técnicas de busca estocástica apresentam
+            alguma vantagem em relação a outras técnicas de autotuning?
+            %\pause
+        \item \alert{RQ2\textbf{a}}: Como utilizar programação paralela e
+            distribuída para melhorar o desempenho de autotuners?
+            %\pause
+        \item \alert{RQ2\textbf{b}}: Para quais domínios de problema isso é
+            vantajoso?
+    \end{itemize}

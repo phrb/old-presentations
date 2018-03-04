@@ -84,7 +84,7 @@
 \section{Autotuning}
 
 \begin{frame}
-    \frametitle{Autotuning: Optimizing Program Configuration}
+    \frametitle{Autotuning: Optimizing Program Configurations}
     \begin{columns}[c]
         \column{.5\textwidth}
             \begin{block}{Architectures for High Performance Computing}
@@ -165,7 +165,7 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Autotuning: Search Spaces}
+    \frametitle{Autotuning: Exploring Search Spaces}
     \begin{columns}[c]
         \column{.49\textwidth}
             \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -241,16 +241,16 @@
         \column{.49\textwidth}
             \begin{block}{Main Issues}
                 \begin{itemize}
-                    \item Optimized function is a \alert{black-box}:
-                        \begin{itemize}
-                            \item \alert{Learn nothing} about the search space
-                            \item \alert{Can't explain} why optimizations work
-                        \end{itemize}
                     \item These approaches \alert{assume}:
                         \begin{itemize}
                             \item A \alert{large number of function evaluations}
                             \item Search space \alert{``smoothness''}
                             \item Good solutions are \alert{reachable}
+                        \end{itemize}
+                    \item After optimizing:
+                        \begin{itemize}
+                            \item \alert{Learn nothing} about the search space
+                            \item \alert{Can't explain} why optimizations work
                         \end{itemize}
                 \end{itemize}
             \end{block}
@@ -289,9 +289,9 @@
                 \alert{Screening} Designs:
 
                 \begin{itemize}
-                    \item Assume \alert{interactions are negligible}
                     \item Estimate \alert{main effects}
                     \item Aim to \alert{minimize runs}
+                    \item Assume \alert{interactions are negligible}
                 \end{itemize}
 
                 \alert{Mixed-Level} Designs:
@@ -365,13 +365,13 @@
             \begin{block}{CUDA Compiler Flags}
                 \begin{itemize}
                     \item \alert{Rodinia Benchmark}
-                    \item \alert{16} factors, \alert{few with
+                    \item \alert{15} factors, \alert{few with
                         multiple levels}
                     \item \alert{$10^6$} combinations
                     \item \alert{$1$\textasciitilde$10$s} to measure
                     \item \alert{Screening Experiment}:
                         \begin{itemize}
-                            \item \alert{16 ``2-level''} factors
+                            \item \alert{15 ``2-level''} factors
                             \item \alert{4 ``dummy''} factors
                         \end{itemize}
                 \end{itemize}
@@ -516,8 +516,8 @@
 
                 \begin{itemize}
                     \item \alert{Large search space}
-                    \item Factors with \alert{multiple levels}
                     \item \alert{Large measurement time}
+                    \item Factors with \alert{multiple levels}
                 \end{itemize}
 
                 \vspace{-.1cm}

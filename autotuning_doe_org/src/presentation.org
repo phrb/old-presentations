@@ -1,0 +1,186 @@
+#+TITLE:     Autotuning: A Design of Experiments Approach
+#+AUTHOR:    Pedro Bruel
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      \today
+#+DESCRIPTION: 
+#+KEYWORDS: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:t @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,*,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\footnotesize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+#+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+#+LATEX_HEADER: \graphicspath{{../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+* Autotuning
+** Autotuning: Optimizing Program Configurations
+*** Architectures for High Performance Computing              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../img/architectures.png]]
+
+    How to write *efficient code* for each of these?
+
+**** Autotuning                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     The process of *automatically finding* a *configuration* of a program that
+     optimizes an *objective*
+
+*** Configurations                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_COL: 0.5
+    :END:
+
+    - Program Configuration
+      - Algorithm, block size, $\dots$
+    - Source code transformation
+      - Loop unrolling, tiling, rotation $\dots$
+    - Compiler configuration
+      - =-O2=, vectorization, $\dots$
+    - $\dots$
+    
+**** Objectives :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     
+     - Execution time
+     - Memory & power consumption
+     - $\dots$
+
+** Autotuning: Search Spaces    
+*** Search Spaces                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+     
+     Represent the *effect* of all possible
+     *configurations* on the *objectives*
+
+     Can be difficult to explore, with multiple *local optima*
+     and *undefined regions*
+
+*** Illustration                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: width=.8\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../img/holder_table.pdf]]    
+
+    *Hölder Table Function*
+    #+END_CENTER
+    
+** Autotuning: Exploring Search Spaces
+*** Issue 1: *Exponential Growth* :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+     
+     *Simple factors* can generate *large spaces*:
+
+     - 30 *boolean* factors
+     - $2^{30}$ combinations
+
+**** Issue 2: *Geometry* :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Discrete* or *continous* factors
+     - *``Smoothness''*
+     - *Interactions* between factors
+
+*** Issue 3: *Measurement Time*                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+     #+LATEX: \vspace{.2cm}
+     
+     Time to *compile*:
+
+     - *Benchmark* GPU applications: *1~10s*
+     - *Benchmark* FPGA applications: *1~10min*
+     - *Industrial* FPGA applications: *1~10h*

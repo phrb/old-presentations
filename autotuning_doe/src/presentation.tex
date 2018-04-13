@@ -435,9 +435,8 @@
 
                 \begin{itemize}
                     \item Find \alert{specific sets of $k$-level columns} of a
-                        design
-                    \item \alert{Contract} the set into a new \alert{factor
-                        with more levels}
+                        design, \alert{contract} the set into a new
+                        \alert{factor with more levels}
                     \item \alert{Maintain orthogonality} of the design
                 \end{itemize}
 
@@ -445,6 +444,36 @@
 
                 Directly generate \alert{small mixed-level designs} by
                 solving \alert{Mixed Integer Programming problems}
+
+                \textbf{Strategy 3: \alert{D-Optimal Designs}}
+            \end{block}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{D-Optimal Designs}
+    \begin{columns}[c]
+        \column{.49\textwidth}
+            \begin{block}{Construction}
+                \begin{itemize}
+                    \item Define \alert{factors and levels}
+                    \item Choose a \alert{model}
+                    \item Choose an \alert{optimality metric}
+                    \item \alert{Select} runs from the \alert{full factorial
+                        design}
+                \end{itemize}
+            \end{block}
+
+        \column{.49\textwidth}
+            \begin{block}{Example}
+                \begin{itemize}
+                    \item Factors: $x_1 = \{-1, 0, 1\}, x_2 = \{-1, 0, 1\}$
+                    \item Model: $\mathbf{Y} = \mathbf{X}\beta + \eta$
+                    \item Choose an \alert{optimality metric}
+                    \item \alert{Select} runs from the \alert{full factorial
+                        design}
+                \end{itemize}
             \end{block}
 
     \end{columns}

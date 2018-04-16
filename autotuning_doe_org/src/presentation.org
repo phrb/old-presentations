@@ -1,7 +1,7 @@
 #+TITLE:     Autotuning: A Design of Experiments Approach
-#+AUTHOR:    Pedro Bruel
+#+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
 #+EMAIL:     phrb@ime.usp.br
-#+DATE:      \today
+#+DATE:      \scriptsize \today
 #+DESCRIPTION: 
 #+KEYWORDS: 
 #+LANGUAGE:  en
@@ -150,7 +150,7 @@
     #+END_CENTER
     
 ** Autotuning: Exploring Search Spaces
-*** Issue 1: *Exponential Growth* :B_block:BMCOL:
+*** Issue 1: *Exponential Growth*                             :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.5
     :BEAMER_env: block
@@ -184,3 +184,325 @@
      - *Benchmark* GPU applications: *1~10s*
      - *Benchmark* FPGA applications: *1~10min*
      - *Industrial* FPGA applications: *1~10h*
+** Autotuning: Multiple Approaches
+*** Popular Approaches                                        :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+LATEX: \footnotesize
+    - \colorbox{red!25}{Exhaustive}
+    - \colorbox{green!25}{Meta-Heuristics}
+    - \colorbox{cyan!25}{Machine Learning}
+    #+LATEX: \normalsize
+
+    #+LATEX: \vspace{-.4cm}
+
+    #+LATEX: \input{latex/popular_approaches.tex}
+
+*** Main Issues                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - These approaches *assume*:
+      - A *large number of function evaluations*
+      - Seach space *``smoothness''*
+      - Good solutions are *reachable*
+    - After optimizing:
+      - *Learn nothing* about the search space
+      - *Can't explain* why optimizations work
+* Applying Design of Experiments to Autotuning
+** Applying Design of Experiments to Autotuning
+*** Our Approach                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    Using *efficient experimental design* to overcome issues
+    related to *exponential growth*, *geometry*, and
+    *measurement time*
+
+**** Design Requirements                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Support a large number of factors (*Exponential Growth*)
+     - Support numerical and categorical factors (*Geometry*)
+     - Minimize function evaluations (*Measurement Time*)
+   
+*** Main Design Candidates                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    *Screening* designs:
+
+    - Estimate *main effects*
+    - Aim to *minimize runs*
+    - Assume *interactions are negligible*
+    
+    *Mixed-Level* designs:
+
+    - Factors have *different numbers of levels*
+    - Many *optimality criteria*
+
+** Screening Designs
+*** Plackett-Burman                                                   :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+    #+LATEX: \vspace{.4cm}
+
+    A Plackett-Burman *screening design* for $7$
+    *2-level factors*:
+
+    #+LATEX: \vspace{.2cm}
+
+    #+LATEX: \input{latex/plackett_burman.tex}
+
+*** Screening Designs                                         :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{.2cm}
+
+    *Plackett-Burman* designs for *2-level factors*:
+
+    - *Orthogonal arrays* of *strength $2$*
+    - Estimate the *main effects* of *$n$ factors with $n + 1$ runs*
+    
+    Construction:
+
+    - For *$n + 1$ multiple of $4$*
+    - Identical to a fractional design if *$n + 1$ is a power of two*
+
+** Looking at Data: CUDA Compiler Flags
+*** CUDA Compiler Flags                                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.3
+    :BEAMER_env: block
+    :END:
+    - *Rodinia benchmark*
+    - *15* factors, *few with multiple levels*
+    - *$10^6$* combinations
+    - *1~10s* to measure
+    - *Screening experiment*:
+      - *15 ``2-level''* factors
+      - *4 ``dummy''* factors
+*** Results                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.7
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../img/main_effects_gpu.png]]
+
+** Mixed-Level Designs
+*** Design Example                                                    :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    
+    #+LATEX: \vspace{.1cm}
+
+    A *multi-level* design for $1$ *2-level factor*
+    and $3$ *3-level factors*:
+
+    #+LATEX: \vspace{-.3cm}
+
+    #+LATEX: \input{latex/multi_level.tex}
+
+*** Mixed-Level Designs                                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+**** Strategy 1: *Contractive Replacement*                          :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - Find *specific sets of \(k\)-level columns* of a design,
+       *contract* the set into a new *factor of with more levels*
+     - *Maintain orthogonality* of the design
+     
+**** Strategy 2: *Direct Construction*                              :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     Directly generate *small mixed-level designs* by
+     solving *Mixed Integer Programming problems*
+
+**** Strategy 3: *D-Optimal Designs*                                :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+** Looking at Data: FPGA Compiler Parameters
+*** FPGA Compiler Parameters                                  :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.4
+    :END:
+
+    - *CHStone benchmark*
+    - *141* factors, *most with multiple levels*
+    - *\(10^{128}\)* combinations
+    - *1~10min* to measure
+    - *Multiple objectives*
+    - *Search with meta-heuristics*:
+      - *Unstructured data difficults analysis*
+      - We are working on *obtaining more data*
+*** Data                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+
+    #+ATTR_LATEX: width=\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../img/fpga_space.png]]
+* D-Optimal Designs
+** D-Optimal Designs
+*** Construction                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Define *factors and levels*
+    - Choose a *model*
+    - Choose an *optimality metric*
+    - *Select* runs from the *full factorial design*
+
+**** Example                                                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Factors: \(x_1 = \{1, 2, 3\}, x_2 = \{1, 2, 3\}\)
+     - Model: \(\mathbf{Y} = \mathbf{X}\beta + \eta\)
+     - Choose an *optimality metric*
+     - *Select* runs from the *full factorial design*
+
+*** Source code                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+HEADER: :results output :session *R* :exports code
+    #+BEGIN_SRC R
+    library(AlgDesign)
+    
+    full_factorial <- gen.factorial(c(3, 3),
+                          factors = c(1, 2))
+    output <- optFederov(~., full_factorial,
+                         nTrials = 5)
+    #+END_SRC
+
+    #+RESULTS:
+    : Error in optFederov(~., full_factorial, nTrials = 4) : 
+    :   nTrials must be greater than or equal to the number of columns in expanded X
+
+    #+LATEX: \scriptsize
+
+    #+HEADER: :results output :session *R* :exports results
+    #+BEGIN_SRC R
+    print("Full Factorial Dimensions:")
+    dim(full_factorial)
+    print("D-Optimized Dimensions:")
+    dim(output$design)
+    print(paste("D-Optimality: ", output$D))
+    print("Design:")
+    t(output$design)
+    #+END_SRC
+
+    #+RESULTS:
+    : [1] "Full Factorial Dimensions:"
+    : [1] 4 2
+    : [1] "D-Optimized Dimensions:"
+    : [1] 4 2
+    : [1] "D-Optimality:  0.39685026299205"
+    : [1] "Design:"
+    :    1   2   3   4  
+    : X1 "1" "2" "1" "2"
+    : X2 "1" "1" "2" "2"
+
+    #+LATEX: \normalsize
+* Perspectives
+** Perspectives
+*** Perspectives                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+**** *Short Term*                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Study *small*, *balanced*, *orthogonal* and
+       *multi-level* designs for *large numbers of factors*
+     - Iteratively *drop least significant factors* with
+       *user input*
+
+**** *Long Term*                                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Use such designs to *autotune industrial-level FPGA applications*
+     - Provide an *autotuning shared library* to applications
+
+*** Takeaway                                                  :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+**** Target Scenario: *FPGA Compiler Parameters*                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Large search space*
+     - *Large measurement time*
+     - Factors with *multiple levels*
+
+     #+LATEX: \vspace{-.3cm}
+
+**** Our Approach                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     Using *efficient experimental designs* to overcome issues related
+     to *exponential growth*, *geometry*, and *measurement time*
+
+**** Main Design Candidates                                         :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     
+     #+LATEX: \vspace{.2cm}
+
+     *D-Optimal multi-level* designs
+
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle

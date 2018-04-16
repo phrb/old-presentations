@@ -1,4 +1,4 @@
-% Created 2018-04-13 Fri 16:14
+% Created 2018-04-16 Mon 14:12
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -59,11 +59,11 @@ tabsize=2,
 \graphicspath{{../img/}}
 \addtobeamertemplate{block begin}{}{\justifying}
 \usetheme{default}
-\author{Pedro Bruel}
-\date{\today}
+\author{\footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}}
+\date{\scriptsize \today}
 \title{Autotuning: A Design of Experiments Approach}
 \hypersetup{
- pdfauthor={Pedro Bruel},
+ pdfauthor={\footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}},
  pdftitle={Autotuning: A Design of Experiments Approach},
  pdfkeywords={},
  pdfsubject={},
@@ -78,8 +78,8 @@ tabsize=2,
 
 
 \section{Autotuning}
-\label{sec:org6c0e495}
-\begin{frame}[fragile,label={sec:orge1cf4d7}]{Autotuning: Optimizing Program Configurations}
+\label{sec:org3c968f4}
+\begin{frame}[fragile,label={sec:org94f3302}]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -128,7 +128,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org7cffd57}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org0a5b491}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Spaces}
@@ -154,7 +154,7 @@ and \alert{undefined regions}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org17a6269}]{Autotuning: Exploring Search Spaces}
+\begin{frame}[label={sec:orga59bc75}]{Autotuning: Exploring Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -192,4 +192,315 @@ Time to \alert{compile}:
 \end{column}
 \end{columns}
 \end{frame}
+\begin{frame}[label={sec:orgf5a733b}]{Autotuning: Multiple Approaches}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Popular Approaches}
+\footnotesize
+\begin{itemize}
+\item \colorbox{red!25}{Exhaustive}
+\item \colorbox{green!25}{Meta-Heuristics}
+\item \colorbox{cyan!25}{Machine Learning}
+\end{itemize}
+\normalsize
+
+\vspace{-.4cm}
+
+\input{latex/popular_approaches.tex}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Main Issues}
+\begin{itemize}
+\item These approaches \alert{assume}:
+\begin{itemize}
+\item A \alert{large number of function evaluations}
+\item Seach space \alert{``smoothness''}
+\item Good solutions are \alert{reachable}
+\end{itemize}
+\item After optimizing:
+\begin{itemize}
+\item \alert{Learn nothing} about the search space
+\item \alert{Can't explain} why optimizations work
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Applying Design of Experiments to Autotuning}
+\label{sec:orga53a6c8}
+\begin{frame}[label={sec:orge119d08}]{Applying Design of Experiments to Autotuning}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Our Approach}
+\vspace{.2cm}
+
+Using \alert{efficient experimental design} to overcome issues
+related to \alert{exponential growth}, \alert{geometry}, and
+\alert{measurement time}
+
+\begin{block}{Design Requirements}
+\begin{itemize}
+\item Support a large number of factors (\alert{Exponential Growth})
+\item Support numerical and categorical factors (\alert{Geometry})
+\item Minimize function evaluations (\alert{Measurement Time})
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Main Design Candidates}
+\vspace{.2cm}
+
+\alert{Screening} designs:
+
+\begin{itemize}
+\item Estimate \alert{main effects}
+\item Aim to \alert{minimize runs}
+\item Assume \alert{interactions are negligible}
+\end{itemize}
+
+\alert{Mixed-Level} designs:
+
+\begin{itemize}
+\item Factors have \alert{different numbers of levels}
+\item Many \alert{optimality criteria}
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:orgc403da3}]{Screening Designs}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\vspace{.4cm}
+
+A Plackett-Burman \alert{screening design} for \(7\)
+\alert{2-level factors}:
+
+\vspace{.2cm}
+
+\input{latex/plackett_burman.tex}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Screening Designs}
+\vspace{.2cm}
+
+\alert{Plackett-Burman} designs for \alert{2-level factors}:
+
+\begin{itemize}
+\item \alert{Orthogonal arrays} of \alert{strength \(2\)}
+\item Estimate the \alert{main effects} of \alert{\(n\) factors with \(n + 1\) runs}
+\end{itemize}
+
+Construction:
+
+\begin{itemize}
+\item For \alert{\(n + 1\) multiple of \(4\)}
+\item Identical to a fractional design if \alert{\(n + 1\) is a power of two}
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:org474c859}]{Looking at Data: CUDA Compiler Flags}
+\begin{columns}
+\begin{column}{0.3\columnwidth}
+\begin{block}{CUDA Compiler Flags}
+\begin{itemize}
+\item \alert{Rodinia benchmark}
+\item \alert{15} factors, \alert{few with multiple levels}
+\item \alert{\(10^6\)} combinations
+\item \alert{1\textasciitilde{}10s} to measure
+\item \alert{Screening experiment}:
+\begin{itemize}
+\item \alert{15 ``2-level''} factors
+\item \alert{4 ``dummy''} factors
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.7\columnwidth}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../img/main_effects_gpu.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:orgeea09da}]{Mixed-Level Designs}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\vspace{.1cm}
+
+A \alert{multi-level} design for \(1\) \alert{2-level factor}
+and \(3\) \alert{3-level factors}:
+
+\vspace{-.3cm}
+
+\input{latex/multi_level.tex}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Mixed-Level Designs}
+\begin{block}{Strategy 1: \alert{Contractive Replacement}}
+\begin{itemize}
+\item Find \alert{specific sets of \(k\)-level columns} of a design,
+\alert{contract} the set into a new \alert{factor of with more levels}
+\item \alert{Maintain orthogonality} of the design
+\end{itemize}
+\end{block}
+
+\begin{block}{Strategy 2: \alert{Direct Construction}}
+\vspace{.2cm}
+
+Directly generate \alert{small mixed-level designs} by
+solving \alert{Mixed Integer Programming problems}
+\end{block}
+
+\begin{block}{Strategy 3: \alert{D-Optimal Designs}}
+\end{block}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[fragile,label={sec:orgc63a80d}]{D-Optimal Designs}
+ \begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Construction}
+\begin{itemize}
+\item Define \alert{factors and levels}
+\item Choose a \alert{model}
+\item Choose an \alert{optimality metric}
+\item \alert{Select} runs from the \alert{full factorial design}
+\end{itemize}
+
+\begin{block}{Example}
+\begin{itemize}
+\item Factors: \(x_1 = \{1, 2, 3\}, x_2 = \{1, 2, 3\}\)
+\item Model: \(\mathbf{Y} = \mathbf{X}\beta + \eta\)
+\item Choose an \alert{optimality metric}
+\item \alert{Select} runs from the \alert{full factorial design}
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Source code}
+\lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+library(AlgDesign)
+
+full_factorial <- gen.factorial(c(3, 3),
+                      factors = c(1, 2))
+output <- optFederov(~., full_factorial,
+                     nTrials = 5)
+\end{lstlisting}
+
+\scriptsize
+
+\begin{verbatim}
+[1] "Full Factorial Dimensions:"
+[1] 9 2
+[1] "D-Optimized Dimensions:"
+[1] 5 2
+[1] "D-Optimality:  0.2"
+[1] "Design:"
+   1   4   6   7   8  
+X1 "1" "1" "3" "1" "2"
+X2 "1" "2" "2" "3" "3"
+\end{verbatim}
+
+\normalsize
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org10102d5}]{Looking at Data: FPGA Compiler Parameters}
+\begin{columns}
+\begin{column}{0.4\columnwidth}
+\begin{block}{FPGA Compiler Parameters}
+\begin{itemize}
+\item \alert{CHStone benchmark}
+\item \alert{141} factors, \alert{most with multiple levels}
+\item \alert{\(10^{128}\)} combinations
+\item \alert{1\textasciitilde{}10min} to measure
+\item \alert{Multiple objectives}
+\item \alert{Search with meta-heuristics}:
+\begin{itemize}
+\item \alert{Unstructured data difficults analysis}
+\item We are working on \alert{obtaining more data}
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.6\columnwidth}
+\begin{center}
+\includegraphics[width=.9\linewidth]{../img/fpga_space.png}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Perspectives}
+\label{sec:orgfb24128}
+\begin{frame}[label={sec:org057636e}]{Perspectives}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Perspectives}
+\begin{block}{\alert{Short Term}}
+\begin{itemize}
+\item Study \alert{small}, \alert{balanced}, \alert{orthogonal} and
+\alert{multi-level} designs for \alert{large numbers of factors}
+\item Iteratively \alert{drop least significant factors} with
+\alert{user input}
+\end{itemize}
+\end{block}
+
+\begin{block}{\alert{Long Term}}
+\begin{itemize}
+\item Use such designs to \alert{autotune industrial-level FPGA applications}
+\item Provide an \alert{autotuning shared library} to applications
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Takeaway}
+\begin{block}{Target Scenario: \alert{FPGA Compiler Parameters}}
+\begin{itemize}
+\item \alert{Large search space}
+\item \alert{Large measurement time}
+\item Factors with \alert{multiple levels}
+\end{itemize}
+
+\vspace{-.3cm}
+\end{block}
+
+\begin{block}{Our Approach}
+\vspace{.2cm}
+
+Using \alert{efficient experimental designs} to overcome issues related
+to \alert{exponential growth}, \alert{geometry}, and \alert{measurement time}
+\end{block}
+
+\begin{block}{Main Design Candidates}
+\vspace{.2cm}
+
+\alert{D-Optimal multi-level} designs
+\end{block}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\maketitle
 \end{document}

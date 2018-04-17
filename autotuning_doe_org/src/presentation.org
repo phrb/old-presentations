@@ -28,6 +28,8 @@
 #+LATEX_HEADER: \usepackage[scale=2]{ccicons}
 #+LATEX_HEADER: \usepackage{url}
 #+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
 #+LATEX_HEADER: \usepackage{wasysym}
 #+LATEX_HEADER: \usepackage{ragged2e}
 #+LATEX_HEADER: \usepackage{textcomp}
@@ -377,7 +379,32 @@
     #+ATTR_ORG: :width 600
     [[../img/fpga_space.png]]
 * D-Optimal Designs
-** D-Optimal Designs
+** D-Optimal Designs: Introduction
+*** Linear Regression Model                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    
+    #+LATEX: \vspace{.2cm}
+
+    A simple *regression model*:
+
+    \(y = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{k}x_{k} + \epsilon\)
+
+    We want to *estimate* \(\beta_{0,\dots,k}\):
+
+    - Using \(n > k\) *observations* \(y_{1,\dots,n}\)
+    - *Distinct* \(x_{i1,\dots,ik}, \; i = 1,\dots,n\)
+    
+    Gathering each *experiment*
+
+    \(y_{i} = \beta_{0} + \beta_{1}x_{i1} + \dots + \beta_{k}x_{ik} + \epsilon_{i}\),
+
+    we get:
+
+    \(\mathbf{Y} = \bm{\beta}\mathbf{X} + \bm{\epsilon}\)
+    
 ** D-Optimal Designs: Example
 *** Example                                                   :B_block:BMCOL:
     :PROPERTIES:

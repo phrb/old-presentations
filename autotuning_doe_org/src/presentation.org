@@ -45,7 +45,7 @@
 #+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
 #+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
 #+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
-#+LATEX_HEADER:       while,<:,+,-,::,*,/},%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
 #+LATEX_HEADER:    sensitive=true,%
 #+LATEX_HEADER:    alsoother={$},%
 #+LATEX_HEADER:    morecomment=[l]\#,%
@@ -60,7 +60,7 @@
 #+LATEX_HEADER:   breaklines=true,
 #+LATEX_HEADER:   captionpos=n,
 #+LATEX_HEADER:   commentstyle=\color{Accent},
-#+LATEX_HEADER:   escapeinside={\%*}{*)},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
 #+LATEX_HEADER:   extendedchars=true,
 #+LATEX_HEADER:   frame=n,
 #+LATEX_HEADER:   keywordstyle=\color{Accent},
@@ -427,11 +427,11 @@
     = \bm{\epsilon}^{\prime}\bm{\epsilon}
     = (\mathbf{Y} - \bm{X}\bm{\beta})^{\prime}(\mathbf{Y} - \bm{X}\bm{\beta}) = \\
     =& \; \bm{Y}^{\prime}\bm{Y}
-    \; \colorbox{cyan!25}{$- \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y} -
+    \; \colorbox{Accent!25}{$- \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y} -
     \bm{Y}^{\prime}\bm{X\beta}$} +
     \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X\beta} = \\
     =& \; \bm{Y}^{\prime}\bm{Y} \;
-    \colorbox{cyan!25}{$- 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y}$} +
+    \colorbox{Accent!25}{$- 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y}$} +
     \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X\beta}
     \end{align*}
     #+END_CENTER
@@ -478,19 +478,78 @@
     \bm{\hat{\beta}} = \left(\bm{X}^{\prime}\bm{X}\right)^{-1}\bm{X}^{\prime}\bm{Y}
     \end{equation*}
     #+END_CENTER
-    #    
-    The *estimator* \(\bm{\hat{\beta}}\) is *proportional* to
-    \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
+
+    #+LATEX: \vspace{-.4cm}
+    #+LATEX: \begin{center}
+    #+LATEX: \colorbox{Accent!25}{The estimator \(\bm{\hat{\beta}}\) is proportional to \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+    #+LATEX: \end{center}
+    #+LATEX: \vspace{.2cm}
 **** Dispersion or Covariance Matrix
      - *Information matrix*: \(\bm{X}^{\prime}\bm{X}\)
      - *Dispersion* or *Covariance matrix*: \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
 ** Design Efficiency: The Dispersion Matrix
+*** Computing \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \vspace{.2cm}
+
+    A design $D_{n,2}$, with *2-level factors*, will have a \(3\times3\)
+    *dispersion matrix*, if we assume *linear relationships* and no *factor
+    interactions*:
+
+    #+LATEX: \vspace{.2cm}
+
+    #+HEADER: :results output :session *R* :exports none
+    #+BEGIN_SRC R
+    library(AlgDesign)
+    #+END_SRC
+
+    #+RESULTS:
+
+    #+LATEX: \scriptsize
+
+    #+HEADER: :results output :session *R* :exports code
+    #+BEGIN_SRC R
+    factorial <- gen.factorial(c(2, 2))
+    model <- model.matrix(~., factorial)
+    dispersion <- t(model) %*% model
+    eigen(dispersion)$values
+    #+END_SRC
+
+    #+RESULTS:
+    : [1] 4 4 4
+
+    #+LATEX: \vspace{-.4cm}
+
+    #+HEADER: :results output :session *R* :exports results
+    #+BEGIN_SRC R
+    dispersion
+    eigen(dispersion)$values
+    #+END_SRC
+
+    #+RESULTS:
+    :             (Intercept) X1 X2
+    : (Intercept)           4  0  0
+    : X1                    0  4  0
+    : X2                    0  0  4
+    : [1] 4 4 4
+
+    #+LATEX: \normalsize
+
 *** Interpreting Eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\) :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_env: block
     :BEAMER_col: 0.5
     :END:
-    #+BEGIN_SRC python :session *Python* :exports none :results output
+
+    #+LATEX: \vspace{.1cm}
+
+    The *eigenvalues* \(\lambda_{0,1,2}\) of the *dispersion matrix* can
+    represent its *``size''*:
+
+    #+BEGIN_SRC python :exports none :results output
     from mpl_toolkits.mplot3d import Axes3D
     import matplotlib.pyplot as plt
     import numpy as np
@@ -512,6 +571,10 @@
     ax.set_xticks([-3, 0, 3]) 
     ax.set_yticks([-5, 0, 5]) 
     ax.set_zticks([-7, 0, 7])
+
+    ax.set_xticklabels(["", "", ""])
+    ax.set_yticklabels(["", "", ""])
+    ax.set_zticklabels(["", "", ""])
     
     ax.zaxis.set_rotate_label(False)
     ax.yaxis.set_rotate_label(False)
@@ -523,57 +586,73 @@
 
     # Plot the surface
     ax.plot_surface(x, y, z, rstride = 5, cstride = 5, cmap = 'viridis')
-    #ax.plot_wireframe(x, y, z, rstride=10, cstride=10)
 
-    #ax.set_aspect("equal")
-    #ax.view_init(60, 35)
     fig.savefig("pdf/3dshape.pdf", bbox_inches = "tight")
     #+END_SRC
 
     #+RESULTS:
-    : Python 3.6.4 (default, Jan  5 2018, 02:35:40) 
-    : [GCC 7.2.1 20171224] on linux
-    : Type "help", "copyright", "credits" or "license" for more information.
-    : qt5ct: using qt5ct plugin
-    : python.el: native completion setup loaded
 
-    #+LATEX: \vspace{.2cm}
+    #+LATEX: \vspace{-.3cm}
 
-    A design $D_{n,2}$ will have a \(3\times3\) *dispersion matrix*, if we assume
-    *linear relationships* and no *factor interactions*
+    #+BEGIN_CENTER latex
+    \includegraphics[width = .7\columnwidth]{./pdf/3dshape.pdf}
+    #+END_CENTER
 
-    #+ATTR_LATEX: width=.4\columnwidth
-    [[./pdf/3dshape.pdf]]
+    #+LATEX: \vspace{-.3cm}
 
-*** Efficiency Metrics based on \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\) :B_block:BMCOL:
+    We can *minimize the coefficient estimator* \(\bm{\hat{\beta}}\) by
+    *minimizing the eigenvalues* of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
+
+** Design Efficiency: Metrics
+*** Defining a Design                                         :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_env: block
     :BEAMER_col: 0.5
     :END:
-**** A-Efficiency
-     #+LATEX: \vspace{-.8cm}
-     #+BEGIN_CENTER latex
-     \begin{equation*}
-     A_{eff} = \left(n \times \text{tr}\left(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right)/k\right)^{(-1)}
-     \end{equation*}
-     #+END_CENTER
-     #    
-     #+LATEX: \vspace{-.6cm}
-     - *Arithmetic mean* of *eigenvalues* of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
-     #+LATEX: \vspace{-.3cm}
-**** D-Efficiency
-     #+LATEX: \vspace{-.8cm}
-     #+BEGIN_CENTER latex
-     \begin{equation*}
-     D_{eff} = \left(n \times \left|\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right|^{1/k}\right)^{(-1)}
-     \end{equation*}
-     #+END_CENTER
-     #    
-     #+LATEX: \vspace{-.6cm}
-     - *Geometric mean* of *eigenvalues* of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
-     #+LATEX: \vspace{-.3cm}
-**** G-Efficiency
+    
+    #+LATEX: \vspace{.2cm}
 
+    Consider a design \(D_{n, k - 1}\):
+
+    - \(x_{1, \dots, k - 1}\) *2-level factors*
+    - \(n\) *experiments*
+    
+    Its \(k \times k\) *dispersion matrix*
+    \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\):
+
+    - Constructed using the *linear model*:
+      - \(\bm{Y} = \bm{\beta{}X} + \bm{\epsilon}\)
+    - With *eigenvalues* \(\lambda_{0,...,m}\)
+
+    We can define *efficiency metrics* for \(\bm{\beta}\) based on the
+    *eigenvalues* of the *dispersion matrix*
+
+*** Some Efficiency Metrics based on \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\) :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \vspace{.2cm}
+**** A-Efficiency
+     #+LATEX: \vspace{-.6cm}
+     #+BEGIN_CENTER latex
+     \begin{equation*}
+     A_{eff} = \left(n \times \text{tr}\left(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right)/k\right)^{-1}, \; A_{eff} \in \left[0, 1\right]
+     \end{equation*}
+     #+END_CENTER
+     #    
+     #+LATEX: \vspace{-.3cm}
+     #+LATEX: \colorbox{Accent!25}{``Arithmetic mean'' of eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+**** D-Efficiency
+     #+LATEX: \vspace{-.6cm}
+     #+BEGIN_CENTER latex
+     \begin{equation*}
+     D_{eff} = \left(n \times \left|\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right|^{1/k}\right)^{-1}, \; D_{eff} \in \left[0, 1\right]
+     \end{equation*}
+     #+END_CENTER
+     #    
+     #+LATEX: \vspace{-.3cm}
+     #+LATEX: \colorbox{Accent!25}{``Geometric mean'' of eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
 ** D-Optimal Designs: Example
 *** Example                                                   :B_block:BMCOL:
     :PROPERTIES:

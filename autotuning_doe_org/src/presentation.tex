@@ -1,4 +1,4 @@
-% Created 2018-04-18 Wed 14:40
+% Created 2018-04-19 Thu 11:17
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -29,7 +29,7 @@
 {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
 end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
 macro,module,quote,return,switch,true,try,catch,type,typealias,%
-while,<:,+,-,::,*,/},%
+while,<:,+,-,::,/},%
 sensitive=true,%
 alsoother={$},%
 morecomment=[l]\#,%
@@ -44,7 +44,6 @@ breakatwhitespace=true,
 breaklines=true,
 captionpos=n,
 commentstyle=\color{Accent},
-escapeinside={\%*}{*)},
 extendedchars=true,
 frame=n,
 keywordstyle=\color{Accent},
@@ -80,8 +79,8 @@ tabsize=2,
 
 
 \section{Autotuning}
-\label{sec:orgb0368a3}
-\begin{frame}[fragile,label={sec:org30cfdab}]{Autotuning: Optimizing Program Configurations}
+\label{sec:orgabae3f8}
+\begin{frame}[fragile,label={sec:org6fee88c}]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -130,7 +129,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org60a4207}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org9ae6024}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Spaces}
@@ -156,7 +155,7 @@ and \alert{undefined regions}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org1f2b070}]{Autotuning: Exploring Search Spaces}
+\begin{frame}[label={sec:org5908366}]{Autotuning: Exploring Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -194,7 +193,7 @@ Time to \alert{compile}:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgec6e0e8}]{Autotuning: Multiple Approaches}
+\begin{frame}[label={sec:org6fe2efb}]{Autotuning: Multiple Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Popular Approaches}
@@ -232,8 +231,8 @@ Time to \alert{compile}:
 \end{columns}
 \end{frame}
 \section{Applying Design of Experiments to Autotuning}
-\label{sec:orgfe58fa6}
-\begin{frame}[label={sec:org5ac00d2}]{Applying Design of Experiments to Autotuning}
+\label{sec:orgf233670}
+\begin{frame}[label={sec:orgb3213f5}]{Applying Design of Experiments to Autotuning}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Our Approach}
@@ -276,7 +275,7 @@ related to \alert{exponential growth}, \alert{geometry}, and
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org1508f12}]{Screening Designs}
+\begin{frame}[label={sec:orgbb234ec}]{Screening Designs}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \vspace{.4cm}
@@ -311,7 +310,7 @@ Construction:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgcece045}]{Looking at Data: CUDA Compiler Flags}
+\begin{frame}[label={sec:orge76c541}]{Looking at Data: CUDA Compiler Flags}
 \begin{columns}
 \begin{column}{0.3\columnwidth}
 \begin{block}{CUDA Compiler Flags}
@@ -336,7 +335,7 @@ Construction:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org08f4a01}]{Mixed-Level Designs}
+\begin{frame}[label={sec:org622ea8b}]{Mixed-Level Designs}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \vspace{.1cm}
@@ -373,7 +372,7 @@ solving \alert{Mixed Integer Programming problems}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org7986337}]{Looking at Data: FPGA Compiler Parameters}
+\begin{frame}[label={sec:orgb87d05c}]{Looking at Data: FPGA Compiler Parameters}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{FPGA Compiler Parameters}
@@ -399,8 +398,8 @@ solving \alert{Mixed Integer Programming problems}
 \end{columns}
 \end{frame}
 \section{Design Efficiency}
-\label{sec:org004e58e}
-\begin{frame}[label={sec:orga3c692a}]{Design Efficiency: Introduction}
+\label{sec:orgde44b59}
+\begin{frame}[label={sec:orgca60a86}]{Design Efficiency: Introduction}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Linear Regression Model}
@@ -444,11 +443,11 @@ L =& \; \sum\limits^{n}_{i = 1}{\epsilon_{i}^{2}}
 = \bm{\epsilon}^{\prime}\bm{\epsilon}
 = (\mathbf{Y} - \bm{X}\bm{\beta})^{\prime}(\mathbf{Y} - \bm{X}\bm{\beta}) = \\
 =& \; \bm{Y}^{\prime}\bm{Y}
-\; \colorbox{cyan!25}{$- \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y} -
+\; \colorbox{Accent!25}{$- \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y} -
 \bm{Y}^{\prime}\bm{X\beta}$} +
 \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X\beta} = \\
 =& \; \bm{Y}^{\prime}\bm{Y} \;
-\colorbox{cyan!25}{$- 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y}$} +
+\colorbox{Accent!25}{$- 2\bm{\beta}^{\prime}\bm{X}^{\prime}\bm{Y}$} +
 \bm{\beta}^{\prime}\bm{X}^{\prime}\bm{X\beta}
 \end{align*}
 \end{center}
@@ -456,7 +455,7 @@ L =& \; \sum\limits^{n}_{i = 1}{\epsilon_{i}^{2}}
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org25d0ad4}]{Design Efficiency: Estimating Model Coefficients}
+\begin{frame}[label={sec:org3751d18}]{Design Efficiency: Estimating Model Coefficients}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Minimizing Least Squares}
@@ -494,8 +493,11 @@ The previous equation simplifies to:
 \end{equation*}
 \end{center}
 
-The \alert{estimator} \(\bm{\hat{\beta}}\) is \alert{proportional} to
-\(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
+\vspace{-.4cm}
+\begin{center}
+\colorbox{Accent!25}{The estimator \(\bm{\hat{\beta}}\) is proportional to \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\end{center}
+\vspace{.2cm}
 \begin{block}{Dispersion or Covariance Matrix}
 \begin{itemize}
 \item \alert{Information matrix}: \(\bm{X}^{\prime}\bm{X}\)
@@ -506,59 +508,123 @@ The \alert{estimator} \(\bm{\hat{\beta}}\) is \alert{proportional} to
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgf06ff44}]{Design Efficiency: The Dispersion Matrix}
-\begin{columns}
+\begin{frame}[fragile,label={sec:org0f496b7}]{Design Efficiency: The Dispersion Matrix}
+ \begin{columns}
 \begin{column}{0.5\columnwidth}
-\begin{block}{Interpreting Eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\begin{block}{Computing \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
 \vspace{.2cm}
 
-A design \(D_{n,2}\) will have a \(3\times3\) \alert{dispersion matrix}, if we assume
-\alert{linear relationships} and no \alert{factor interactions}
+A design \(D_{n,2}\), with \alert{2-level factors}, will have a \(3\times3\)
+\alert{dispersion matrix}, if we assume \alert{linear relationships} and no \alert{factor
+interactions}:
 
-\begin{center}
-\includegraphics[width=.9\linewidth]{./pdf/3dshape.pdf}
-\end{center}
+\vspace{.2cm}
+
+\scriptsize
+
+\lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+factorial <- gen.factorial(c(2, 2))
+model <- model.matrix(~., factorial)
+dispersion <- t(model) %*% model
+eigen(dispersion)$values
+\end{lstlisting}
+
+\vspace{-.4cm}
+
+\begin{verbatim}
+            (Intercept) X1 X2
+(Intercept)           4  0  0
+X1                    0  4  0
+X2                    0  0  4
+[1] 4 4 4
+\end{verbatim}
+
+\normalsize
 \end{block}
 \end{column}
 
 \begin{column}{0.5\columnwidth}
-\begin{block}{Efficiency Metrics based on \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
-\begin{block}{A-Efficiency}
-\vspace{-.8cm}
+\begin{block}{Interpreting Eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\vspace{.1cm}
+
+The \alert{eigenvalues} \(\lambda_{0,1,2}\) of the \alert{dispersion matrix} can
+represent its \alert{``size''}:
+
+\vspace{-.3cm}
+
 \begin{center}
-\begin{equation*}
-A_{eff} = \left(n \times \text{tr}\left(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right)/k\right)^{(-1)}
-\end{equation*}
+\includegraphics[width = .7\columnwidth]{./pdf/3dshape.pdf}
 \end{center}
 
-\vspace{-.6cm}
-\begin{itemize}
-\item \alert{Arithmetic mean} of \alert{eigenvalues} of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
-\end{itemize}
 \vspace{-.3cm}
-\end{block}
-\begin{block}{D-Efficiency}
-\vspace{-.8cm}
-\begin{center}
-\begin{equation*}
-D_{eff} = \left(n \times \left|\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right|^{1/k}\right)^{(-1)}
-\end{equation*}
-\end{center}
 
-\vspace{-.6cm}
-\begin{itemize}
-\item \alert{Geometric mean} of \alert{eigenvalues} of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
-\end{itemize}
-\vspace{-.3cm}
-\end{block}
-\begin{block}{G-Efficiency}
-\end{block}
+We can \alert{minimize the coefficient estimator} \(\bm{\hat{\beta}}\) by
+\alert{minimizing the eigenvalues} of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile,label={sec:orgb6be2a3}]{D-Optimal Designs: Example}
+\begin{frame}[label={sec:orgebaf679}]{Design Efficiency: Metrics}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Defining a Design}
+\vspace{.2cm}
+
+Consider a design \(D_{n, k - 1}\):
+
+\begin{itemize}
+\item \(x_{1, \dots, k - 1}\) \alert{2-level factors}
+\item \(n\) \alert{experiments}
+\end{itemize}
+
+Its \(k \times k\) \alert{dispersion matrix}
+\(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\):
+
+\begin{itemize}
+\item Constructed using the \alert{linear model}:
+\begin{itemize}
+\item \(\bm{Y} = \bm{\beta{}X} + \bm{\epsilon}\)
+\end{itemize}
+\item With \alert{eigenvalues} \(\lambda_{0,...,m}\)
+\end{itemize}
+
+We can define \alert{efficiency metrics} for \(\bm{\beta}\) based on the
+\alert{eigenvalues} of the \alert{dispersion matrix}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Some Efficiency Metrics based on \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\vspace{.2cm}
+\begin{block}{A-Efficiency}
+\vspace{-.6cm}
+\begin{center}
+\begin{equation*}
+A_{eff} = \left(n \times \text{tr}\left(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right)/k\right)^{-1}, \; A_{eff} \in \left[0, 1\right]
+\end{equation*}
+\end{center}
+
+\vspace{-.3cm}
+\colorbox{Accent!25}{``Arithmetic mean'' of eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\end{block}
+\begin{block}{D-Efficiency}
+\vspace{-.6cm}
+\begin{center}
+\begin{equation*}
+D_{eff} = \left(n \times \left|\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\right|^{1/k}\right)^{-1}, \; D_{eff} \in \left[0, 1\right]
+\end{equation*}
+\end{center}
+
+\vspace{-.3cm}
+\colorbox{Accent!25}{``Geometric mean'' of eigenvalues of \(\left(\bm{X}^{\prime}\bm{X}\right)^{-1}\)}
+\end{block}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[fragile,label={sec:org91975c4}]{D-Optimal Designs: Example}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Example}
@@ -601,12 +667,12 @@ $Dea
 [1] 0.135
 
 $design
-   1   4   5   6   9  
-X1 "1" "1" "2" "3" "3"
-X2 "1" "2" "2" "2" "3"
+   1   6   7   8   9  
+X1 "1" "3" "1" "2" "3"
+X2 "1" "2" "3" "3" "3"
 
 $rows
-[1] 1 4 5 6 9
+[1] 1 6 7 8 9
 \end{verbatim}
 
 \normalsize
@@ -615,8 +681,8 @@ $rows
 \end{columns}
 \end{frame}
 \section{Perspectives}
-\label{sec:orge6172d1}
-\begin{frame}[label={sec:org2c5ca1d}]{Perspectives}
+\label{sec:orgc0307f0}
+\begin{frame}[label={sec:org2f40ac8}]{Perspectives}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Perspectives}

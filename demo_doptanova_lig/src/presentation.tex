@@ -1,4 +1,4 @@
-% Created 2018-07-02 Mon 17:24
+% Created 2018-07-02 Mon 17:37
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -20,8 +20,8 @@
 \maketitle
 
 \section{Autotuning}
-\label{sec:orgc76c5d3}
-\begin{frame}[fragile,label={sec:org4b76bd3}]{Autotuning: Optimizing Program Configurations}
+\label{sec:org071394e}
+\begin{frame}[fragile,label={sec:orgfca98c2}]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -70,7 +70,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org259cb3d}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org9cdf348}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -99,7 +99,7 @@ Represent the \alert{effect} of all possible
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgead93df}]{Autotuning: Multiple Approaches}
+\begin{frame}[label={sec:org5faf1fc}]{Autotuning: Multiple Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Popular Approaches}
@@ -140,8 +140,8 @@ After optimizing:
 \end{columns}
 \end{frame}
 \section{Applying Design of Experiments to Autotuning}
-\label{sec:org0e95995}
-\begin{frame}[label={sec:org0f6c201}]{Applying Design of Experiments to Autotuning}
+\label{sec:orgd30fa31}
+\begin{frame}[label={sec:org0e2ce72}]{Applying Design of Experiments to Autotuning}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Our Approach}
@@ -176,7 +176,7 @@ related to \alert{exponential growth}, \alert{geometry}, and
 \end{columns}
 \end{frame}
 
-\begin{frame}[fragile,label={sec:org32c7094}]{D-Optimal Designs: Example in R}
+\begin{frame}[fragile,label={sec:org8845ca8}]{D-Optimal Designs: Example in R}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Example}
@@ -213,18 +213,18 @@ $A
 [1] 11
 
 $Ge
-[1] 0.333
+[1] 0.2
 
 $Dea
-[1] 0.135
+[1] 0.018
 
 $design
-   1   2   5   8   9
-X1 "1" "2" "2" "2" "3"
-X2 "1" "1" "2" "3" "3"
+   1   3   4   5   8
+X1 "1" "3" "1" "2" "2"
+X2 "1" "1" "2" "2" "3"
 
 $rows
-[1] 1 2 5 8 9
+[1] 1 3 4 5 8
 \end{verbatim}
 
 \normalsize
@@ -232,9 +232,9 @@ $rows
 \end{column}
 \end{columns}
 \end{frame}
-\section{Case Study: A Laplacian GPU Kernel}
-\label{sec:org5122d96}
-\begin{frame}[label={sec:org656881a}]{Case Study: A Laplacian GPU Kernel}
+\section{Example: A Laplacian GPU Kernel}
+\label{sec:org925dd6b}
+\begin{frame}[label={sec:org47f7582}]{Example: A Laplacian GPU Kernel}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Space}
@@ -247,7 +247,7 @@ $rows
 \begin{block}{Objective}
 \vspace{.2cm}
 
-Time to compute each pixel:
+\alert{Minimize} the \alert{time to compute each pixel}:
 \begin{itemize}
 \item \(\alert{time\_per\_pixel}\)
 \end{itemize}
@@ -267,12 +267,12 @@ Time to compute each pixel:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org87ede37}]{Strategy}
+\begin{frame}[label={sec:orgc76ac3b}]{Strategy}
 \begin{center}
 \includegraphics[width=0.63\textwidth]{../img/doe_anova_strategy.eps}
 \end{center}
 \end{frame}
-\begin{frame}[fragile,label={sec:orgda90e19}]{Loading Data}
+\begin{frame}[fragile,label={sec:org96e9975}]{Loading Data}
  \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 library(AlgDesign)
@@ -304,7 +304,7 @@ str(complete_data)
 \normalsize
 \end{frame}
 
-\begin{frame}[fragile,label={sec:orgf68dc09}]{Configuration}
+\begin{frame}[fragile,label={sec:orgc3eefb1}]{Configuration}
  \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 used <- 0
@@ -321,7 +321,7 @@ data <- complete_data[, c(factors, "time_per_pixel")]
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile,label={sec:org6c41eef}]{Step 1: D-Optimal Design}
+\begin{frame}[fragile,label={sec:orgeb0a633}]{Step 1: D-Optimal Design}
  \scriptsize
 \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -341,20 +341,20 @@ str(federov_design)
 
 \begin{verbatim}
 'data.frame':	24 obs. of  8 variables:
- $ elements_number   : int  1 1 3 4 4 1 3 6 1 6 ...
- $ y_component_number: int  1 1 3 1 1 1 3 6 1 6 ...
- $ vector_length     : int  1 1 16 16 1 1 1 1 16 16 ...
- $ temporary_size    : int  2 4 2 4 4 2 4 2 4 4 ...
- $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 1 1 2 1 2 2 2 1 ...
- $ threads_number    : int  32 128 32 256 32 128 32 128 1024 256 ...
- $ lws_y             : int  1 1 1 1 32 64 1 128 8 1 ...
- $ time_per_pixel    : num  5.83e-10 2.29e-10 1.46e-09 7.49e-10 4.49e-09 ...
+ $ elements_number   : int  1 4 1 4 1 2 4 1 24 24 ...
+ $ y_component_number: int  1 1 1 1 1 2 1 1 6 6 ...
+ $ vector_length     : int  1 1 1 16 16 1 16 16 16 1 ...
+ $ temporary_size    : int  2 4 2 4 4 4 2 2 2 4 ...
+ $ load_overlap      : Factor w/ 2 levels "false","true": 1 2 2 2 1 2 1 2 1 1 ...
+ $ threads_number    : int  32 32 128 256 32 256 1024 1024 128 128 ...
+ $ lws_y             : int  1 1 1 128 32 32 16 1024 1 1 ...
+ $ time_per_pixel    : num  5.83e-10 3.47e-10 2.31e-10 5.40e-09 4.31e-08 ...
 \end{verbatim}
 
 \normalsize
 \end{frame}
 
-\begin{frame}[fragile,label={sec:orgc74f73e}]{Step 1: Regression}
+\begin{frame}[fragile,label={sec:orgc741d0a}]{Step 1: Regression}
  \scriptsize
 \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -369,18 +369,18 @@ summary.aov(regression)
 
 \begin{verbatim}
                         Df    Sum Sq   Mean Sq F value Pr(>F)
-y_component_number       1 7.390e-17 7.390e-17   1.164 0.3019
-I(1/y_component_number)  1 8.320e-17 8.320e-17   1.311 0.2746
-vector_length            1 1.681e-16 1.681e-16   2.650 0.1295
-lws_y                    1 5.686e-16 5.686e-16   8.960 0.0112 *
-I(1/lws_y)               1 2.150e-17 2.150e-17   0.339 0.5711
-load_overlap             1 1.870e-17 1.870e-17   0.295 0.5968
-temporary_size           1 2.800e-17 2.800e-17   0.442 0.5188
-elements_number          1 5.900e-18 5.900e-18   0.094 0.7649
-I(1/elements_number)     1 9.580e-17 9.580e-17   1.510 0.2428
-threads_number           1 6.000e-18 6.000e-18   0.094 0.7643
-I(1/threads_number)      1 1.440e-17 1.440e-17   0.228 0.6419
-Residuals               12 7.615e-16 6.350e-17
+y_component_number       1 2.440e-16 2.440e-16   2.507 0.1393
+I(1/y_component_number)  1 1.525e-16 1.525e-16   1.567 0.2345
+vector_length            1 3.615e-16 3.615e-16   3.714 0.0779 .
+lws_y                    1 4.689e-16 4.689e-16   4.818 0.0486 *
+I(1/lws_y)               1 1.595e-16 1.595e-16   1.639 0.2247
+load_overlap             1 2.500e-18 2.500e-18   0.025 0.8766
+temporary_size           1 5.900e-18 5.900e-18   0.061 0.8094
+elements_number          1 2.540e-17 2.540e-17   0.261 0.6189
+I(1/elements_number)     1 4.719e-16 4.719e-16   4.849 0.0480 *
+threads_number           1 1.401e-16 1.401e-16   1.440 0.2534
+I(1/threads_number)      1 8.790e-17 8.790e-17   0.903 0.3607
+Residuals               12 1.168e-15 9.730e-17
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 \end{verbatim}
@@ -388,13 +388,13 @@ Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’
 \normalsize
 \end{frame}
 
-\begin{frame}[label={sec:orgf3350d9}]{Step 1: Heteroscedasticity}
+\begin{frame}[label={sec:org2379f06}]{Step 1: Heteroscedasticity}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{../img/regression_before_transform.png}
 \end{center}
 \end{frame}
 
-\begin{frame}[fragile,label={sec:org8f1eed7}]{Step 1: Power Transform}
+\begin{frame}[fragile,label={sec:org2e4b3a1}]{Step 1: Power Transform}
  \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 boxcox_transform <- powerTransform(time_per_pixel ~ y_component_number +
@@ -415,7 +415,7 @@ regression <- lm(bcPower(time_per_pixel, boxcox_transform$lambda) ~ y_component_
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile,label={sec:org31cee48}]{Step 1: Power Transform Results}
+\begin{frame}[fragile,label={sec:org6ae311c}]{Step 1: Power Transform Results}
  \scriptsize
 \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -424,30 +424,30 @@ summary.aov(regression)
 
 \begin{verbatim}
                         Df Sum Sq Mean Sq F value   Pr(>F)
-y_component_number       1 0.0587  0.0587   0.921  0.35618
-I(1/y_component_number)  1 0.1698  0.1698   2.664  0.12859
-vector_length            1 1.1437  1.1437  17.942  0.00116 **
-lws_y                    1 2.6958  2.6958  42.289 2.92e-05 ***
-I(1/lws_y)               1 0.9924  0.9924  15.568  0.00194 **
-load_overlap             1 0.0216  0.0216   0.339  0.57120
-temporary_size           1 0.0097  0.0097   0.153  0.70277
-elements_number          1 0.0006  0.0006   0.009  0.92651
-I(1/elements_number)     1 0.0256  0.0256   0.402  0.53805
-threads_number           1 0.5295  0.5295   8.306  0.01378 *
-I(1/threads_number)      1 0.1611  0.1611   2.528  0.13785
-Residuals               12 0.7650  0.0637
+y_component_number       1   89.6    89.6   4.134 0.064771 .
+I(1/y_component_number)  1    9.8     9.8   0.451 0.514375
+vector_length            1  559.3   559.3  25.793 0.000271 ***
+lws_y                    1  826.2   826.2  38.104 4.78e-05 ***
+I(1/lws_y)               1  396.1   396.1  18.266 0.001081 **
+load_overlap             1   30.0    30.0   1.383 0.262409
+temporary_size           1    7.5     7.5   0.346 0.567132
+elements_number          1   55.4    55.4   2.555 0.135942
+I(1/elements_number)     1   29.6    29.6   1.363 0.265620
+threads_number           1  274.1   274.1  12.641 0.003957 **
+I(1/threads_number)      1  111.3   111.3   5.132 0.042787 *
+Residuals               12  260.2    21.7
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 \end{verbatim}
 
 \normalsize
 \end{frame}
-\begin{frame}[label={sec:org97cdd43}]{Step 1: Power Transform Results}
+\begin{frame}[label={sec:orge0d8def}]{Step 1: Power Transform Results}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{../img/regression_after_transform.png}
 \end{center}
 \end{frame}
-\begin{frame}[fragile,label={sec:org200bf55}]{Step 1: Predicting Best Point and Pruning Data}
+\begin{frame}[fragile,label={sec:org74d9003}]{Step 1: Predicting Best Point and Pruning Data}
  \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 predicted_best <- data[predict(regression, data) == min(predict(regression, data)), ]
@@ -464,7 +464,7 @@ data <- complete_data[complete_data$vector_length == predicted_best$vector_lengt
 scaled_data <- data[, factors]
 \end{lstlisting}
 \end{frame}
-\begin{frame}[fragile,label={sec:org80cebbc}]{Step 1: Predicting Best Point and Pruning Data}
+\begin{frame}[fragile,label={sec:org7e38353}]{Step 1: Predicting Best Point and Pruning Data}
  \scriptsize
 \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -473,12 +473,12 @@ str(data)
 \end{lstlisting}
 
 \begin{verbatim}
-     elements_number y_component_number vector_length temporary_size
-9978              12                  3             1              4
-     load_overlap threads_number lws_y time_per_pixel slowdown    method
-9978        false           1024     1    2.33811e-10 2.006939 DOPTaov_t
-     point_number vector_recompute
-9978           24             true
+      elements_number y_component_number vector_length temporary_size
+14494              24                  6             1              2
+      load_overlap threads_number lws_y time_per_pixel slowdown    method
+14494        false           1024     1   1.911056e-10 1.640373 DOPTaov_t
+      point_number vector_recompute
+14494           24             true
 'data.frame':	576 obs. of  8 variables:
  $ elements_number   : int  2 4 4 1 3 3 3 4 4 4 ...
  $ y_component_number: int  2 1 1 1 1 3 1 2 2 1 ...
@@ -491,7 +491,7 @@ str(data)
 \end{verbatim}
 \normalsize
 \end{frame}
-\begin{frame}[fragile,label={sec:org1518b0f}]{Subsequent Steps}
+\begin{frame}[fragile,label={sec:orgc141fc0}]{Subsequent Steps}
  We can now \alert{continue} with the \alert{other steps}:
 \scriptsize
 \lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
@@ -505,17 +505,17 @@ predicted_best
       vector_recompute load_overlap threads_number lws_y time_per_pixel
 17258             true         true            256     1     1.1792e-10
       point_number    method slowdown
-17258           54 DOPTaov_t 1.012177
+17258           55 DOPTaov_t 1.012177
 \end{verbatim}
 
 \normalsize
 \end{frame}
 
-\begin{frame}[label={sec:orga5a5e22}]{Comparing Strategies}
+\begin{frame}[label={sec:orga4d49c7}]{Comparing Strategies}
 \vspace{0.3cm}
 
 % latex table generated in R 3.4.4 by xtable 1.8-2 package
-% Mon Jul  2 17:24:35 2018
+% Mon Jul  2 17:37:07 2018
 \begin{table}[ht]
 \centering
 \begingroup\small
@@ -542,12 +542,12 @@ RS & 1.00 & 1.03 & 1.08 & 1.10 & 1.18 & 1.39 & 120.00 & 125.00 \\
 \end{table}
 \end{frame}
 \section{Resources}
-\label{sec:orgbc3b6cf}
-\begin{frame}[label={sec:orgb1f3d5e}]{Resources}
+\label{sec:orge59c36b}
+\begin{frame}[label={sec:org2e32775}]{Resources}
 \begin{center}
 The code, slides and images are \alert{hosted at GitHub}:
 
-\href{https://github.com/phrb/presentations/tree/master/demo\_doptanova\_lig}{github.com/phrb/presentations/tree/master/demo$\backslash$\(_{\text{doptanova}}\)$\backslash$\(_{\text{lig}}\)}
+\href{https://github.com/phrb/presentations/tree/master/demo\_doptanova\_lig}{\texttt{github.com/phrb/presentations/tree/master/demo\_doptanova\_lig}}
 \end{center}
 \end{frame}
 \maketitle

@@ -1,7 +1,7 @@
 #+TITLE:     Autotuning: A Design of Experiments Approach
 #+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
 #+EMAIL:     phrb@ime.usp.br
-#+DATE:      \scriptsize \today
+#+DATE:      \scriptsize July 3rd, 2018
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -230,8 +230,8 @@
      #+end_example
 
      #+LATEX: \normalsize
-* Case Study: A Laplacian GPU Kernel
-** Case Study: A Laplacian GPU Kernel
+* Example: A Laplacian GPU Kernel
+** Example: A Laplacian GPU Kernel
 *** Search Space                                              :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_env: block
@@ -248,7 +248,7 @@
 
     #+LATEX: \vspace{.2cm}
 
-    Time to compute each pixel:
+    *Minimize* the *time to compute each pixel*:
     - $\alert{time\_per\_pixel}$
 
 **** Initial Model                                                  :B_block:

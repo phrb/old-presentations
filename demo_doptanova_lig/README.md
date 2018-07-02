@@ -1,4 +1,5 @@
-### Presentation Stub
+### LIG Day Demo
 
-This is a stub and a template for beamer presentations using
-the [Metropolis Theme](https://github.com/matze/mtheme).
+This is the repository for the demo presented at the LIG Day, July 3rd 2018.
+
+This presentation uses the [Metropolis Theme](https://github.com/matze/mtheme).

@@ -908,6 +908,13 @@
    \caption{Summary statistics}
    \end{table}
    #+END_EXPORT
+* Resources
+** Resources
+   #+BEGIN_CENTER
+   The code, slides and images are *hosted at GitHub*:
+
+   [[https://github.com/phrb/presentations/tree/master/demo_doptanova_lig][\texttt{github.com/phrb/presentations/tree/master/demo\_doptanova\_lig}]]
+   #+END_CENTER
 * Ending Title :B_ignoreheading:
   :PROPERTIES:
   :BEAMER_env: ignoreheading

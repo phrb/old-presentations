@@ -74,8 +74,19 @@
 #+LATEX_HEADER:   tabsize=2,
 #+LATEX_HEADER: }
 #+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
-#+LATEX_HEADER: \graphicspath{{../img/}}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
 #+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+* Setup :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
 
 * Autotuning
 ** Autotuning: Optimizing Program Configurations
@@ -87,7 +98,7 @@
 
     #+ATTR_LATEX: width=\columnwidth
     #+ATTR_ORG: :width 600
-    [[../img/architectures.png]]
+    [[../../img/architectures.png]]
 
     How to write *efficient code* for each of these?
 
@@ -148,7 +159,7 @@
     #+BEGIN_CENTER
     #+ATTR_LATEX: width=.95\columnwidth
     #+ATTR_ORG: :width 400
-    [[../img/seymour2008comparison.pdf]]
+    [[../../img/seymour2008comparison.pdf]]
 
     *Unrolling*, *blocking* and *Mflops/s* for *matrix multiplication*
 
@@ -224,7 +235,7 @@
    #+BEGIN_CENTER
    #+ATTR_LATEX: :width .58\linewidth
    #+ATTR_ORG: :width 400
-   [[../img/seymour2008comparison_algorithms.pdf]]
+   [[../../img/seymour2008comparison_algorithms.pdf]]
 
    #+LATEX: \vspace{-.2cm}
 
@@ -257,8 +268,8 @@
 
      *Experiment results* can be used to:
 
-     - Perform a *regression*
      - Identify *relevant parameters*
+     - Build a *model*
 
 *** Plackett-Burman                                                   :BMCOL:
     :PROPERTIES:
@@ -386,7 +397,7 @@
    #+BEGIN_CENTER
    #+ATTR_LATEX: :width .72\linewidth
    #+ATTR_ORG: :width 400
-   [[../img/doe_anova_strategy.eps]]
+   [[../../img/doe_anova_strategy.eps]]
 
    #+LATEX: \vspace{-.2cm}
    #+END_CENTER
@@ -422,8 +433,8 @@
     :PROPERTIES:
     :BEAMER_col: 0.5
     :END:
-    #+HEADER: :file ../img/comparison_histogram.pdf :width 7 :height 8
-    #+BEGIN_SRC R :results output graphics :exports none :session *R*
+    #+HEADER: :file ../../img/comparison_histogram.pdf :width 7 :height 8
+    #+BEGIN_SRC R :results output graphics :exports none :session *R* :eval no-export
     library(ggplot2)
     library(plyr)
 
@@ -461,14 +472,14 @@
     #+END_SRC
 
     #+RESULTS:
-    [[file:../img/comparison_histogram.pdf]]
+    [[file:../../img/comparison_histogram.pdf]]
 
     #+LATEX: \vspace{-.3cm}
 
     #+BEGIN_CENTER
     #+ATTR_LATEX: :width .88\columnwidth
     #+ATTR_ORG: :width 400
-    [[../img/comparison_histogram.pdf]]
+    [[../../img/comparison_histogram.pdf]]
     #+END_CENTER
 
 ** GPU Laplacian Kernel: A Motivating Example
@@ -511,14 +522,14 @@
     - Was *always close to the optimum*
     - Used *half of the budget*
 
-    But this is a *very simple example* $\dots$
+    But this is a *relatively simple example* $\dots$
 
 * Results on the SPAPT Benchmark
 ** SPAPT: Search Problems in Automatic Performance Tuning
     #+BEGIN_CENTER
     #+ATTR_LATEX: :width .58\columnwidth
     #+ATTR_ORG: :width 400
-    [[../img/balaprakash2012spapt.eps]]
+    [[../../img/balaprakash2012spapt.eps]]
 
     #+LATEX: \vspace{-.2cm}
     #+LATEX: \scriptsize{Balaprakash P, Wild SM, Norris B. SPAPT: Search problems in automatic performance tuning. Procedia Comp. Sci. 2012 Jan 1;9:1959-68.}
@@ -528,13 +539,13 @@
     #+BEGIN_CENTER
     #+ATTR_LATEX: :width .86\linewidth
     #+ATTR_ORG: :width 400
-    [[../img/preliminary_spapt.png]]
+    [[../../img/preliminary_spapt.png]]
     #+END_CENTER
 ** SPAPT: Preliminary Results
     #+BEGIN_CENTER
     #+ATTR_LATEX: :width .89\linewidth
     #+ATTR_ORG: :width 400
-    [[../img/preliminary_spapt_ratios.png]]
+    [[../../img/preliminary_spapt_ratios.png]]
     #+END_CENTER
 ** SPAPT: Summary
 *** Experimental Settings                                     :B_block:BMCOL:
@@ -596,6 +607,16 @@
   :BEAMER_env: ignoreheading
   :END:
   #+LATEX: \maketitle
+* Results on the SPAPT Benchmark :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+** SPAPT: Preliminary Results
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: :width .89\linewidth
+    #+ATTR_ORG: :width 400
+    [[../../img/preliminary_spapt_spaces.png]]
+    #+END_CENTER
 * Design Efficiency :B_ignoreheading:
   :PROPERTIES:
   :BEAMER_env: ignoreheading
@@ -887,7 +908,7 @@
    #+BEGIN_CENTER
    #+ATTR_LATEX: :width .6\linewidth
    #+ATTR_ORG: :width 400
-   [[../img/seymour2008comparison_compilers.pdf]]
+   [[../../img/seymour2008comparison_compilers.pdf]]
 
    #+LATEX: \vspace{-.2cm}
 
@@ -991,7 +1012,7 @@
 
     #+ATTR_LATEX: width=\columnwidth
     #+ATTR_ORG: :width 600
-    [[../img/main_effects_gpu.png]]
+    [[../../img/main_effects_gpu.png]]
 
 ** Mixed-Level Designs
    #+LATEX: \addtocounter{framenumber}{-1}
@@ -1062,4 +1083,4 @@
 
     #+ATTR_LATEX: width=\columnwidth
     #+ATTR_ORG: :width 600
-    [[../img/fpga_space.png]]
+    [[../../img/fpga_space.png]]

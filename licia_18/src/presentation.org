@@ -77,7 +77,7 @@
 #+LATEX_HEADER: \graphicspath{{../../img/}}
 #+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
 
-* Setup :B_ignoreheading:
+* Setup                                            :B_ignoreheading:noexport:
   :PROPERTIES:
   :BEAMER_env: ignoreheading
   :END:

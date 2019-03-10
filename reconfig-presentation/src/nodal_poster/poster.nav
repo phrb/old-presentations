@@ -4,4 +4,4 @@
 \headcommand {\beamer@subsectionpages {1}{1}}
 \headcommand {\beamer@sectionpages {1}{1}}
 \headcommand {\beamer@documentpages {1}}
-\headcommand {\def \inserttotalframenumber {1}}
+\headcommand {\gdef \inserttotalframenumber {1}}

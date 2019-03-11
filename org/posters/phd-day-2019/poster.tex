@@ -1,19 +1,19 @@
-% Created 2019-03-11 Mon 01:21
+% Created 2019-03-11 Mon 23:54
 % Intended LaTeX compiler: pdflatex
-\documentclass[14pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+\documentclass[11pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
 \usepackage{booktabs}
 \renewcommand\maketitle{}
 \input{configuration}
-\pgfdeclareimage[height=\paperheight,width=\paperwidth]{overlay_image}{polaris.pdf}
+\pgfdeclareimage[height=\paperheight,width=\paperwidth]{overlay_image}{../../../img/polaris.pdf}
 \usebackgroundtemplate{\tikz\node[inner sep=0] {\pgfuseimage{overlay_image}};}
 \usetheme{default}
 \author{Pedro Bruel - phrb@ime.usp.br}
 \date{\today}
-\title{Transparent Autotuning with Design of Experiments}
+\title{Autotuning under Tight Budget Constraints:  \\[0.3em] A Transparent Design of Experiments Approach}
 \hypersetup{
  pdfauthor={Pedro Bruel - phrb@ime.usp.br},
- pdftitle={Transparent Autotuning with Design of Experiments},
+ pdftitle={Autotuning under Tight Budget Constraints:  \\[0.3em] A Transparent Design of Experiments Approach},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 26.1 (Org mode 9.2.2)},
@@ -24,31 +24,129 @@
 
 \begin{frame}
 \begin{columns}
-\begin{column}{0.9\columnwidth}
+\begin{column}{0.89\columnwidth}
 \begin{columns}
-\begin{column}{0.48\columnwidth}
-\begin{block}{Block A}
-testing items
+\begin{column}[t]{0.48\columnwidth}
+\begin{block}{Autotuning: Optimizing Program Configurations}
+\begin{center}
+\includegraphics[width=.9\columnwidth]{../../../img/architectures.png}
+\end{center}
 
 \begin{itemize}
-\item 1
-\item item 2
-\item item 1
+\item How to write \alert{efficient code} for each of these?
+\item We can use \alert{autotuning}:
+\begin{itemize}
+\item The process of \alert{automatically finding} a \alert{configuration} of a program that
+optimizes an \alert{objective}
+\end{itemize}
 \end{itemize}
 \end{block}
-\end{column}
-\begin{column}{0.48\columnwidth}
-\begin{block}{Block B}
-testing items
+
+\begin{block}{Strategies for Exploring Search Spaces}
+\input{latex/popular_approaches.tex}
+\begin{center}
+{\scriptsize
+\colorbox{red!25}{Exhaustive},
+\colorbox{green!25}{Meta-Heuristics},
+\colorbox{cyan!25}{Machine Learning}
+}
+\vspace{.5em}
+\end{center}
 
 \begin{itemize}
-\item 1
+\item These approaches need a \alert{large number of function evaluations},
+assuming seach space \alert{``smoothness''}, and that good solutions
+are \alert{reachable}
+\item After optimizing, we \alert{learn ``nothing''} about the search space, and
+\alert{can't explain} why optimizations work
 \end{itemize}
+\end{block}
+\begin{block}{Design of Experiments: Exploration under a Budget}
+\begin{columns}
+\begin{column}{0.39\columnwidth}
+{\scriptsize
+\input{latex/plackett_burman.tex}
+}
+\begin{center}
+{\tiny
+A \alert{Plackett-Burman} design \\[-0.5em] for \alert{7 2-level factors}
+}
+\end{center}
+\vspace{0.2em}
+\begin{itemize}
+\item \alert{Experiment results} can be used to
+identify \alert{relevant parameters}
+and \alert{build a performance model}
+\end{itemize}
+\end{column}
+\begin{column}{0.59\columnwidth}
+\begin{center}
+\begin{center}
+\includegraphics[width=0.98\columnwidth]{../../../img/sampling_comparison.pdf}
+\end{center}
+\end{center}
+
+\begin{itemize}
+\item Exploration of a search space using a \alert{fixed budget}
+of \alert{50 points}, the \alert{red “+”} represents the best point found by
+each strategy
+\end{itemize}
+\end{column}
+\end{columns}
+\end{block}
+\begin{block}{A Motivating Result on a GPU Kernel}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{../../../img/comparison_histogram.pdf}
+\end{center}
+\end{block}
+\end{column}
+\begin{column}[t]{0.48\columnwidth}
+\begin{block}{Autotuning: Search Spaces are Hard to Explore}
+\begin{center}
+\includegraphics[width=.7\columnwidth]{../../../img/seymour2008comparison.pdf}
+\end{center}
+
+\begin{center}
+{\footnotesize
+\alert{Unrolling}, \alert{blocking} and \alert{Mflops/s} for \alert{matrix multiplication}
+}
+
+\tiny{Seymour K, You H, Dongarra J. A comparison of search heuristics for \\ empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
+\vspace{1.3em}
+\end{center}
+
+\begin{itemize}
+\item Represent the \alert{effect} of all possible
+\alert{configurations} on the \alert{objectives}, can be difficult to explore,
+with multiple \alert{local optima} and \alert{undefined regions}
+\item \alert{Main issues} are \alert{exponential growth}, \alert{geometry}, \& \alert{measurement time}
+\end{itemize}
+\end{block}
+
+\begin{block}{Our Design of Experiments Approach}
+\begin{center}
+\begin{center}
+\includegraphics[width=0.5\columnwidth]{../../../img/doe_anova_strategy.pdf}
+\end{center}
+\end{center}
+\end{block}
+\begin{block}{Extensive Evaluation on the SPAPT Benchmark}
+\begin{center}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{../../../img/iteration_best_comparison.pdf}
+\end{center}
+\end{center}
+
+\begin{center}
+\begin{center}
+\includegraphics[width=0.9\columnwidth]{../../../img/split_histograms.pdf}
+\end{center}
+\end{center}
 \end{block}
 \end{column}
 \end{columns}
 \end{column}
-\begin{column}{0.1\columnwidth}
+\begin{column}{0.09\columnwidth}
 \end{column}
 \end{columns}
 \end{frame}

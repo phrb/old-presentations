@@ -1,7 +1,5 @@
-#+TITLE:     Poster Template
-#+AUTHOR:    Pedro Bruel \linebreak \small \texttt{phrb@ime.usp.br}
-#+EMAIL:     phrb@ime.usp.br
-#+DATE:      \small \today
+#+TITLE:     Transparent Autotuning with Design of Experiments
+#+AUTHOR:    Pedro Bruel - phrb@ime.usp.br
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -20,6 +18,8 @@
 #+LATEX_HEADER: \renewcommand\maketitle{}
 #+LATEX_HEADER: \input{configuration}
 
+#+LATEX_HEADER: \pgfdeclareimage[height=\paperheight,width=\paperwidth]{overlay_image}{polaris.pdf}
+#+LATEX_HEADER: \usebackgroundtemplate{\tikz\node[inner sep=0] {\pgfuseimage{overlay_image}};}
 
 * Setup                                            :B_ignoreheading:noexport:
   :PROPERTIES:
@@ -36,22 +36,38 @@
   :BEAMER_env: ignoreheading
   :END:
   #+LATEX: \begin{frame}
-** Column 1                                                           :BMCOL:
+** Main Column                                                        :BMCOL:
    :PROPERTIES:
-   :BEAMER_col: 0.48
+   :BEAMER_col: 0.9
    :END:
-*** Block A                                                         :B_block:
+*** Column A                                                          :BMCOL:
     :PROPERTIES:
-    :BEAMER_env: block
+    :BEAMER_col: 0.48
     :END:
-** Column 2                                                           :BMCOL:
+**** Block A                                                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     testing items
+
+     - 1
+     - item 2
+     - item 1
+*** Column B                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.48
+    :END:
+**** Block B                                                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     testing items
+
+     - 1
+** Margin Column                                                      :BMCOL:
    :PROPERTIES:
-   :BEAMER_col: 0.48
+   :BEAMER_col: 0.1
    :END:
-*** Block B                                                         :B_block:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :END:
 * Closing Main Frame                                        :B_ignoreheading:
   :PROPERTIES:
   :BEAMER_env: ignoreheading

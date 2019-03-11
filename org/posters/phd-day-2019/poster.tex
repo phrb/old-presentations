@@ -1,0 +1,55 @@
+% Created 2019-03-11 Mon 01:21
+% Intended LaTeX compiler: pdflatex
+\documentclass[14pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+
+\usepackage{booktabs}
+\renewcommand\maketitle{}
+\input{configuration}
+\pgfdeclareimage[height=\paperheight,width=\paperwidth]{overlay_image}{polaris.pdf}
+\usebackgroundtemplate{\tikz\node[inner sep=0] {\pgfuseimage{overlay_image}};}
+\usetheme{default}
+\author{Pedro Bruel - phrb@ime.usp.br}
+\date{\today}
+\title{Transparent Autotuning with Design of Experiments}
+\hypersetup{
+ pdfauthor={Pedro Bruel - phrb@ime.usp.br},
+ pdftitle={Transparent Autotuning with Design of Experiments},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.2.2)},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\begin{frame}
+\begin{columns}
+\begin{column}{0.9\columnwidth}
+\begin{columns}
+\begin{column}{0.48\columnwidth}
+\begin{block}{Block A}
+testing items
+
+\begin{itemize}
+\item 1
+\item item 2
+\item item 1
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.48\columnwidth}
+\begin{block}{Block B}
+testing items
+
+\begin{itemize}
+\item 1
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\end{column}
+\begin{column}{0.1\columnwidth}
+\end{column}
+\end{columns}
+\end{frame}
+\end{document}

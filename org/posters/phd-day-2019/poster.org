@@ -418,227 +418,316 @@
   :BEAMER_env: ignoreheading
   :END:
   #+LATEX: \begin{frame}
-** Main Column Row 1                                                  :BMCOL:
+** Main Column                                                        :BMCOL:
    :PROPERTIES:
    :BEAMER_col: 0.89
    :END:
-   #+begin_export latex
-   \vspace{-0.4em}
-   \begin{center}
-     {\normalsize
-       \textit{\alert{Pedro Bruel}, Steven Quinito Masnada, Brice
-       Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
-     }
-   \end{center}
-   \vspace{-1em}
-   #+end_export
-*** Column A                                                          :BMCOL:
+*** Author Line                                             :B_ignoreheading:
     :PROPERTIES:
-    :BEAMER_col: 0.48
-    :BEAMER_opt: t
+    :BEAMER_env: ignoreheading
     :END:
-**** Autotuning: Optimizing Program Configurations
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-     #+ATTR_LATEX: :width .9\columnwidth
-     #+ATTR_ORG: :width 400
-     [[../../../img/architectures.png]]
-
-     - How to write *efficient code* for each of these?
-     - We can use *autotuning*: the process of *automatically
-       finding* a *configuration* of a program that optimizes an
-       *objective*
-
-**** Strategies for Exploring Search Spaces                         :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-     #+LATEX: \input{latex/popular_approaches.tex}
-     #+BEGIN_CENTER
-     #+LATEX: {\scriptsize
-     \colorbox{red!25}{Exhaustive},
-     \colorbox{green!25}{Meta-Heuristics},
-     \colorbox{cyan!25}{Machine Learning}
-     #+LATEX: }
-     #+LATEX: \vspace{.5em}
-     #+END_CENTER
-
-     - These approaches need a *large number of function evaluations*,
-       assuming seach space *``smoothness''*, and that good solutions
-       are *reachable*
-     - After optimizing, we *learn ``nothing''* about the search space, and
-       *can't explain* why optimizations work
-**** Design of Experiments: Exploration under a Budget              :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-***** Left                                                            :BMCOL:
-      :PROPERTIES:
-      :BEAMER_col: 0.39
-      :END:
-      #+LATEX: {\scriptsize
-      #+LATEX: \input{latex/plackett_burman.tex}
-      #+LATEX: }
-      #+BEGIN_CENTER
-      #+LATEX: {\tiny
-      A *Plackett-Burman* design @@latex:\\[-0.5em]@@ for *7 2-level factors*
-      #+LATEX: }
-      #+END_CENTER
-      #+LATEX: \vspace{0.2em}
-      - *Experiment results* can be used to
-        identify *relevant parameters* and to *fit a linear regression
-        model*
-***** Right                                                           :BMCOL:
-      :PROPERTIES:
-      :BEAMER_col: 0.59
-      :END:
-
-      #+BEGIN_CENTER
-      #+ATTR_LATEX: :width 0.98\columnwidth
-      [[../../../img/sampling_comparison.pdf]]
-      #+END_CENTER
-
-      - Exploration of a search space using a *fixed budget*
-        of *50 points*, the *red “+”* represents the best point found by
-        each strategy
-**** A Motivating Result on a GPU Kernel                            :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-***** Left                                                            :BMCOL:
-      :PROPERTIES:
-      :BEAMER_col: 0.49
-      :END:
-      - Kernel *factors*:
-      #+LATEX: \vspace{0.6em}
-      #+ATTR_LATEX: :booktabs t :align llp{0.3\columnwidth} :font \tiny :float t
-      |--------------------+-------------------------------+--------------------------------|
-      | Factor             | Levels                        | Short Description              |
-      |--------------------+-------------------------------+--------------------------------|
-      | =vector_length=      | $2^0,\dots,2^4$                     | Size of support arrays         |
-      | =load_overlap=       | \textit{true}, \textit{false} | Load overlaps in vectorization |
-      | =temporary_size=     | $2,4$                         | Byte size of temporary data    |
-      | =elements_number=    | $1,\dots,24$                      | Size of equal data splits      |
-      | =y_component_number= | $1,\dots,6$                       | Loop tile size                 |
-      | =threads_number=     | $2^5,\dots,2^{10}$                    | Size of thread groups          |
-      | =lws_y=              | $2^0,\dots,2^{10}$                    | Block size in $y$ dimension    |
-      |--------------------+-------------------------------+--------------------------------|
-
-***** Right                                                           :BMCOL:
-      :PROPERTIES:
-      :BEAMER_col: 0.49
-      :END:
-      - Initial *performance model*:
-      #+BEGIN_EXPORT latex
-      {\tiny
-        \begin{align}
-          time\_per\_pixel \sim & \; y\_component\_number + \frac{1}{y\_component\_number} \; + \nonumber \\
-          & \; load\_overlap + temporary\_size \; + \nonumber \\
-          & \; vector\_length + lws\_y + \frac{1}{lws\_y} \; + \nonumber \\
-          & \; elements\_number + threads\_number  \; + \nonumber \\
-          & \; \frac{1}{elements\_number} + \frac{1}{threads\_number}\text{.} \nonumber
-        \end{align}
+    #+begin_export latex
+    \vspace{-0.4em}
+    \begin{center}
+      {\normalsize
+        \textit{\alert{Pedro Bruel}, Steven Quinito Masnada, Brice
+        Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
       }
-      #+END_EXPORT
-
-      - This *simple case* had known *valid search space* and
-        *global optimum*, and *fixed budget*
-***** After Columns                                         :B_ignoreheading:
+    \end{center}
+    \vspace{-1em}
+    #+end_export
+*** Row 1                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+**** Column A                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Autotuning: Optimizing Program Configurations
       :PROPERTIES:
-      :BEAMER_env: ignoreheading
+      :BEAMER_env: block
       :END:
+      #+ATTR_LATEX: :width .9\columnwidth
+      #+ATTR_ORG: :width 400
+      [[../../../img/architectures.png]]
+
+      - How to write *efficient code* for each of these?
+      - We can use *autotuning*: the process of *automatically
+        finding* a *configuration* of a program that optimizes an
+        *objective*
+
+***** Strategies for Exploring Search Spaces                        :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.59
+       :END:
+       #+LATEX: \vspace{0.45em}
+       #+LATEX: {\tiny
+       #+LATEX: \input{latex/popular_approaches.tex}
+       #+LATEX: }
+       #+BEGIN_CENTER
+       #+LATEX: {\tiny
+       \colorbox{red!25}{Exhaustive},
+       \colorbox{green!25}{Meta-Heuristics},
+       \colorbox{cyan!25}{Machine Learning}
+       #+LATEX: }
+       #+LATEX: \vspace{.5em}
+       #+END_CENTER
+
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.39
+       :END:
+       Assumptions:
+       #+LATEX: \vspace{0.3em}
+       - *Many measurements*, *``smoothness''*, *reachable solutions*
+       #+LATEX: \vspace{0.3em}
+       After optimizing:
+       #+LATEX: \vspace{0.3em}
+       - *Learn ``nothing''*, *can't explain choices*
+**** Column B                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Autotuning: Search Spaces are Hard to Explore                 :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      #+ATTR_LATEX: :width .7\columnwidth :placement [t]
+      [[../../../img/seymour2008comparison.pdf]]
+
+      #+BEGIN_CENTER
+      #+LATEX: {\footnotesize
+      *Unrolling*, *blocking* and *Mflops/s* for *matrix multiplication*
+      #+LATEX: }
+
+      #+LATEX: \tiny{Seymour K, You H, Dongarra J. A comparison of search heuristics for \\ empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
+      #+LATEX: \vspace{1.3em}
+      #+END_CENTER
+
+      - Represent the *effect* of all possible
+        *configurations* on the *objectives*, can be difficult to explore,
+        with multiple *local optima* and *undefined regions*
+      - *Main issues* are *exponential growth*, *geometry*, & *measurement time*
+
+**** End Columns                                            :B_ignoreheading:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :END:
+*** Row 2                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+**** Column A                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** Design of Experiments: Exploration under a Budget             :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Before Columns                                       :B_ignoreheading:
+       :PROPERTIES:
+       :BEAMER_env: ignoreheading
+       :END:
+       *Design of Experiments* (*DoE*):
+       #+LATEX: \vspace{1em}
+       - *Factors* are program *parameters*,
+         and *levels* are possible factor *values*
+       - An *experiment* fixes levels,
+         and a *design* is a *selection* of experiments to *run*
+       - A *performance model* is required to *construct designs*
+
+       #+LATEX: \vspace{1em}
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.39
+       :END:
+       #+LATEX: {\scriptsize
+       #+LATEX: \input{latex/plackett_burman.tex}
+       #+LATEX: }
+       #+BEGIN_CENTER
+       #+LATEX: {\tiny
+       A *Plackett-Burman* design @@latex:\\[-0.5em]@@ for *7 2-level factors*
+       #+LATEX: }
+       #+END_CENTER
+       #+LATEX: \vspace{0.2em}
+       - *Results*, or *responses*, can be used to
+         identify *relevant parameters* and to *fit a linear regression
+         model*
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.59
+       :END:
+
+       #+BEGIN_CENTER
+       #+ATTR_LATEX: :width 0.98\columnwidth
+       [[../../../img/sampling_comparison.pdf]]
+       #+END_CENTER
+
+       - Exploration of a search space using a *fixed budget*
+         of *50 points*, the *red “+”* represents the best point found by
+         each strategy
+**** Column B                                                         :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
+     :END:
+***** A Transparent Design of Experiments Approach                  :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      #+ATTR_LATEX: :width 0.8\columnwidth
+      [[../../../img/doe_anova_strategy.pdf]]
 
       #+LATEX: \vspace{1em}
+
+      - An *initial model* is provided by the *user* (steps *1* & *2*)
+      - *Design of Experiments* guides exploration (steps *3* & *4*)
+      - *Significant factors* are identified by *Analysis of Variance (ANOVA)* (steps *5* & *6*)
+      - New fitted model predicts best value for significant factors (steps *7* & *8*)
+
       #+BEGIN_CENTER
-      #+LATEX: {\small
-      Our approach (*DLMT*) was always *within 1% of the optimum*
+      #+LATEX: \vspace{1em}
+      #+LATEX: {\normalsize
+      *Transparent*: @@latex: {\small@@ *factor* and *level* selections based on *ANOVA* @@latex: \\[0.5em]}@@
+      *Parsimonious*: @@latex: {\small@@ DoE *decreases measurements* @@latex: }@@
       #+LATEX: }
       #+END_CENTER
-      #+ATTR_LATEX: :width 0.9\columnwidth
-      [[../../../img/comparison_histogram.pdf]]
-
-      #+ATTR_LATEX: :booktabs t :align p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth} :font \tiny :float t
-      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
-      | RS              | LHS                | GS            | GSR                 | GA                | LM           | DLMT             |
-      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
-      | Random Sampling | Latin Hyper Square | Greedy Search | Greedy with Restart | Generic Algorithm | Linear Model | Our DoE Approach |
-      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
-*** Column B                                                          :BMCOL:
+**** End Columns                                            :B_ignoreheading:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :END:
+*** Row 3                                                   :B_ignoreheading:
     :PROPERTIES:
-    :BEAMER_col: 0.48
-    :BEAMER_opt: t
+    :BEAMER_env: ignoreheading
     :END:
-**** Autotuning: Search Spaces are Hard to Explore                  :B_block:
+**** Column A                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_env: block
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
      :END:
-     #+ATTR_LATEX: :width .7\columnwidth :placement [t]
-     [[../../../img/seymour2008comparison.pdf]]
+***** A Motivating Result on a GPU Kernel                           :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+****** Left                                                           :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.49
+       :END:
+       - Kernel *factors*:
+       #+LATEX: \vspace{0.6em}
+       #+ATTR_LATEX: :booktabs t :align llp{0.3\columnwidth} :font \tiny :float t
+       |--------------------+-------------------------------+--------------------------------|
+       | Factor             | Levels                        | Short Description              |
+       |--------------------+-------------------------------+--------------------------------|
+       | =vector_length=      | $2^0,\dots,2^4$                     | Size of support arrays         |
+       | =load_overlap=       | \textit{true}, \textit{false} | Load overlaps in vectorization |
+       | =temporary_size=     | $2,4$                         | Byte size of temporary data    |
+       | =elements_number=    | $1,\dots,24$                      | Size of equal data splits      |
+       | =y_component_number= | $1,\dots,6$                       | Loop tile size                 |
+       | =threads_number=     | $2^5,\dots,2^{10}$                    | Size of thread groups          |
+       | =lws_y=              | $2^0,\dots,2^{10}$                    | Block size in $y$ dimension    |
+       |--------------------+-------------------------------+--------------------------------|
 
-     #+BEGIN_CENTER
-     #+LATEX: {\footnotesize
-     *Unrolling*, *blocking* and *Mflops/s* for *matrix multiplication*
-     #+LATEX: }
+****** Right                                                          :BMCOL:
+       :PROPERTIES:
+       :BEAMER_col: 0.49
+       :END:
+       - Initial *performance model*:
+       #+BEGIN_EXPORT latex
+       {\tiny
+         \begin{align}
+           time\_per\_pixel \sim & \; y\_component\_number + \frac{1}{y\_component\_number} \; + \nonumber \\
+           & \; load\_overlap + temporary\_size \; + \nonumber \\
+           & \; vector\_length + lws\_y + \frac{1}{lws\_y} \; + \nonumber \\
+           & \; elements\_number + threads\_number  \; + \nonumber \\
+           & \; \frac{1}{elements\_number} + \frac{1}{threads\_number}\text{.} \nonumber
+         \end{align}
+       }
+       #+END_EXPORT
 
-     #+LATEX: \tiny{Seymour K, You H, Dongarra J. A comparison of search heuristics for \\ empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
-     #+LATEX: \vspace{1.3em}
-     #+END_CENTER
+       - This *simple case* had known *valid search space* and
+         *global optimum*, and *fixed budget*
+****** After Columns                                        :B_ignoreheading:
+       :PROPERTIES:
+       :BEAMER_env: ignoreheading
+       :END:
 
-     - Represent the *effect* of all possible
-       *configurations* on the *objectives*, can be difficult to explore,
-       with multiple *local optima* and *undefined regions*
-     - *Main issues* are *exponential growth*, *geometry*, & *measurement time*
+       #+LATEX: \vspace{1em}
+       #+BEGIN_CENTER
+       #+LATEX: {\small
+       Our approach (*DLMT*) was always *within 1% of the optimum*
+       #+LATEX: }
+       #+END_CENTER
+       #+ATTR_LATEX: :width 0.9\columnwidth
+       [[../../../img/comparison_histogram.pdf]]
 
-**** A Transparent Design of Experiments Approach                   :B_block:
+       #+ATTR_LATEX: :booktabs t :align p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth} :font \tiny :float t
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+       | RS              | LHS                | GS            | GSR                 | GA                | LM           | DLMT             |
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+       | Random Sampling | Latin Hyper Square | Greedy Search | Greedy with Restart | Generic Algorithm | Linear Model | Our DoE Approach |
+       |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+**** Column B                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_env: block
+     :BEAMER_col: 0.48
+     :BEAMER_opt: t
      :END:
-     #+ATTR_LATEX: :width 0.8\columnwidth
-     [[../../../img/doe_anova_strategy.pdf]]
+***** Extensive Evaluation on the SPAPT Benchmark                   :B_block:
+      :PROPERTIES:
+      :BEAMER_env: block
+      :END:
+      - *SPAPT* is an *autotuning benchmark* for *CPU kernels*, with *search space sizes*
+        between *$10^7$ and $10^{36}$*
+      - We evaluated *DLMT* on *17 kernels* (*3* shown below)
+        using *the same initial performance model*, and *fixed budget*
 
-     #+LATEX: \vspace{1em}
+      #+LATEX: \vspace{0.3em}
+      #+BEGIN_CENTER
+      #+LATEX: {\small
+      Our approach (*DLMT*) achieved *good speedups* using @@latex:
+      \\[0.3em]@@ a *smaller budget*, while *exploring better
+      configurations*
+      #+LATEX: }
+      #+END_CENTER
+      #+BEGIN_CENTER
+      #+ATTR_LATEX: :width 0.85\columnwidth
+      [[../../../img/iteration_best_comparison.pdf]]
+      #+END_CENTER
 
-     - An *initial model* is provided by the *user* (steps *1* & *2*)
-     - *Design of Experiments (DoE)* guides exploration (steps *3* & *4*)
-     - *Significant factors* are identified by *Analysis of Variance (ANOVA)* (steps *5* & *6*)
-     - New fitted model predicts best value for significant factors (steps *7* & *8*)
-
-     #+BEGIN_CENTER
-     #+LATEX: \vspace{1em}
-     #+LATEX: {\normalsize
-     *Transparent*: @@latex: {\small@@ *factor* and *level* selections based on *ANOVA* @@latex: \\[0.5em]}@@
-     *Parsimonious*: @@latex: {\small@@ DoE *decreases measurements* @@latex: }@@
-     #+LATEX: }
-     #+END_CENTER
-**** Extensive Evaluation on the SPAPT Benchmark                    :B_block:
+      #+BEGIN_CENTER
+      #+ATTR_LATEX: :width 0.85\columnwidth
+      [[../../../img/split_histograms.pdf]]
+      #+END_CENTER
+**** End Columns                                            :B_ignoreheading:
      :PROPERTIES:
-     :BEAMER_env: block
+     :BEAMER_env: ignoreheading
      :END:
-
-     - *SPAPT* is an *autotuning benchmark* for *CPU kernels*, with *search space sizes*
-       between *$10^7$ and $10^{36}$*
-     - We evaluated *DLMT* on *11 kernels* (*3* shown below)
-       using *the same initial performance model*, and *fixed budget*
-
-     #+LATEX: \vspace{0.3em}
-     #+BEGIN_CENTER
-     #+LATEX: {\small
-     Our approach (*DLMT*) achieved *good speedups* using @@latex:
-     \\[0.3em]@@ a *smaller budget*, while *exploring better
-     configurations*
-     #+LATEX: }
-     #+END_CENTER
-     #+BEGIN_CENTER
-     #+ATTR_LATEX: :width 0.85\columnwidth
-     [[../../../img/iteration_best_comparison.pdf]]
-     #+END_CENTER
-
-     #+BEGIN_CENTER
-     #+ATTR_LATEX: :width 0.85\columnwidth
-     [[../../../img/split_histograms.pdf]]
-     #+END_CENTER
-** Margin Column Row 1                                                :BMCOL:
+*** Footer Line                                             :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+begin_export latex
+    \begin{flushleft}
+      \vspace{2em}
+      {\small
+        \textit{
+          $^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
+          $^{2}$University of Grenoble Alpes Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
+          $^{3}$University of Grenoble Alpes CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
+        }
+      }
+    \end{flushleft}
+    #+end_export
+** Margin Column                                                      :BMCOL:
    :PROPERTIES:
    :BEAMER_col: 0.09
    :END:

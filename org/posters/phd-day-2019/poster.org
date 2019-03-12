@@ -136,14 +136,12 @@
 
          intersect, setdiff, setequal, union
 
-     Registering fonts with R
-
      There were 50 or more warnings (use warnings() to see the first 50)
      #+end_example
 **** Back-to-back Histograms
      #+HEADER: :results graphics output :session *R* :eval no-export
      #+HEADER: :file ../../../img/split_histograms.pdf
-     #+HEADER: :width 18 :height 7
+     #+HEADER: :width 18 :height 6.5
      #+BEGIN_SRC R
      library(grid)
      library(gtable)
@@ -260,7 +258,7 @@
 **** Iterations where best was found
      #+HEADER: :results graphics output :session *R* :exports none :eval no-export
      #+HEADER: :file ../../../img/iteration_best_comparison.pdf
-     #+HEADER: :width 18 :height 7
+     #+HEADER: :width 18 :height 6.5
      #+BEGIN_SRC R
      library(grid)
      library(gtable)
@@ -292,19 +290,15 @@
 
      p1 <- ggplot(it_data, aes(min_run_cost, best_iteration, color = technique)) +
          facet_wrap(facet ~ ., ncol = columns) +
-         geom_point(size = 3, pch = 19) +
-         stat_ellipse(type = "t", linetype = 13) +
-         #geom_label_repel(data = . %>% group_by(application) %>%
-         #                              filter(technique == "RS") %>%
-         #                              filter(best_iteration == min(best_iteration)),
-         #                 aes(label = technique, x = label_center_x, y = label_center_y), show.legend = FALSE) +
+         stat_ellipse(type = "t", linetype = 13, size = 1.3) +
+         geom_point(size = 4, pch = 19) +
          geom_vline(aes(xintercept = mean_cost_baseline, size = "-O3"), linetype = 8, color = "black") +
-         scale_x_log10(labels = scales::trans_format("log10", scales::math_format(10^.x))) +
+         scale_x_log10(limits = c(1e-2, 1e1), labels = scales::trans_format("log10", scales::math_format(10^.x))) +
          scale_y_continuous(limits = c(-10, 400), breaks = c(0, 200, 400)) +
          scale_size_manual("", values = 0.45) +
-         annotation_logticks(sides = "b") +
+         annotation_logticks(sides = "b", size = 2) +
          ggtitle("") +
-         ylab("Iter. where Best was Found") +
+         ylab("Iteration with Best") +
          xlab("Best Cost in Seconds") +
          guides(color = guide_legend(reverse = TRUE)) +
          theme_bw(base_size = base_size) +
@@ -314,7 +308,6 @@
                text = element_text(family = "serif"),
                strip.background = element_rect(fill = "white"),
                plot.margin = unit(c(0.1, 0.1, 0.1, 0.1), "cm"))  +
-         #scale_color_brewer(palette = "Set1")
          scale_color_grey(start = 0.3, end = 0.7)
 
      dummy <- ggplot(data = it_data, aes(x = min_run_cost, y = best_iteration)) +
@@ -375,7 +368,7 @@
     #+RESULTS:
 
 *** Generate pdf
-    #+HEADER: :file ../../../img/comparison_histogram.pdf :exports none :width 12 :height 4 :eval no-export
+    #+HEADER: :file ../../../img/comparison_histogram.pdf :exports none :width 12 :height 3.2 :eval no-export
     #+BEGIN_SRC R :results output graphics  :session *R*
     library(ggplot2)
     library(plyr)
@@ -402,14 +395,14 @@
       #coord_cartesian(xlim = c(.9, 4), ylim = c(0, 1000)) +
       ylim(0, 10000) +
       xlim(.9, 4) +
-      geom_histogram(aes(slowdown), binwidth = .05, fill = "black") +
-      scale_y_continuous(breaks = c(0, 1000), labels = c("0", "1000")) +
-      geom_curve(data = df_max, aes(x = max + .1, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.05, "npc")), curvature = -0.2) +
-      geom_text(aes(x = max+.2, y = 550, label = "max"), data = df_max) +
+      geom_histogram(aes(slowdown), binwidth = .1, fill = "black") +
+      scale_y_continuous(breaks = c(0, 1000), labels = c("0", "10³")) +
+      geom_curve(data = df_max, aes(x = max + .2, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.05, "npc")), curvature = 0.15) +
+      geom_text(aes(x = max + .2, y = 650, label = "max"), data = df_max) +
       geom_rect(data = df_err, aes(xmin = mean-err, xmax = mean + err, ymin = 0, ymax = 1000, fill = "red"), alpha = 0.3) +
       #geom_vline(aes(xintercept = median), df_median, color = "darkgreen", linetype = 3) +
       geom_vline(aes(xintercept = mean), df_mean, color = "red", linetype = 2) +
-      labs(y = "Count", x = "Slowdown vs. optimum") +
+      labs(y = "Count", x = "Slowdown") +
       scale_fill_discrete(name = "", breaks = c("red"), labels = c("Mean error")) +
       ggtitle("") +
       theme(legend.position = "none",
@@ -429,6 +422,16 @@
    :PROPERTIES:
    :BEAMER_col: 0.89
    :END:
+   #+begin_export latex
+   \vspace{-0.4em}
+   \begin{center}
+     {\normalsize
+       \textit{\alert{Pedro Bruel}, Steven Quinito Masnada, Brice
+       Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
+     }
+   \end{center}
+   \vspace{-1em}
+   #+end_export
 *** Column A                                                          :BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.48
@@ -443,9 +446,9 @@
      [[../../../img/architectures.png]]
 
      - How to write *efficient code* for each of these?
-     - We can use *autotuning*:
-       - The process of *automatically finding* a *configuration* of a program that
-         optimizes an *objective*
+     - We can use *autotuning*: the process of *automatically
+       finding* a *configuration* of a program that optimizes an
+       *objective*
 
 **** Strategies for Exploring Search Spaces                         :B_block:
      :PROPERTIES:
@@ -484,8 +487,8 @@
       #+END_CENTER
       #+LATEX: \vspace{0.2em}
       - *Experiment results* can be used to
-        identify *relevant parameters*
-        and *build a performance model*
+        identify *relevant parameters* and to *fit a linear regression
+        model*
 ***** Right                                                           :BMCOL:
       :PROPERTIES:
       :BEAMER_col: 0.59
@@ -503,8 +506,64 @@
      :PROPERTIES:
      :BEAMER_env: block
      :END:
-     #+ATTR_LATEX: :width 0.9\columnwidth
-     [[../../../img/comparison_histogram.pdf]]
+***** Left                                                            :BMCOL:
+      :PROPERTIES:
+      :BEAMER_col: 0.49
+      :END:
+      - Kernel *factors*:
+      #+LATEX: \vspace{0.6em}
+      #+ATTR_LATEX: :booktabs t :align llp{0.3\columnwidth} :font \tiny :float t
+      |--------------------+-------------------------------+--------------------------------|
+      | Factor             | Levels                        | Short Description              |
+      |--------------------+-------------------------------+--------------------------------|
+      | =vector_length=      | $2^0,\dots,2^4$                     | Size of support arrays         |
+      | =load_overlap=       | \textit{true}, \textit{false} | Load overlaps in vectorization |
+      | =temporary_size=     | $2,4$                         | Byte size of temporary data    |
+      | =elements_number=    | $1,\dots,24$                      | Size of equal data splits      |
+      | =y_component_number= | $1,\dots,6$                       | Loop tile size                 |
+      | =threads_number=     | $2^5,\dots,2^{10}$                    | Size of thread groups          |
+      | =lws_y=              | $2^0,\dots,2^{10}$                    | Block size in $y$ dimension    |
+      |--------------------+-------------------------------+--------------------------------|
+
+***** Right                                                           :BMCOL:
+      :PROPERTIES:
+      :BEAMER_col: 0.49
+      :END:
+      - Initial *performance model*:
+      #+BEGIN_EXPORT latex
+      {\tiny
+        \begin{align}
+          time\_per\_pixel \sim & \; y\_component\_number + \frac{1}{y\_component\_number} \; + \nonumber \\
+          & \; load\_overlap + temporary\_size \; + \nonumber \\
+          & \; vector\_length + lws\_y + \frac{1}{lws\_y} \; + \nonumber \\
+          & \; elements\_number + threads\_number  \; + \nonumber \\
+          & \; \frac{1}{elements\_number} + \frac{1}{threads\_number}\text{.} \nonumber
+        \end{align}
+      }
+      #+END_EXPORT
+
+      - This *simple case* had known *valid search space* and
+        *global optimum*, and *fixed budget*
+***** After Columns                                         :B_ignoreheading:
+      :PROPERTIES:
+      :BEAMER_env: ignoreheading
+      :END:
+
+      #+LATEX: \vspace{1em}
+      #+BEGIN_CENTER
+      #+LATEX: {\small
+      Our approach (*DLMT*) was always *within 1% of the optimum*
+      #+LATEX: }
+      #+END_CENTER
+      #+ATTR_LATEX: :width 0.9\columnwidth
+      [[../../../img/comparison_histogram.pdf]]
+
+      #+ATTR_LATEX: :booktabs t :align p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth} :font \tiny :float t
+      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+      | RS              | LHS                | GS            | GSR                 | GA                | LM           | DLMT             |
+      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
+      | Random Sampling | Latin Hyper Square | Greedy Search | Greedy with Restart | Generic Algorithm | Linear Model | Our DoE Approach |
+      |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
 *** Column B                                                          :BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.48
@@ -531,25 +590,52 @@
        with multiple *local optima* and *undefined regions*
      - *Main issues* are *exponential growth*, *geometry*, & *measurement time*
 
-**** Our Design of Experiments Approach                             :B_block:
+**** A Transparent Design of Experiments Approach                   :B_block:
      :PROPERTIES:
      :BEAMER_env: block
      :END:
-     #+BEGIN_CENTER
-     #+ATTR_LATEX: :width 0.5\columnwidth
+     #+ATTR_LATEX: :width 0.8\columnwidth
      [[../../../img/doe_anova_strategy.pdf]]
+
+     #+LATEX: \vspace{1em}
+
+     - An *initial model* is provided by the *user* (steps *1* & *2*)
+     - *Design of Experiments (DoE)* guides exploration (steps *3* & *4*)
+     - *Significant factors* are identified by *Analysis of Variance (ANOVA)* (steps *5* & *6*)
+     - New fitted model predicts best value for significant factors (steps *7* & *8*)
+
+     #+BEGIN_CENTER
+     #+LATEX: \vspace{1em}
+     #+LATEX: {\normalsize
+     *Transparent*: @@latex: {\small@@ *factor* and *level* selections based on *ANOVA* @@latex: \\[0.5em]}@@
+     *Parsimonious*: @@latex: {\small@@ DoE *decreases measurements* @@latex: }@@
+     #+LATEX: }
      #+END_CENTER
 **** Extensive Evaluation on the SPAPT Benchmark                    :B_block:
      :PROPERTIES:
      :BEAMER_env: block
      :END:
+
+     - *SPAPT* is an *autotuning benchmark* for *CPU kernels*, with *search space sizes*
+       between *$10^7$ and $10^{36}$*
+     - We evaluated *DLMT* on *11 kernels* (*3* shown below)
+       using *the same initial performance model*, and *fixed budget*
+
+     #+LATEX: \vspace{0.3em}
      #+BEGIN_CENTER
-     #+ATTR_LATEX: :width 0.9\columnwidth
+     #+LATEX: {\small
+     Our approach (*DLMT*) achieved *good speedups* using @@latex:
+     \\[0.3em]@@ a *smaller budget*, while *exploring better
+     configurations*
+     #+LATEX: }
+     #+END_CENTER
+     #+BEGIN_CENTER
+     #+ATTR_LATEX: :width 0.85\columnwidth
      [[../../../img/iteration_best_comparison.pdf]]
      #+END_CENTER
 
      #+BEGIN_CENTER
-     #+ATTR_LATEX: :width 0.9\columnwidth
+     #+ATTR_LATEX: :width 0.85\columnwidth
      [[../../../img/split_histograms.pdf]]
      #+END_CENTER
 ** Margin Column Row 1                                                :BMCOL:

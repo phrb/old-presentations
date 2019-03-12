@@ -1,4 +1,4 @@
-% Created 2019-03-11 Mon 23:54
+% Created 2019-03-12 Tue 17:10
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -25,6 +25,14 @@
 \begin{frame}
 \begin{columns}
 \begin{column}{0.89\columnwidth}
+\vspace{-0.4em}
+\begin{center}
+  {\normalsize
+    \textit{\alert{Pedro Bruel}, Steven Quinito Masnada, Brice
+    Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
+  }
+\end{center}
+\vspace{-1em}
 \begin{columns}
 \begin{column}[t]{0.48\columnwidth}
 \begin{block}{Autotuning: Optimizing Program Configurations}
@@ -34,11 +42,9 @@
 
 \begin{itemize}
 \item How to write \alert{efficient code} for each of these?
-\item We can use \alert{autotuning}:
-\begin{itemize}
-\item The process of \alert{automatically finding} a \alert{configuration} of a program that
-optimizes an \alert{objective}
-\end{itemize}
+\item We can use \alert{autotuning}: the process of \alert{automatically
+finding} a \alert{configuration} of a program that optimizes an
+\alert{objective}
 \end{itemize}
 \end{block}
 
@@ -75,8 +81,8 @@ A \alert{Plackett-Burman} design \\[-0.5em] for \alert{7 2-level factors}
 \vspace{0.2em}
 \begin{itemize}
 \item \alert{Experiment results} can be used to
-identify \alert{relevant parameters}
-and \alert{build a performance model}
+identify \alert{relevant parameters} and to \alert{fit a linear regression
+model}
 \end{itemize}
 \end{column}
 \begin{column}{0.59\columnwidth}
@@ -95,9 +101,72 @@ each strategy
 \end{columns}
 \end{block}
 \begin{block}{A Motivating Result on a GPU Kernel}
+\begin{columns}
+\begin{column}{0.49\columnwidth}
+\begin{itemize}
+\item Kernel \alert{factors}:
+\end{itemize}
+\vspace{0.6em}
+\begin{table}[htbp]
+\centering
+\tiny
+\begin{tabular}{llp{0.3\columnwidth}}
+\toprule
+Factor & Levels & Short Description\\
+\midrule
+\texttt{vector\_length} & \(2^0,\dots,2^4\) & Size of support arrays\\
+\texttt{load\_overlap} & \textit{true}, \textit{false} & Load overlaps in vectorization\\
+\texttt{temporary\_size} & \(2,4\) & Byte size of temporary data\\
+\texttt{elements\_number} & \(1,\dots,24\) & Size of equal data splits\\
+\texttt{y\_component\_number} & \(1,\dots,6\) & Loop tile size\\
+\texttt{threads\_number} & \(2^5,\dots,2^{10}\) & Size of thread groups\\
+\texttt{lws\_y} & \(2^0,\dots,2^{10}\) & Block size in \(y\) dimension\\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{column}
+
+\begin{column}{0.49\columnwidth}
+\begin{itemize}
+\item Initial \alert{performance model}:
+\end{itemize}
+{\tiny
+  \begin{align}
+    time\_per\_pixel \sim & \; y\_component\_number + \frac{1}{y\_component\_number} \; + \nonumber \\
+    & \; load\_overlap + temporary\_size \; + \nonumber \\
+    & \; vector\_length + lws\_y + \frac{1}{lws\_y} \; + \nonumber \\
+    & \; elements\_number + threads\_number  \; + \nonumber \\
+    & \; \frac{1}{elements\_number} + \frac{1}{threads\_number}\text{.} \nonumber
+  \end{align}
+}
+
+\begin{itemize}
+\item This \alert{simple case} had known \alert{valid search space} and
+\alert{global optimum}, and \alert{fixed budget}
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{1em}
+\begin{center}
+{\small
+Our approach (\alert{DLMT}) was always \alert{within 1\% of the optimum}
+}
+\end{center}
 \begin{center}
 \includegraphics[width=0.9\columnwidth]{../../../img/comparison_histogram.pdf}
 \end{center}
+
+\begin{table}[htbp]
+\centering
+\tiny
+\begin{tabular}{p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}p{0.09\columnwidth}}
+\toprule
+RS & LHS & GS & GSR & GA & LM & DLMT\\
+\midrule
+Random Sampling & Latin Hyper Square & Greedy Search & Greedy with Restart & Generic Algorithm & Linear Model & Our DoE Approach\\
+\bottomrule
+\end{tabular}
+\end{table}
 \end{block}
 \end{column}
 \begin{column}[t]{0.48\columnwidth}
@@ -123,23 +192,53 @@ with multiple \alert{local optima} and \alert{undefined regions}
 \end{itemize}
 \end{block}
 
-\begin{block}{Our Design of Experiments Approach}
+\begin{block}{A Transparent Design of Experiments Approach}
 \begin{center}
-\begin{center}
-\includegraphics[width=0.5\columnwidth]{../../../img/doe_anova_strategy.pdf}
+\includegraphics[width=0.8\columnwidth]{../../../img/doe_anova_strategy.pdf}
 \end{center}
+
+\vspace{1em}
+
+\begin{itemize}
+\item An \alert{initial model} is provided by the \alert{user} (steps \alert{1} \& \alert{2})
+\item \alert{Design of Experiments (DoE)} guides exploration (steps \alert{3} \& \alert{4})
+\item \alert{Significant factors} are identified by \alert{Analysis of Variance (ANOVA)} (steps \alert{5} \& \alert{6})
+\item New fitted model predicts best value for significant factors (steps \alert{7} \& \alert{8})
+\end{itemize}
+
+\begin{center}
+\vspace{1em}
+{\normalsize
+\alert{Transparent}:  {\small \alert{factor} and \alert{level} selections based on \alert{ANOVA}  \\[0.5em]}
+\alert{Parsimonious}:  {\small DoE \alert{decreases measurements}  }
+}
 \end{center}
 \end{block}
 \begin{block}{Extensive Evaluation on the SPAPT Benchmark}
+\begin{itemize}
+\item \alert{SPAPT} is an \alert{autotuning benchmark} for \alert{CPU kernels}, with \alert{search space sizes}
+between \alert{\(10^7\) and \(10^{36}\)}
+\item We evaluated \alert{DLMT} on \alert{11 kernels} (\alert{3} shown below)
+using \alert{the same initial performance model}, and \alert{fixed budget}
+\end{itemize}
+
+\vspace{0.3em}
+\begin{center}
+{\small
+Our approach (\alert{DLMT}) achieved \alert{good speedups} using
+     \\[0.3em] a \alert{smaller budget}, while \alert{exploring better
+configurations}
+}
+\end{center}
 \begin{center}
 \begin{center}
-\includegraphics[width=0.9\columnwidth]{../../../img/iteration_best_comparison.pdf}
+\includegraphics[width=0.85\columnwidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 
 \begin{center}
 \begin{center}
-\includegraphics[width=0.9\columnwidth]{../../../img/split_histograms.pdf}
+\includegraphics[width=0.85\columnwidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{block}

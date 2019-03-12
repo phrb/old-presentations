@@ -427,14 +427,14 @@
     :BEAMER_env: ignoreheading
     :END:
     #+begin_export latex
-    \vspace{-0.4em}
+    \vspace{-0.2em}
     \begin{center}
       {\normalsize
-        \textit{\alert{Pedro Bruel}, Steven Quinito Masnada, Brice
-        Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
+        \textit{\alert{Pedro Bruel}$^{1,3}$, Steven Quinito Masnada$^{2}$, Brice
+        Videau$^{3}$, Arnaud Legrand$^{3}$, Jean-Marc Vincent$^{3}$, Alfredo Goldman$^{1}$}
       }
     \end{center}
-    \vspace{-1em}
+    \vspace{-0.8em}
     #+end_export
 *** Row 1                                                   :B_ignoreheading:
     :PROPERTIES:

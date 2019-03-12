@@ -717,7 +717,7 @@
     :END:
     #+begin_export latex
     \begin{flushleft}
-      \vspace{2em}
+      \vspace{1.6em}
       {\small
         \textit{
           $^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\

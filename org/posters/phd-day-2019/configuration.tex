@@ -61,3 +61,8 @@
 \usepackage[orientation=portrait,size=a0,scale=1.6]{beamerposter}
 \usetheme{LIG-poster}
 \usecolortheme{LIG}
+
+\makeatletter
+\let\old@rule\@rule
+\def\@rule[#1]#2#3{\textcolor{gray!35}{\old@rule[#1]{#2}{#3}}}
+\makeatother

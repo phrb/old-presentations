@@ -1,4 +1,4 @@
-% Created 2019-03-12 Tue 22:46
+% Created 2019-03-13 Wed 14:13
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -24,7 +24,7 @@
 
 \begin{frame}
 \begin{columns}
-\begin{column}{0.89\columnwidth}
+\begin{column}{0.86\columnwidth}
 \vspace{-0.2em}
 \begin{center}
   {\normalsize
@@ -34,7 +34,7 @@
 \end{center}
 \vspace{-0.8em}
 \begin{columns}
-\begin{column}[t]{0.48\columnwidth}
+\begin{column}[t]{0.5\columnwidth}
 \begin{block}{Autotuning: Optimizing Program Configurations}
 \begin{center}
 \includegraphics[width=.9\columnwidth]{../../../img/architectures.png}
@@ -81,7 +81,7 @@ After optimizing:
 \end{columns}
 \end{block}
 \end{column}
-\begin{column}[t]{0.48\columnwidth}
+\begin{column}[t]{0.5\columnwidth}
 \begin{block}{Autotuning: Search Spaces are Hard to Explore}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../../img/seymour2008comparison.pdf}
@@ -106,7 +106,7 @@ with multiple \alert{local optima} and \alert{undefined regions}
 \end{column}
 \end{columns}
 \begin{columns}
-\begin{column}[t]{0.48\columnwidth}
+\begin{column}[t]{0.5\columnwidth}
 \begin{block}{Design of Experiments: Exploration under a Budget}
 \alert{Design of Experiments} (\alert{DoE}):
 \vspace{1em}
@@ -152,7 +152,7 @@ each strategy
 \end{columns}
 \end{block}
 \end{column}
-\begin{column}[t]{0.48\columnwidth}
+\begin{column}[t]{0.5\columnwidth}
 \begin{block}{A Transparent Design of Experiments Approach}
 \begin{center}
 \includegraphics[width=0.8\columnwidth]{../../../img/doe_anova_strategy.pdf}
@@ -168,17 +168,16 @@ each strategy
 \end{itemize}
 
 \begin{center}
-\vspace{1em}
-{\normalsize
-\alert{Transparent}:  {\small \alert{factor} and \alert{level} selections based on \alert{ANOVA}  \\[0.5em]}
-\alert{Parsimonious}:  {\small DoE \alert{decreases measurements}  }
-}
+  {\normalsize
+    \colorbox{WinterSkin}{\alert{\vphantom{g}Transparent}: {\small \alert{factor} and \alert{level} selections based on \alert{ANOVA}}} \\[0.2em]
+    \colorbox{WinterSkin}{\alert{Parsimonious}: {\small DoE \alert{decreases measurements}}}
+  }
 \end{center}
 \end{block}
 \end{column}
 \end{columns}
 \begin{columns}
-\begin{column}[t]{0.48\columnwidth}
+\begin{column}[t]{0.5\columnwidth}
 \begin{block}{A Motivating Result on a GPU Kernel}
 \begin{columns}
 \begin{column}{0.49\columnwidth}
@@ -248,8 +247,8 @@ Random Sampling & Latin Hyper Square & Greedy Search & Greedy with Restart & Gen
 \end{table}
 \end{block}
 \end{column}
-\begin{column}[t]{0.48\columnwidth}
-\begin{block}{Extensive Evaluation on the SPAPT Benchmark}
+\begin{column}[t]{0.5\columnwidth}
+\begin{block}{ \vphantom{g}Extensive Evaluation on the SPAPT Benchmark}
 \begin{itemize}
 \item \alert{SPAPT} is an \alert{autotuning benchmark} for \alert{CPU kernels}, with \alert{search space sizes}
 between \alert{\(10^7\) and \(10^{36}\)}
@@ -280,12 +279,11 @@ configurations}
 \end{column}
 \end{columns}
 \begin{flushleft}
-  \vspace{1.6em}
+\vspace{1.5em}
   {\small
-    \textit{
-      $^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
-      $^{2}$University of Grenoble Alpes Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
-      $^{3}$University of Grenoble Alpes CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
+    \textit{$^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
+      $^{2}$University of Grenoble Alpes, Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
+      $^{3}$University of Grenoble Alpes, CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
     }
   }
 \end{flushleft}

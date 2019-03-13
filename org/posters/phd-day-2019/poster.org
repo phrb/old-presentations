@@ -420,7 +420,7 @@
   #+LATEX: \begin{frame}
 ** Main Column                                                        :BMCOL:
    :PROPERTIES:
-   :BEAMER_col: 0.89
+   :BEAMER_col: 0.86
    :END:
 *** Author Line                                             :B_ignoreheading:
     :PROPERTIES:
@@ -442,7 +442,7 @@
     :END:
 **** Column A                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
 ***** Autotuning: Optimizing Program Configurations
@@ -492,7 +492,7 @@
        - *Learn ``nothing''*, *can't explain choices*
 **** Column B                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
 ***** Autotuning: Search Spaces are Hard to Explore                 :B_block:
@@ -520,13 +520,14 @@
      :PROPERTIES:
      :BEAMER_env: ignoreheading
      :END:
+     # #+LATEX: \par\noindent\rule{\columnwidth}{0.3ex}
 *** Row 2                                                   :B_ignoreheading:
     :PROPERTIES:
     :BEAMER_env: ignoreheading
     :END:
 **** Column A                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
 ***** Design of Experiments: Exploration under a Budget             :B_block:
@@ -577,7 +578,7 @@
          each strategy
 **** Column B                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
 ***** A Transparent Design of Experiments Approach                  :B_block:
@@ -594,13 +595,14 @@
       - *Significant factors* are identified by *Analysis of Variance (ANOVA)* (steps *5* & *6*)
       - New fitted model predicts best value for significant factors (steps *7* & *8*)
 
-      #+BEGIN_CENTER
-      #+LATEX: \vspace{1em}
-      #+LATEX: {\normalsize
-      *Transparent*: @@latex: {\small@@ *factor* and *level* selections based on *ANOVA* @@latex: \\[0.5em]}@@
-      *Parsimonious*: @@latex: {\small@@ DoE *decreases measurements* @@latex: }@@
-      #+LATEX: }
-      #+END_CENTER
+      #+begin_export latex
+      \begin{center}
+        {\normalsize
+          \colorbox{WinterSkin}{\alert{\vphantom{g}Transparent}: {\small \alert{factor} and \alert{level} selections based on \alert{ANOVA}}} \\[0.2em]
+          \colorbox{WinterSkin}{\alert{Parsimonious}: {\small DoE \alert{decreases measurements}}}
+        }
+      \end{center}
+      #+end_export
 **** End Columns                                            :B_ignoreheading:
      :PROPERTIES:
      :BEAMER_env: ignoreheading
@@ -611,7 +613,7 @@
     :END:
 **** Column A                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
 ***** A Motivating Result on a GPU Kernel                           :B_block:
@@ -678,10 +680,10 @@
        |-----------------+--------------------+---------------+---------------------+-------------------+--------------+------------------|
 **** Column B                                                         :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.48
+     :BEAMER_col: 0.5
      :BEAMER_opt: t
      :END:
-***** Extensive Evaluation on the SPAPT Benchmark                   :B_block:
+***** @@latex: \vphantom{g}@@Extensive Evaluation on the SPAPT Benchmark :B_block:
       :PROPERTIES:
       :BEAMER_env: block
       :END:
@@ -717,12 +719,11 @@
     :END:
     #+begin_export latex
     \begin{flushleft}
-      \vspace{1.6em}
+    \vspace{1.5em}
       {\small
-        \textit{
-          $^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
-          $^{2}$University of Grenoble Alpes Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
-          $^{3}$University of Grenoble Alpes CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
+        \textit{$^{1}$University of São Paulo, São Paulo, Brazil, with CAPES Funding \\
+          $^{2}$University of Grenoble Alpes, Inria, CNRS, Grenoble INP, LJK 38000 Grenoble, France \\[-0.2em]
+          $^{3}$University of Grenoble Alpes, CNRS, Inria, Grenoble INP, LIG 38000 Grenoble, France
         }
       }
     \end{flushleft}

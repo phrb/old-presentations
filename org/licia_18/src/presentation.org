@@ -269,7 +269,7 @@
      *Experiment results* can be used to:
 
      - Identify *relevant parameters*
-     - Build a *model*
+     - Fit a *regression model*
 
 *** Plackett-Burman                                                   :BMCOL:
     :PROPERTIES:

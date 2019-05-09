@@ -1,4 +1,4 @@
-% Created 2019-04-28 Sun 14:54
+% Created 2019-04-29 Mon 10:19
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -80,8 +80,8 @@ tabsize=2,
 
 
 \section{Autotuning}
-\label{sec:orgef8c04b}
-\begin{frame}[label={sec:org75ea980},fragile]{Autotuning: Optimizing Program Configurations}
+\label{sec:orgb0d6509}
+\begin{frame}[label={sec:org7ec63ee},fragile]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -132,7 +132,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgdbfb7ba}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org023056f}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -162,7 +162,7 @@ and \alert{undefined regions}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org2f0cde9}]{Autotuning: Exploring Search Spaces}
+\begin{frame}[label={sec:org0d04510}]{Autotuning: Exploring Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -199,7 +199,7 @@ Time to \alert{compile}:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgd5db951}]{Autotuning: Multiple Approaches}
+\begin{frame}[label={sec:org530dc4c}]{Autotuning: Multiple Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Popular Approaches}
@@ -232,13 +232,18 @@ Time to \alert{compile}:
 \item \alert{Can't explain} why optimizations work
 \end{itemize}
 \end{itemize}
+\begin{block}{Our Approach}
+\begin{itemize}
+\item \alert{Design of Experiments} (\alert{DoE})
+\end{itemize}
+\end{block}
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 \section{Applying Design of Experiments to Autotuning}
-\label{sec:orge799718}
-\begin{frame}[label={sec:org82559af}]{Design of Experiments}
+\label{sec:orge88bfe1}
+\begin{frame}[label={sec:orgcc2d222}]{Design of Experiments}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Factors, Levels, Experiments \& Designs}
@@ -276,7 +281,7 @@ A \alert{small design} for \(7\) \alert{2-level factors}:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgfd55714}]{Applying Design of Experiments to Autotuning}
+\begin{frame}[label={sec:org9fb7f76}]{Applying Design of Experiments to Autotuning}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Our Approach}
@@ -313,7 +318,7 @@ We are using:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org5cd2880},fragile]{D-Optimal Designs: Example}
+\begin{frame}[label={sec:org44dec91},fragile]{D-Optimal Designs: Example}
  \begin{columns}
 \begin{column}{0.6\columnwidth}
 \begin{block}{Example}
@@ -324,7 +329,7 @@ We are using:
 \mathbf{X} = (x_1 = & \; (1, \dots, 5), \\
 x_2 = & \; (``A", ``B", ``C"))
 \end{align*}
-\item Model: \(\mathbf{Y} = \mathbf{X}\beta + \mathbf{\varepsilon}\)
+\item Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
 \end{itemize}
 
 \begin{block}{Source code}
@@ -356,21 +361,21 @@ $D
 [1] 0.5656854
 
 $A
-[1] 3.828125
+[1] 3.90625
 
 $Ge
-[1] 0.64
+[1] 0.512
 
 $Dea
-[1] 0.57
+[1] 0.386
 
 $design
-   1    5    6    10   13
-X1 "-2" " 2" "-2" " 2" " 0"
-X2 "1"  "1"  "2"  "2"  "3"
+   1    5    9    11   15
+X1 "-2" " 2" " 1" "-2" " 2"
+X2 "1"  "1"  "2"  "3"  "3"
 
 $rows
-[1]  1  5  6 10 13
+[1]  1  5  9 11 15
 \end{verbatim}
 
 
@@ -379,7 +384,7 @@ $rows
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org3be09c5}]{Design Efficiency}
+\begin{frame}[label={sec:orgf2054b7}]{Design Efficiency}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Linear Regression Model}
@@ -423,7 +428,7 @@ the \alert{covariance matrix} \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orga84e5f7}]{Sampling Strategies}
+\begin{frame}[label={sec:orgce15543}]{Sampling Strategies}
 \begin{center}
 \begin{center}
 \includegraphics[width=.70\textwidth]{../../../img/sampling_comparison.pdf}
@@ -431,7 +436,7 @@ the \alert{covariance matrix} \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgce3ec2e}]{A Design of Experiments Approach to Autotuning}
+\begin{frame}[label={sec:org45bcebd}]{A Design of Experiments Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -441,8 +446,8 @@ the \alert{covariance matrix} \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)
 \end{center}
 \end{frame}
 \section{Results}
-\label{sec:org9d9b3fe}
-\begin{frame}[label={sec:org47acbda}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:orgc984430}
+\begin{frame}[label={sec:org6175e4a}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{The Search Problem}
@@ -482,7 +487,7 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgced4399}]{GPU Laplacian Kernel: A Motivating Example}
+\begin{frame}[label={sec:orga387f9b}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{table}[ht]
@@ -521,10 +526,10 @@ Our approach:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org6a21771},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org9c91235},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
  \begin{center}
 \begin{table}[t]
-\label{tab:org4e70924}
+\label{tab:org1fffa28}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -555,21 +560,21 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org8249d84}]{SPAPT: Preliminary Results}
+\begin{frame}[label={sec:org5057b6f}]{SPAPT: Preliminary Results}
 \begin{center}
 \begin{center}
 \includegraphics[width=.86\linewidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org1329958}]{SPAPT: Preliminary Results}
+\begin{frame}[label={sec:org6eb1fdd}]{SPAPT: Preliminary Results}
 \begin{center}
 \begin{center}
 \includegraphics[width=.89\linewidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org8260e6e}]{SPAPT: Summary}
+\begin{frame}[label={sec:org3111587}]{SPAPT: Summary}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Experimental Settings}
@@ -592,7 +597,7 @@ Kernel & Operation & Factors & Size\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgec7d2b0}]{Conclusion}
+\begin{frame}[label={sec:orgb76b864}]{Conclusion}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Summary}
@@ -622,14 +627,14 @@ Our approach uses:
 \end{frame}
 
 \maketitle
-\begin{frame}[label={sec:org549b875}]{SPAPT: Preliminary Results}
+\begin{frame}[label={sec:org9d89ea6}]{SPAPT: Preliminary Results}
 \begin{center}
 \begin{center}
 \includegraphics[width=.89\linewidth]{../../../img/preliminary_spapt_spaces.png}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgb6f3818}]{Design Efficiency: Introduction}
+\begin{frame}[label={sec:org2d13928}]{Design Efficiency: Introduction}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -686,7 +691,7 @@ L =& \; \sum\limits^{n}_{i = 1}{\epsilon_{i}^{2}}
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org0739d0a}]{Design Efficiency: Estimating Model Coefficients}
+\begin{frame}[label={sec:org0b6d18f}]{Design Efficiency: Estimating Model Coefficients}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -740,7 +745,7 @@ The previous equation simplifies to:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org1b59a99},fragile]{Design Efficiency: The Dispersion Matrix}
+\begin{frame}[label={sec:org6e7f613},fragile]{Design Efficiency: The Dispersion Matrix}
  \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -801,7 +806,7 @@ We can \alert{minimize the coefficient estimator} \(\bm{\hat{\beta}}\) by
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgbace3c5}]{Design Efficiency: Metrics}
+\begin{frame}[label={sec:org458d4d8}]{Design Efficiency: Metrics}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -860,7 +865,7 @@ D_{eff} = \left(n \times \left|\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\right|
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org887589d}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org94390a1}]{Autotuning: Search Spaces}
 \addtocounter{framenumber}{-1}
 \begin{center}
 \begin{center}
@@ -874,7 +879,7 @@ D_{eff} = \left(n \times \left|\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\right|
 \scriptsize{Seymour K, You H, Dongarra J. A comparison of search heuristics for empirical code optimization. InCLUSTER 2008 Oct 1 (pp. 421-429)}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgd2377b0}]{Applying Design of Experiments to Autotuning}
+\begin{frame}[label={sec:orgad2d23b}]{Applying Design of Experiments to Autotuning}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -918,7 +923,7 @@ related to \alert{exponential growth}, \alert{geometry}, and
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org6dcfeb9}]{Screening Designs}
+\begin{frame}[label={sec:org2f12acb}]{Screening Designs}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -954,7 +959,7 @@ Construction:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org4615310}]{Looking at Data: CUDA Compiler Flags}
+\begin{frame}[label={sec:org87cdc9b}]{Looking at Data: CUDA Compiler Flags}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.3\columnwidth}
@@ -980,7 +985,7 @@ Construction:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org67ffda4}]{Mixed-Level Designs}
+\begin{frame}[label={sec:org0796388}]{Mixed-Level Designs}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
@@ -1018,7 +1023,7 @@ solving \alert{Mixed Integer Programming problems}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgd5313a1}]{Looking at Data: FPGA Compiler Parameters}
+\begin{frame}[label={sec:org4fe7b49}]{Looking at Data: FPGA Compiler Parameters}
 \addtocounter{framenumber}{-1}
 \begin{columns}
 \begin{column}{0.4\columnwidth}

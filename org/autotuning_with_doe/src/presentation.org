@@ -233,6 +233,12 @@
     - After optimizing:
       - *Learn ``nothing''* about the search space
       - *Can't explain* why optimizations work
+**** Our Approach                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - *Design of Experiments* (*DoE*)
 * Applying Design of Experiments to Autotuning
 ** Design of Experiments
 *** Factors, Levels, Experiments & Designs                    :B_block:BMCOL:
@@ -318,7 +324,7 @@
         #+LATEX:     \mathbf{X} = (x_1 = & \; (1, \dots, 5), \\
         #+LATEX:                   x_2 = & \; (``A", ``B", ``C"))
         #+LATEX: \end{align*}
-    - Model: \(\mathbf{Y} = \mathbf{X}\beta + \mathbf{\varepsilon}\)
+    - Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
 
 **** Source code                                                    :B_block:
      :PROPERTIES:

@@ -1,4 +1,4 @@
-% Created 2019-05-09 Thu 17:20
+% Created 2019-05-14 Tue 22:46
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -21,7 +21,8 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 \definecolor{Base}{HTML}{191F26}
-\definecolor{Accent}{HTML}{790700}
+\definecolor{Highlight}{HTML}{ffda99}
+\definecolor{Accent}{HTML}{bb0300}
 \setbeamercolor{alerted text}{fg=Accent}
 \setbeamercolor{frametitle}{bg=Base}
 \setbeamercolor{normal text}{bg=black!2,fg=Base}
@@ -61,11 +62,11 @@ tabsize=2,
 \graphicspath{{../../img/}}
 \addtobeamertemplate{block begin}{}{\justifying}
 \usetheme{default}
-\author{\footnotesize \alert{Pedro Bruel}, Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
-\date{\scriptsize \today}
+\author{ \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
+\date{ \scriptsize \textit{phrb@ime.usp.br} \\[1em] \textit{Universidade de São Paulo, Brazil} \\ \textit{Université Grenoble Alpes, France}}
 \title{Autotuning under Tight Budget Constraints:  \\ A Design of Experiments Approach}
 \hypersetup{
- pdfauthor={\footnotesize \alert{Pedro Bruel}, Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman},
+ pdfauthor={ \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman},
  pdftitle={Autotuning under Tight Budget Constraints:  \\ A Design of Experiments Approach},
  pdfkeywords={},
  pdfsubject={},
@@ -74,14 +75,10 @@ tabsize=2,
 \begin{document}
 
 \maketitle
-\begin{frame}{Outline}
-\tableofcontents
-\end{frame}
-
 
 \section{Autotuning}
-\label{sec:org72775da}
-\begin{frame}[label={sec:orgbd081e1},fragile]{Autotuning: Optimizing Program Configurations}
+\label{sec:orgb96fffa}
+\begin{frame}[label={sec:orgb8420f0},fragile]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -132,7 +129,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgc323e6b}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:orgb4a4ab5}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -162,7 +159,7 @@ and \alert{undefined regions}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org311e0ec}]{Autotuning: Exploring Search Spaces}
+\begin{frame}[label={sec:org1b99610}]{Autotuning: Exploring Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -192,7 +189,7 @@ and \alert{undefined regions}
 \item \alert{Compile} time:
 \begin{itemize}
 \item Industrial \alert{FPGA} applications
-\item Hardware and software \alert{co-design}
+\item \alert{Hardware/software codesign}
 \end{itemize}
 \item \alert{Execution} time:
 \begin{itemize}
@@ -203,7 +200,7 @@ and \alert{undefined regions}
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org41a3a87}]{Autotuning: Multiple Approaches}
+\begin{frame}[label={sec:org683b16f}]{Autotuning: Multiple Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Popular Approaches}
@@ -246,8 +243,35 @@ and \alert{undefined regions}
 \end{columns}
 \end{frame}
 \section{Design of Experiments}
-\label{sec:org77bd7a3}
-\begin{frame}[label={sec:org4ed68ef}]{Design of Experiments}
+\label{sec:org5e9245a}
+\begin{frame}[label={sec:org45ad5bb}]{Design of Experiments: An Example on Agriculture}
+\begin{columns}
+\begin{column}{0.55\columnwidth}
+\begin{center}
+\includegraphics[width=.99\columnwidth]{../../../img/crop_yield_doe_example.pdf}
+\end{center}
+\end{column}
+\begin{column}{0.45\columnwidth}
+\begin{block}{Testing \alert{all combinations} is \alert{inviable}}
+\begin{block}{Which combinations to test?}
+\begin{itemize}
+\item DoE provides a \alert{selection method}
+\item \colorbox{Highlight}{\alert{Parsimony}: decreases experiments}
+\end{itemize}
+\end{block}
+
+\begin{block}{Which is the best combination?}
+\begin{itemize}
+\item DoE provides an \alert{analysis method}
+\item \colorbox{Highlight}{\alert{Transparency}: use statistical tests}
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:orgf3db081}]{Design of Experiments}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Factors, Levels, Experiments \& Designs}
@@ -258,167 +282,101 @@ and \alert{undefined regions}
 \item \alert{Levels}: possible factor \alert{values}
 \item \alert{Experiment}: setting each factor to a level
 \item \alert{Design}: a \alert{selection} of experiments to \alert{run}
-\item \alert{Performance Model}: guides \alert{selection}
+\item \uncover<2>{\alert{Performance model}: guides selection}
 \end{itemize}
 
 \begin{block}{Analysis}
 \vspace{.2cm}
 
-\alert{Experiment results} can be used to:
+The \alert{designs} can be used to:
 
 \begin{itemize}
-\item Identify \alert{relevant parameters}
-\item Fit a \alert{regression model}
+\item \alert{Identify} significant parameters
+\item \alert{Investigate} possible models
+\item \dots{}
 \end{itemize}
 \end{block}
 \end{block}
 \end{column}
 
 \begin{column}{0.5\columnwidth}
-\vspace{.4cm}
+\begin{block}{Example}
+\vspace{-.2cm}
 \begin{center}
 
-A \alert{small design} for \(7\) \alert{2-level factors}:
+A \alert{minimal screening design} for \(7\) \alert{2-level factors}:
 
 \end{center}
+\vspace{-.2cm}
 
 \input{latex/plackett_burman.tex}
+\vspace{-.2cm}
+
+\uncover<2>{$$response = \theta{} + \alpha{}A + \beta{}B + \gamma{}C + \dots$$}
+\end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orga447f58}]{Applying Design of Experiments to Autotuning}
+\begin{frame}[label={sec:org4a28eea}]{Applying Design of Experiments to Autotuning}
 \begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{block}{Our Approach}
-\vspace{.2cm}
-
-We are using:
+\begin{column}{0.45\columnwidth}
+\begin{block}{Design Requirements}
+\vspace{.7em}
+We need designs that:
 
 \begin{itemize}
-\item \alert{Efficient experimental designs} to overcome issues related to \alert{exponential growth}, \alert{geometry}, and \alert{measurement time}
-\item \alert{Analysis of variance} to find \alert{relevant parameters}
-\item \alert{User input} to guide optimization
+\item \alert{Maximize} the amount of information, that is, the \alert{quality of our estimates}
+\item Minimize function evaluations (\alert{Measurement Time})
+\item Support a large number of factors (\alert{Exponential Growth})
+\item Support numerical and categorical factors (\alert{Geometry})
 \end{itemize}
-
-\begin{block}{Validation}
-\begin{itemize}
-\item \alert{Source code transformations}
-\item \alert{GPU Laplacian} kernel
-\item HPC kernels from the \alert{SPAPT benchmark}
-\end{itemize}
-\end{block}
 \end{block}
 \end{column}
 
-\begin{column}{0.5\columnwidth}
-\begin{block}{Design Requirements}
+\begin{column}{0.55\columnwidth}
+\begin{block}{Our Approach}
 \begin{itemize}
-\item Support a large number of factors (\alert{Exponential Growth})
-\item Support numerical and categorical factors (\alert{Geometry})
-\item Minimize function evaluations (\alert{Measurement Time})
-\end{itemize}
-
-\begin{block}{D-Optimal Designs}
+\item \alert{D-Optimal  designs}
 \begin{itemize}
 \item Minimize \alert{variance} of \alert{regression coefficient estimators}
 \item Supports different factor \alert{types} and \alert{numbers}
 \end{itemize}
+\item \alert{Linear model} and \alert{analysis of variance} (\alert{ANOVA})
+\item \alert{User input} to guide optimization
+\item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
+\end{itemize}
+
+\begin{block}{Validation}
+\begin{itemize}
+\item \alert{Source code transformation}:
+\begin{itemize}
+\item \alert{GPU Laplacian} kernel
+\item HPC kernels from the \alert{SPAPT benchmark}
+\end{itemize}
+\end{itemize}
 \end{block}
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgd15074e},fragile]{D-Optimal Designs: Example}
- \begin{columns}
-\begin{column}{0.6\columnwidth}
-\begin{block}{Example}
-% \(\mathbf{X} = \{x_1 = \{1, \dots, 5\}, x_2 = \{"A", "B", "C"\}\}\)
+\begin{frame}[label={sec:orgbb2ce9f}]{D-Optimal Designs: A Simple Example in R}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Search Space}
+% \(\mathbf{X} = \{x_1 = \{1, 2, 3, 4, 5\}, x_2 = \{"A", "B", "C"\}\}\)
 \begin{itemize}
 \item Factors \& Levels:
 \begin{align*}
-\mathbf{X} = (x_1 = & \; (1, \dots, 5), \\
+\mathbf{X} = (x_1 = & \; (1, 2, 3, 4, 5), \\
 x_2 = & \; (``A", ``B", ``C"))
 \end{align*}
 \item Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
 \end{itemize}
-
-\begin{block}{Source code}
-\vspace{-.2cm}
-
-\lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
-\begin{lstlisting}
-library(AlgDesign)
-
-full_factorial <- gen.factorial(c(5, 3),
-                      factors = c(2))
-
-output <- optFederov(~ .,
-                     full_factorial,
-                     nTrials = 5)
-\end{lstlisting}
-\end{block}
 \end{block}
 \end{column}
 
-\begin{column}{0.4\columnwidth}
-\begin{block}{Output}
-\vspace{-.2cm}
-\scriptsize
-
-\begin{verbatim}
-
-$D
-[1] 0.5656854
-
-$A
-[1] 3.90625
-
-$Ge
-[1] 0.512
-
-$Dea
-[1] 0.386
-
-$design
-   1    5    7    11   15
-X1 "-2" " 2" "-1" "-2" " 2"
-X2 "1"  "1"  "2"  "3"  "3"
-
-$rows
-[1]  1  5  7 11 15
-\end{verbatim}
-
-
-\normalsize
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-\begin{frame}[label={sec:org2075262}]{Design Efficiency}
-\begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{block}{Linear Regression Model}
-\vspace{.2cm}
-
-The \alert{linear regression model}:
-\begin{center}
-\(y = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{k}x_{k} + \epsilon\)
-\end{center}
-We want to \alert{estimate} \(\beta_{0,\dots,k}\):
-
-\begin{itemize}
-\item Using \(n > k\) \alert{observations} \(y_{1,\dots,n}\)
-\item \alert{Distinct} \(x_{i1,\dots,ik}, \; i = 1,\dots,n\)
-\end{itemize}
-
-\alert{Experiments} represented by:
-\begin{center}
-\(y_{i} = \beta_{0} + \beta_{1}x_{i1} + \dots + \beta_{k}x_{ik} + \epsilon_{i}\)
-\end{center}
-\end{block}
-\end{column}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Ordinary Least Squares Estimator \(\bm{\hat{\beta}}\)}
 \begin{center}
@@ -427,29 +385,84 @@ We want to \alert{estimate} \(\beta_{0,\dots,k}\):
 \end{equation*}
 \end{center}
 
-The \alert{variance} of \(\bm{\hat{\beta}}\) is proportional to
-the \alert{covariance matrix} \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)
-
-\begin{block}{Design Criteria using \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)}
-\begin{itemize}
-\item \alert{D}: \alert{determinant}, minimizes generalized variance of \(\bm{\hat{\beta}}\)
-\item \alert{A}: \alert{trace}, average variance of \(\bm{\hat{\beta}}\)
-\end{itemize}
-\end{block}
+\begin{center}
+\colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering The \alert{variance} of $\bm{\hat{\beta}}$ is proportional to \\
+    the \alert{covariance matrix} $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+\end{center}
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org5122e5b}]{Comparing Sampling Strategies}
+
+\begin{frame}[label={sec:org818c9c1},fragile]{D-Optimal Designs: A Simple Example in R}
+ \begin{columns}
+\begin{column}{0.7\columnwidth}
+\begin{block}{Source code in \texttt{R}}
+\vspace{-.2cm}
+
+\lstset{language=r,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+library(DoE.base)
+library(AlgDesign)
+
+samples <- fac.design(nfactors = 2,
+                      nlevels = c(5, 3),
+                      factor.names = list(x1 = 1:5,
+                                          x2 = c("A", "B", "C")))
+
+output <- optFederov(~ x1 + x2,
+                     samples,
+                     nTrials = 7)
+\end{lstlisting}
+
+\begin{block}{Optimality Criteria}
+\begin{itemize}
+\item \alert{D}: \alert{determinant}, minimizes generalized variance of \(\bm{\hat{\beta}}\)
+\item \alert{A}: \alert{trace}, average variance of \(\bm{\hat{\beta}}\)
+\item \dots{}
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+
+
+\begin{column}{0.3\columnwidth}
+\begin{block}{Output}
+\vspace{-.2cm}
+\scriptsize
+
+\begin{verbatim}
+$D
+[1] 0.1797856
+
+$design
+   x1 x2
+4   5  A
+5   4  B
+9   2  C
+10  1  A
+11  2  A
+14  3  C
+15  3  B
+\end{verbatim}
+
+
+\normalsize
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:org63e86e8}]{Comparing Sampling Strategies}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\textwidth]{../../../img/sampling_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\section{Our Approach}
-\label{sec:orgccf7891}
-\begin{frame}[label={sec:orgb534b8e}]{A Design of Experiments Approach to Autotuning}
+\section{A Transparent and Parsimonious DoE Approach to Autotuning}
+\label{sec:org4f72d31}
+\begin{frame}[label={sec:orge6c441b}]{A Design of Experiments Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.74\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -459,16 +472,15 @@ the \alert{covariance matrix} \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)
 \end{center}
 \end{frame}
 \section{Results on a GPU Laplacian Kernel}
-\label{sec:org720215b}
-\begin{frame}[label={sec:orge980c02}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:org2d1ab09}
+\begin{frame}[label={sec:org9016a93}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
-\begin{block}{The Search Problem}
+\begin{block}{Search Problem}
 \begin{itemize}
 \item Relatively \alert{small valid search space}
 \item \alert{Completely evaluated}
 \item Known \alert{global optimum}
-\item Known \alert{model approximation}
 \item \alert{Budget} of \alert{125 points}
 \end{itemize}
 \end{block}
@@ -489,7 +501,15 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \end{column}
 \end{columns}
 
-\begin{block}{Results}
+\vspace{-.3cm}
+
+\uncover<2>{
+\begin{center}
+  \colorbox{Highlight}{\parbox[c]{0.72\textwidth}{\centering We were  \alert{always close to
+        the optimum} and used \alert{half of the budget}}}
+\end{center}
+}
+
 \vspace{-.3cm}
 
 \begin{center}
@@ -497,54 +517,38 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \includegraphics[width=.88\columnwidth]{../../../img/comparison_histogram.pdf}
 \end{center}
 \end{center}
-\end{block}
 \end{frame}
-
-\begin{frame}[label={sec:orgcdafc7f}]{GPU Laplacian Kernel: A Motivating Example}
-\begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{table}[ht]
-\centering
-\begingroup\small
-\begin{tabular}{lrr}
-  \hline
-  & Mean & Max \\
-  \hline
-  RS & 120.00 & 125.00 \\
-  LHS & 98.92 & 125.00 \\
-  GS & 22.17 & 106.00 \\
-  GSR & 120.00 & 120.00 \\
-  GA & 120.00 & 120.00 \\
-  LM & 119.00 & 119.00 \\
-  DLMT & 54.84 & 56.00 \\
-    \hline
-\end{tabular}
-\endgroup
-\caption{Points used by applications}
-\end{table}
-\end{column}
-
-\begin{column}{0.5\columnwidth}
-\begin{block}{Summary}
-\vspace{.2cm}
-
-Our approach:
-
+\section{Results on the SPAPT Benchmark}
+\label{sec:org2e969d5}
+\begin{frame}[label={sec:orge56db44},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+ \begin{columns}
+\begin{column}{0.41\columnwidth}
+\begin{block}{Search Problem}
 \begin{itemize}
-\item Was \alert{always close to the optimum}
-\item Used \alert{half of the budget}
+\item \alert{Orio}:
+\begin{itemize}
+\item \alert{Source code transformations}
+\item brnorris03.github.io/Orio
+\end{itemize}
+\item \alert{Baseline}: \texttt{gcc -O3}, no transformations
+\item \alert{Random sampling} (\alert{RS}) vs. \alert{D-Optimal} approach (\alert{DLMT})
+\item \alert{10 repetitions}: measure \alert{speedup} and \alert{time-to-solution}
+\item Out of \alert{16 kernels}:
+\begin{itemize}
+\item 3 with \alert{no impact}
+\item 6 with \alert{similar performance gain}
+\item \colorbox{Highlight}{7 with \alert{similar gain found faster}}
+\end{itemize}
 \end{itemize}
 \end{block}
 \end{column}
-\end{columns}
-\end{frame}
+\begin{column}{0.59\columnwidth}
+\begin{block}{Search Space}
+\vspace{-0.4cm}
 
-\section{Results on the SPAPT Benchmark}
-\label{sec:org89ec686}
-\begin{frame}[label={sec:orgdb35555},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
- \begin{center}
+\begin{center}
 \begin{table}[t]
-\label{tab:org19b128e}
+\label{tab:org3ed8821}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -573,72 +577,52 @@ Kernel & Operation & Factors & Size\\
 
 \scriptsize{Balaprakash P, Wild SM, Norris B. SPAPT: Search problems in automatic performance tuning. Procedia Comp. Sci. 2012 Jan 1;9:1959-68.}
 \end{center}
-\end{frame}
-
-\begin{frame}[label={sec:orgcb360d0}]{SPAPT: Preliminary Results}
-\begin{center}
-\begin{center}
-\includegraphics[width=.86\linewidth]{../../../img/iteration_best_comparison.pdf}
-\end{center}
-\end{center}
-\end{frame}
-\begin{frame}[label={sec:orgb791b8f}]{SPAPT: Preliminary Results}
-\begin{center}
-\begin{center}
-\includegraphics[width=.89\linewidth]{../../../img/split_histograms.pdf}
-\end{center}
-\end{center}
-\end{frame}
-\begin{frame}[label={sec:org78ff137}]{SPAPT: Summary}
-\begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{block}{Experimental Settings}
-\begin{itemize}
-\item Using the \alert{same model for all applications}
-\item Fixed \alert{number of iterations}
-\item \alert{Automated approach}
-\end{itemize}
-\end{block}
-\end{column}
-
-\begin{column}{0.5\columnwidth}
-\begin{block}{Summary}
-\begin{itemize}
-\item Performance \alert{similar to random sampling}
-\item Using \alert{less points}
-\end{itemize}
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgbc3bbe6}]{Conclusion}
-\begin{columns}
-\begin{column}{0.5\columnwidth}
-\begin{block}{Summary}
-\vspace{.2cm}
+\begin{frame}[label={sec:org4588540}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{center}
+\begin{center}
+\includegraphics[width=.7\linewidth]{../../../img/iteration_best_comparison.pdf}
+\end{center}
+\end{center}
 
-Our approach uses:
-
-\begin{itemize}
-\item \alert{Efficient experimental designs} to overcome issues related to \alert{exponential growth}, \alert{geometry}, and \alert{measurement time}
-\item \alert{Analysis of variance} to find \alert{relevant parameters}
-\item \alert{User input} to guide optimization
-\end{itemize}
-
-\vspace{2cm}
-\end{block}
-\end{column}
-\begin{column}{0.5\columnwidth}
-\begin{block}{Perspectives}
+\begin{center}
+\begin{center}
+\includegraphics[width=.7\linewidth]{../../../img/split_histograms.pdf}
+\end{center}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:orgbf4f5af}]{Conclusion}
+\begin{block}{Future Work}
 \begin{itemize}
 \item Explore \alert{tailored models} for each application
 \item Leverage \alert{user input} and \alert{analysis}
-\item Use our approach to \alert{autotune industrial-level FPGA applications}
+\item Apply our approach to:
+\begin{itemize}
+\item \alert{industrial-level FPGA applications}
+\item \alert{hardware/software codesign}
+\end{itemize}
 \end{itemize}
 \end{block}
-\end{column}
-\end{columns}
+\end{frame}
+
+\begin{frame}[label={sec:org9d75a62}]{Conclusion}
+\begin{block}{Takeway}
+\vspace{.2cm}
+
+\begin{center}
+\colorbox{Highlight}{\parbox[c]{0.8\textwidth}{\centering The   \alert{DoE   approach}   is
+    \alert{parsimonious},   \alert{transparent},   and   \alert{effective}   for
+    \alert{autotuning}}}
+\end{center}
+
+\begin{center}
+\colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
+\end{center}
+\end{block}
 \end{frame}
 
 \maketitle

@@ -1,13 +1,14 @@
 #+TITLE: Autotuning under Tight Budget Constraints:
 #+TITLE: @@latex: \\@@
 #+TITLE: A Design of Experiments Approach
-#+AUTHOR:    \footnotesize \alert{Pedro Bruel}, Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman
+#+AUTHOR: @@latex: \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},@@
+#+AUTHOR: @@latex: Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman@@
 #+EMAIL:     phrb@ime.usp.br
-#+DATE:      \scriptsize \today
+#+DATE:      @@latex: \scriptsize \textit{phrb@ime.usp.br} \\[1em] \textit{Universidade de São Paulo, Brazil} \\ \textit{Université Grenoble Alpes, France}@@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:2 num:t toc:t @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -38,8 +39,10 @@
 #+LATEX_HEADER: \usepackage{pgfplots}
 #+LATEX_HEADER: \usepgfplotslibrary{dateplot}
 #+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
 # #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
-#+LATEX_HEADER: \definecolor{Accent}{HTML}{790700}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{790700}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
 #+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
 #+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
 #+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
@@ -86,7 +89,7 @@
   :END:
   #+HEADER: :results output :exports none :eval no-export
   #+BEGIN_SRC emacs-lisp
-  (setq org-latex-pdf-process (list "latexmk -xelatex %f"))
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
   #+END_SRC
 
   #+RESULTS:
@@ -202,7 +205,7 @@
 
      - *Compile* time:
        - Industrial *FPGA* applications
-       - Hardware and software *co-design*
+       - *Hardware/software codesign*
      - *Execution* time:
        - *Benchmark* vs. *real applications*
 ** Autotuning: Multiple Approaches
@@ -240,6 +243,34 @@
 
      - *Design of Experiments* (*DoE*)
 * Design of Experiments
+** Design of Experiments: An Example on Agriculture
+*** Crop Yield Example                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+ATTR_LATEX: :width .99\columnwidth
+    [[../../../img/crop_yield_doe_example.pdf]]
+*** Testing *all combinations* is *inviable*                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.45
+    :END:
+**** Which combinations to test?                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides a *selection method*
+     - @@latex: \colorbox{Highlight}{\alert{Parsimony}: decreases experiments}@@
+
+**** Which is the best combination?                                 :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - DoE provides an *analysis method*
+     - @@latex: \colorbox{Highlight}{\alert{Transparency}: use statistical tests}@@
+
 ** Design of Experiments
 *** Factors, Levels, Experiments & Designs                    :B_block:BMCOL:
     :PROPERTIES:
@@ -253,7 +284,8 @@
     - *Levels*: possible factor *values*
     - *Experiment*: setting each factor to a level
     - *Design*: a *selection* of experiments to *run*
-    - *Performance Model*: guides *selection*
+    -
+      #+latex: \uncover<2>{\alert{Performance model}: guides selection}
 
 **** Analysis :B_block:
      :PROPERTIES:
@@ -262,161 +294,80 @@
 
     #+LATEX: \vspace{.2cm}
 
-     *Experiment results* can be used to:
+     The *designs* can be used to:
 
-     - Identify *relevant parameters*
-     - Fit a *regression model*
+     - *Identify* significant parameters
+     - *Investigate* possible models
+     - \dots
 
-*** Plackett-Burman                                                   :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.5
-    :END:
-
-    #+LATEX: \vspace{.4cm}
-    #+LATEX: \begin{center}
-
-    A *small design* for $7$ *2-level factors*:
-
-    #+LATEX: \end{center}
-
-    #+LATEX: \input{latex/plackett_burman.tex}
-
-** Applying Design of Experiments to Autotuning
-*** Our Approach                                              :B_block:BMCOL:
+*** Example                                                   :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.5
     :BEAMER_env: block
     :END:
 
-    #+LATEX: \vspace{.2cm}
+    #+LATEX: \vspace{-.2cm}
+    #+LATEX: \begin{center}
 
-    We are using:
+    A *minimal screening design* for $7$ *2-level factors*:
 
-    - *Efficient experimental designs* to overcome issues related to *exponential growth*, *geometry*, and *measurement time*
-    - *Analysis of variance* to find *relevant parameters*
+    #+LATEX: \end{center}
+    #+LATEX: \vspace{-.2cm}
+
+    #+LATEX: \input{latex/plackett_burman.tex}
+    #+LATEX: \vspace{-.2cm}
+
+    #+latex: \uncover<2>{$$response = \theta{} + \alpha{}A + \beta{}B + \gamma{}C + \dots$$}
+
+** Applying Design of Experiments to Autotuning
+*** Design Requirements                                       :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.45
+    :BEAMER_env: block
+    :END:
+
+    \vspace{.7em}
+    We need designs that:
+
+    - *Maximize* the amount of information, that is, the *quality of our estimates*
+    - Minimize function evaluations (*Measurement Time*)
+    - Support a large number of factors (*Exponential Growth*)
+    - Support numerical and categorical factors (*Geometry*)
+
+*** Our Approach                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :BEAMER_env: block
+    :END:
+    - *D-Optimal  designs*
+      - Minimize *variance* of *regression coefficient estimators*
+      - Supports different factor *types* and *numbers*
+    - *Linear model* and *analysis of variance* (*ANOVA*)
     - *User input* to guide optimization
+    - @@latex: \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}@@
 
 **** Validation                                                     :B_block:
      :PROPERTIES:
      :BEAMER_env: block
      :END:
-     - *Source code transformations*
-     - *GPU Laplacian* kernel
-     - HPC kernels from the *SPAPT benchmark*
+     - *Source code transformation*:
+       - *GPU Laplacian* kernel
+       - HPC kernels from the *SPAPT benchmark*
 
-*** Design Requirements                                       :B_block:BMCOL:
+** D-Optimal Designs: A Simple Example in R
+*** Search Space                                              :B_block:BMCOL:
     :PROPERTIES:
+    :BEAMER_env: block
     :BEAMER_col: 0.5
-    :BEAMER_env: block
     :END:
-     - Support a large number of factors (*Exponential Growth*)
-     - Support numerical and categorical factors (*Geometry*)
-     - Minimize function evaluations (*Measurement Time*)
-
-**** D-Optimal Designs :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-     - Minimize *variance* of *regression coefficient estimators*
-     - Supports different factor *types* and *numbers*
-
-** D-Optimal Designs: Example
-*** Example                                                   :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_col: 0.6
-    :END:
-    #+LATEX: % \(\mathbf{X} = \{x_1 = \{1, \dots, 5\}, x_2 = \{"A", "B", "C"\}\}\)
+    #+LATEX: % \(\mathbf{X} = \{x_1 = \{1, 2, 3, 4, 5\}, x_2 = \{"A", "B", "C"\}\}\)
     - Factors & Levels:
         #+LATEX: \begin{align*}
-        #+LATEX:     \mathbf{X} = (x_1 = & \; (1, \dots, 5), \\
+        #+LATEX:     \mathbf{X} = (x_1 = & \; (1, 2, 3, 4, 5), \\
         #+LATEX:                   x_2 = & \; (``A", ``B", ``C"))
         #+LATEX: \end{align*}
     - Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
 
-**** Source code                                                    :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-
-     #+LATEX: \vspace{-.2cm}
-
-     #+HEADER: :results output :session *R* :exports code
-     #+BEGIN_SRC R
-     library(AlgDesign)
-
-     full_factorial <- gen.factorial(c(5, 3),
-                           factors = c(2))
-
-     output <- optFederov(~ .,
-                          full_factorial,
-                          nTrials = 5)
-     #+END_SRC
-
-     #+RESULTS:
-
-*** Output                                                    :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_col: 0.4
-    :END:
-
-    #+LATEX: \vspace{-.2cm}
-    #+LATEX: \scriptsize
-
-    #+HEADER: :results output :session *R* :exports results
-    #+BEGIN_SRC R
-     output$design = t(output$design)
-     output
-    #+END_SRC
-
-    #+RESULTS:
-    #+begin_example
-    $D
-    [1] 0.5656854
-
-    $A
-    [1] 3.90625
-
-    $Ge
-    [1] 0.512
-
-    $Dea
-    [1] 0.386
-
-    $design
-        1    5    7    11   15
-    x_1 "-2" " 2" "-1" "-2" " 2"
-    x_2 "1"  "1"  "2"  "3"  "3"
-
-    $rows
-    [1]  1  5  7 11 15
-    #+end_example
-
-
-    #+LATEX: \normalsize
-** Design Efficiency
-*** Linear Regression Model                                   :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_col: 0.5
-    :END:
-
-    #+LATEX: \vspace{.2cm}
-
-    The *linear regression model*:
-    #+BEGIN_CENTER latex
-    $y = \beta_{0} + \beta_{1}x_{1} + \dots + \beta_{k}x_{k} + \epsilon$
-    #+END_CENTER
-    We want to *estimate* $\beta_{0,\dots,k}$:
-
-    - Using $n > k$ *observations* $y_{1,\dots,n}$
-    - *Distinct* $x_{i1,\dots,ik}, \; i = 1,\dots,n$
-
-    *Experiments* represented by:
-    #+BEGIN_CENTER latex
-    $y_{i} = \beta_{0} + \beta_{1}x_{i1} + \dots + \beta_{k}x_{ik} + \epsilon_{i}$
-    #+END_CENTER
 *** Ordinary Least Squares Estimator $\bm{\hat{\beta}}$           :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_env: block
@@ -428,18 +379,90 @@
     \end{equation*}
     #+END_CENTER
 
-    The *variance* of $\bm{\hat{\beta}}$ is proportional to
-    the *covariance matrix* $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$
+  #+begin_export latex
+  \begin{center}
+  \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering The \alert{variance} of $\bm{\hat{\beta}}$ is proportional to \\
+      the \alert{covariance matrix} $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+  \end{center}
+  #+end_export
 
-**** Design Criteria using $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$
-     - *D*: *determinant*, minimizes generalized variance of $\bm{\hat{\beta}}$
-     - *A*: *trace*, average variance of $\bm{\hat{\beta}}$
+** D-Optimal Designs: A Simple Example in R
+*** Source code in =R=                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.7
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+
+    #+HEADER: :results output :session *R* :exports code
+    #+BEGIN_SRC R
+    library(DoE.base)
+    library(AlgDesign)
+
+    samples <- fac.design(nfactors = 2,
+                          nlevels = c(5, 3),
+                          factor.names = list(x1 = 1:5,
+                                              x2 = c("A", "B", "C")))
+
+    output <- optFederov(~ x1 + x2,
+                         samples,
+                         nTrials = 7)
+    #+END_SRC
+
+    #+RESULTS:
+    :
+    : creating full factorial with 15 runs ...
+
+**** Optimality Criteria                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+      - *D*: *determinant*, minimizes generalized variance of $\bm{\hat{\beta}}$
+      - *A*: *trace*, average variance of $\bm{\hat{\beta}}$
+      - \dots
+
+
+*** Output                                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.3
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+    #+LATEX: \scriptsize
+
+    #+HEADER: :results output :session *R* :exports results
+    #+BEGIN_SRC R
+    output[c("D", "design")]
+    #+END_SRC
+
+    #+RESULTS:
+    #+begin_example
+    $D
+    [1] 0.1797856
+
+    $design
+       x1 x2
+    1   1  B
+    3   2  A
+    4   3  A
+    7   5  B
+    9   4  B
+    12  1  A
+    15  3  C
+    #+end_example
+
+
+    #+LATEX: \normalsize
+
 ** Comparing Sampling Strategies
    #+BEGIN_CENTER
    #+ATTR_LATEX: :width .72\textwidth
    [[../../../img/sampling_comparison.pdf]]
    #+END_CENTER
-* Our Approach
+* A Transparent and Parsimonious DoE Approach to Autotuning
 ** A Design of Experiments Approach to Autotuning
    #+BEGIN_CENTER
    #+ATTR_LATEX: :width .74\linewidth
@@ -450,7 +473,7 @@
    #+END_CENTER
 * Results on a GPU Laplacian Kernel
 ** GPU Laplacian Kernel: A Motivating Example
-*** The Search Problem                                        :B_block:BMCOL:
+*** Search Problem                                            :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.5
     :BEAMER_env: block
@@ -459,7 +482,6 @@
     - Relatively *small valid search space*
     - *Completely evaluated*
     - Known *global optimum*
-    - Known *model approximation*
     - *Budget* of *125 points*
 
 *** Initial Model                                             :B_block:BMCOL:
@@ -478,7 +500,10 @@
     #+LATEX: \end{align*}
     #+LATEX: \normalsize
 
-*** Results
+*** Results                                                 :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
     #+HEADER: :file ../../../img/comparison_histogram.pdf :width 7 :height 8
     #+BEGIN_SRC R :results output graphics :exports none :session *R* :eval no-export
     library(ggplot2)
@@ -522,54 +547,48 @@
 
     #+LATEX: \vspace{-.3cm}
 
+    #+begin_export latex
+    \uncover<2>{
+    \begin{center}
+      \colorbox{Highlight}{\parbox[c]{0.72\textwidth}{\centering We were  \alert{always close to
+            the optimum} and used \alert{half of the budget}}}
+    \end{center}
+    }
+    #+end_export
+
+    #+LATEX: \vspace{-.3cm}
+
     #+BEGIN_CENTER
     #+ATTR_LATEX: :width .88\columnwidth
     #+ATTR_ORG: :width 400
     [[../../../img/comparison_histogram.pdf]]
     #+END_CENTER
-
-** GPU Laplacian Kernel: A Motivating Example
-*** Points used by Applications                                       :BMCOL:
+* Results on the SPAPT Benchmark
+** SPAPT: Search Problems in Automatic Performance Tuning
+*** Search Problem                                            :B_block:BMCOL:
     :PROPERTIES:
-    :BEAMER_col: 0.5
-    :END:
-    #+BEGIN_EXPORT latex
-    \begin{table}[ht]
-    \centering
-    \begingroup\small
-    \begin{tabular}{lrr}
-      \hline
-      & Mean & Max \\
-      \hline
-      RS & 120.00 & 125.00 \\
-      LHS & 98.92 & 125.00 \\
-      GS & 22.17 & 106.00 \\
-      GSR & 120.00 & 120.00 \\
-      GA & 120.00 & 120.00 \\
-      LM & 119.00 & 119.00 \\
-      DLMT & 54.84 & 56.00 \\
-        \hline
-    \end{tabular}
-    \endgroup
-    \caption{Points used by applications}
-    \end{table}
-    #+END_EXPORT
-
-*** Summary                                                   :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.5
+    :BEAMER_col: 0.41
     :BEAMER_env: block
     :END:
 
-    #+LATEX: \vspace{.2cm}
+    - *Orio*:
+      - *Source code transformations*
+      - brnorris03.github.io/Orio
+    - *Baseline*: =gcc -O3=, no transformations
+    - *Random sampling* (*RS*) vs. *D-Optimal* approach (*DLMT*)
+    - *10 repetitions*: measure *speedup* and *time-to-solution*
+    - Out of *16 kernels*:
+      - 3 with *no impact*
+      - 6 with *similar performance gain*
+      - @@latex: \colorbox{Highlight}{7 with \alert{similar gain found faster}}@@
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.59
+    :END:
 
-    Our approach:
+    #+latex: \vspace{-0.4cm}
 
-    - Was *always close to the optimum*
-    - Used *half of the budget*
-
-* Results on the SPAPT Benchmark
-** SPAPT: Search Problems in Automatic Performance Tuning
     #+BEGIN_CENTER
     #+ATTR_LATEX: :booktabs t :align llll :font \scriptsize :float t :placement [t]
     #+NAME: tab:spapt_apps
@@ -597,58 +616,48 @@
     #+LATEX: \scriptsize{Balaprakash P, Wild SM, Norris B. SPAPT: Search problems in automatic performance tuning. Procedia Comp. Sci. 2012 Jan 1;9:1959-68.}
     #+END_CENTER
 
-** SPAPT: Preliminary Results
-    #+BEGIN_CENTER
-    #+ATTR_LATEX: :width .86\linewidth
-    [[../../../img/iteration_best_comparison.pdf]]
-    #+END_CENTER
-** SPAPT: Preliminary Results
-    #+BEGIN_CENTER
-    #+ATTR_LATEX: :width .89\linewidth
-    [[../../../img/split_histograms.pdf]]
-    #+END_CENTER
-** SPAPT: Summary
-*** Experimental Settings                                     :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_col: 0.5
-    :END:
-    - Using the *same model for all applications*
-    - Fixed *number of iterations*
-    - *Automated approach*
+** SPAPT: Search Problems in Automatic Performance Tuning
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .7\linewidth
+   [[../../../img/iteration_best_comparison.pdf]]
+   #+END_CENTER
 
-*** Summary                                                   :B_block:BMCOL:
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .7\linewidth
+   [[../../../img/split_histograms.pdf]]
+   #+END_CENTER
+** Conclusion
+*** Future Work                                                     :B_block:
     :PROPERTIES:
     :BEAMER_env: block
-    :BEAMER_col: 0.5
     :END:
-    - Performance *similar to random sampling*
-    - Using *less points*
+    - Explore *tailored models* for each application
+    - Leverage *user input* and *analysis*
+    - Apply our approach to:
+      - *industrial-level FPGA applications*
+      - *hardware/software codesign*
 
 ** Conclusion
-*** Summary                                                   :B_block:BMCOL:
+*** Takeway                                                         :B_block:
     :PROPERTIES:
-    :BEAMER_col: 0.5
     :BEAMER_env: block
     :END:
 
     #+LATEX: \vspace{.2cm}
 
-    Our approach uses:
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.8\textwidth}{\centering The   \alert{DoE   approach}   is
+        \alert{parsimonious},   \alert{transparent},   and   \alert{effective}   for
+        \alert{autotuning}}}
+    \end{center}
+    #+end_export
 
-    - *Efficient experimental designs* to overcome issues related to *exponential growth*, *geometry*, and *measurement time*
-    - *Analysis of variance* to find *relevant parameters*
-    - *User input* to guide optimization
-
-    #+LATEX: \vspace{2cm}
-*** Perspectives                                              :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.5
-    :BEAMER_env: block
-    :END:
-    - Explore *tailored models* for each application
-    - Leverage *user input* and *analysis*
-    - Use our approach to *autotune industrial-level FPGA applications*
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
+    \end{center}
+    #+end_export
 
 * Ending Title :B_ignoreheading:
   :PROPERTIES:

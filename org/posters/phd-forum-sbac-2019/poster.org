@@ -357,7 +357,7 @@
      #+RESULTS:
      [[file:../../../img/iteration_best_comparison.pdf]]
 *** Search Space
-#+begin_SRC R :results output :session *R*
+#+begin_SRC R :results output :session *R* :exports none :eval no-export
 library(dplyr)
 library(tidyr)
 
@@ -385,7 +385,7 @@ str(new_plot_data)
 :  $ RT_I            : int  4 8 2 2 8 2 8 16 8 8 ...
 :  $ averaged_effects: num  0.781 0.74 0.788 0.768 0.789 ...
 
-#+begin_SRC R :results graphics output :session *R* :file ../../../img/bicgkernel_averaged_search_space.pdf :width 10 :height 10
+#+begin_SRC R :results graphics output :session *R* :file ../../../img/bicgkernel_averaged_search_space.pdf :width 10 :height 10 :exports none :eval no-export
 library(lattice)
 library(akima)
 library(RColorBrewer)
@@ -778,7 +778,7 @@ Our approach (*DLMT*) was always *within 1% of the optimum*
 :END:
 **** Column A                                                      :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.9
+:BEAMER_col: 0.93
 :END:
 #+begin_export latex
 \begin{flushleft}
@@ -793,8 +793,11 @@ Our approach (*DLMT*) was always *within 1% of the optimum*
 #+end_export
 **** Column B                                                      :BMCOL:
 :PROPERTIES:
-:BEAMER_col: 0.1
+:BEAMER_col: 0.07
 :END:
+#+LATEX: \vspace{1em}
+#+ATTR_LATEX: :width .7\columnwidth :placement [t]
+[[../../../img/sbacpad19_poster_qrcode.pdf]]
 
 ** Margin Column                                                      :BMCOL:
 :PROPERTIES:

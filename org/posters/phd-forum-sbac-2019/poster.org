@@ -796,7 +796,7 @@ Our approach (*DLMT*) was always *within 1% of the optimum*
 :BEAMER_col: 0.07
 :END:
 #+LATEX: \vspace{1em}
-#+ATTR_LATEX: :width .7\columnwidth :placement [t]
+#+ATTR_LATEX: :width .8\columnwidth :placement [t]
 [[../../../img/sbacpad19_poster_qrcode.pdf]]
 
 ** Margin Column                                                      :BMCOL:

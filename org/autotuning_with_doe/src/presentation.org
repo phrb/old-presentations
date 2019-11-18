@@ -1114,7 +1114,6 @@
     - *Multiple objectives*
     - *Search with meta-heuristics*:
       - *Unstructured data difficults analysis*
-      - We are working on *obtaining more data*
 *** Data                                                              :BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.6

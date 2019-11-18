@@ -1,4 +1,4 @@
-% Created 2019-11-18 Mon 13:23
+% Created 2019-11-18 Mon 13:54
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -77,8 +77,8 @@ tabsize=2,
 \maketitle
 
 \section{Autotuning}
-\label{sec:org3b078b5}
-\begin{frame}[label={sec:orgaa600d4},fragile]{Autotuning: Optimizing Program Configurations}
+\label{sec:orgd9e8cb2}
+\begin{frame}[label={sec:org42c2b6f},fragile]{Autotuning: Optimizing Program Configurations}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -129,7 +129,7 @@ optimizes an \alert{objective}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org38c2757}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:orge46b803}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -157,7 +157,7 @@ Unrolling, tiling and performance for a biconjugate gradient kernel
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org92b132d}]{Autotuning: Exploring Search Spaces}
+\begin{frame}[label={sec:org0b58b8b}]{Autotuning: Exploring Search Spaces}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Issue 1: \alert{Exponential Growth}}
@@ -198,7 +198,7 @@ Simple factors can generate large spaces:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org5fc6c76}]{Autotuning: Multiple Approaches}
+\begin{frame}[label={sec:org5112a02}]{Autotuning: Multiple Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Popular Approaches}
@@ -241,8 +241,8 @@ Simple factors can generate large spaces:
 \end{columns}
 \end{frame}
 \section{Experimental Design}
-\label{sec:org0ad0ef9}
-\begin{frame}[label={sec:org77d40f6}]{Experimental Design: An Example on Agriculture}
+\label{sec:org11e6c2f}
+\begin{frame}[label={sec:orged55c6a}]{Experimental Design: An Example on Agriculture}
 \begin{columns}
 \begin{column}{0.55\columnwidth}
 \begin{center}
@@ -269,7 +269,7 @@ Simple factors can generate large spaces:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgdc02b4a}]{Experimental Design}
+\begin{frame}[label={sec:orgdda44be}]{Experimental Design}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Factors, Levels, Experiments \& Designs}
@@ -316,7 +316,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgab61f3c}]{Applying Experimental Design to Autotuning}
+\begin{frame}[label={sec:org1b55223}]{Applying Experimental Design to Autotuning}
 \begin{columns}
 \begin{column}{0.45\columnwidth}
 \begin{block}{Design Requirements}
@@ -359,7 +359,7 @@ We need designs that:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org6f9afef}]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:orgf708c13}]{D-Optimal Designs: A Simple Example in R}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Space}
@@ -393,7 +393,7 @@ x_2 = & \; (``A", ``B", ``C"))
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgcb0a758},fragile]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:orgd99a151},fragile]{D-Optimal Designs: A Simple Example in R}
  \begin{columns}
 \begin{column}{0.7\columnwidth}
 \begin{block}{Source code in \texttt{R}}
@@ -436,13 +436,13 @@ $D
 
 $design
    x1 x2
-2   4  A
-3   1  C
-4   3  B
-7   2  C
-9   1  B
-10  5  C
-15  1  A
+1   1  B
+2   2  A
+5   5  C
+12  2  C
+13  3  B
+14  1  A
+15  4  B
 \end{verbatim}
 
 
@@ -452,7 +452,7 @@ $design
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org22b3519}]{Comparing Sampling Strategies}
+\begin{frame}[label={sec:orgad96040}]{Comparing Sampling Strategies}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\textwidth]{../../../img/sampling_comparison.pdf}
@@ -460,8 +460,8 @@ $design
 \end{center}
 \end{frame}
 \section{Case Study: HLS for FPGAs}
-\label{sec:org51b04e1}
-\begin{frame}[label={sec:org5e9208a}]{An Example Using Meta-Heuristics: HLS for FPGAs}
+\label{sec:org2ebde64}
+\begin{frame}[label={sec:org2f5dbf4}]{An Example Using Meta-Heuristics: HLS for FPGAs}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Autotuning HLS for FPGAs}
@@ -487,7 +487,7 @@ $design
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org64ca342}]{Results: Targeting Performance}
+\begin{frame}[label={sec:orgd558307}]{Results: Targeting Performance}
 \begin{columns}
 \begin{column}{0.2\columnwidth}
 \begin{block}{Metric Weights}
@@ -522,8 +522,8 @@ $design
 \end{frame}
 
 \section{A Transparent and Parsimonious ED Approach to Autotuning}
-\label{sec:orgfd12ccc}
-\begin{frame}[label={sec:org7a73121}]{A Experimental Design Approach to Autotuning}
+\label{sec:org05bc227}
+\begin{frame}[label={sec:orgd0b7446}]{A Experimental Design Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.74\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -537,8 +537,8 @@ $design
 \end{center}
 \end{frame}
 \section{Results on a GPU Laplacian Kernel}
-\label{sec:orgb6d15ed}
-\begin{frame}[label={sec:orgf635a11}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:org8e4310a}
+\begin{frame}[label={sec:orgb057a10}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Problem}
@@ -584,8 +584,8 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \end{center}
 \end{frame}
 \section{Results on the SPAPT Benchmark}
-\label{sec:org8ded37a}
-\begin{frame}[label={sec:org12394cf},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+\label{sec:org33c86c1}
+\begin{frame}[label={sec:org28b9dfd},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
  \begin{columns}
 \begin{column}{0.41\columnwidth}
 \begin{block}{Search Problem}
@@ -609,7 +609,7 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 
 \begin{center}
 \begin{table}[t]
-\label{tab:orgd3d08cc}
+\label{tab:orgaa689d6}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -643,28 +643,28 @@ Kernel & Operation & Factors & Size\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgb5843cf}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org835dbf3}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org5949c24}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:orgdf056bd}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgf348846},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
+\begin{frame}[label={sec:org345a8a0},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
  \begin{center}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../../img/updated_bicgkernel_I.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org7650964},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
+\begin{frame}[label={sec:orgc3c9b25},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
  \begin{center}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../../img/updated_bicgkernel.pdf}
@@ -672,8 +672,8 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 \section{Next Steps}
-\label{sec:orgb19d1da}
-\begin{frame}[label={sec:org43c0d72}]{Next Steps: December/January at Hewlett Packard Labs}
+\label{sec:org29139e5}
+\begin{frame}[label={sec:org9a1a268}]{Next Steps: December/January at Hewlett Packard Labs}
 \begin{block}{Apply Experimental Design methods on:}
 \begin{itemize}
 \item Design space exploration for \alert{quantization} on DNN layers
@@ -682,7 +682,7 @@ Kernel & Operation & Factors & Size\\
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org5949031}]{Quantization on DNN Layers}
+\begin{frame}[label={sec:orgda93fb4}]{Quantization on DNN Layers}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../../img/haq_quantization.png}
 \end{center}
@@ -692,7 +692,7 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org13f0e1f}]{Quantization on DNN Layers}
+\begin{frame}[label={sec:orgfe9ecf5}]{Quantization on DNN Layers}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../../img/haq_quantization_II.png}
 \end{center}
@@ -702,7 +702,7 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org7dbbcf9}]{Neural Architecture Search}
+\begin{frame}[label={sec:orgb3bdfe1}]{Neural Architecture Search}
 \begin{center}
 \includegraphics[width=.9\columnwidth]{../../../img/proxylessnas_III.png}
 \end{center}
@@ -712,7 +712,7 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:org341512a}]{Neural Architecture Search}
+\begin{frame}[label={sec:org0ed9d8d}]{Neural Architecture Search}
 \begin{center}
 \includegraphics[width=.85\columnwidth]{../../../img/proxylessnas.png}
 \end{center}
@@ -722,7 +722,7 @@ Kernel & Operation & Factors & Size\\
 \end{center}
 \end{frame}
 
-\begin{frame}[label={sec:orgdad18e1}]{Neural Architecture Search}
+\begin{frame}[label={sec:org040e059}]{Neural Architecture Search}
 \begin{center}
 \includegraphics[width=.75\columnwidth]{../../../img/proxylessnas_II.png}
 \end{center}

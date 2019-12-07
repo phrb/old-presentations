@@ -293,7 +293,7 @@
      :END:
      - Identifying *significant factors*
      - Investigating possible *models*
-     - Finding candidates for *further experimentation*
+     - Finding *candidates* for further exploration
 
 *** Example                                                   :B_block:BMCOL:
     :PROPERTIES:
@@ -330,13 +330,13 @@
     :BEAMER_col: 0.55
     :BEAMER_env: block
     :END:
+    - @@latex: \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}@@
     - D-Optimal designs
       - Flexible
       - Minimize variance of coefficient estimators
       - Support different factor types
     - Linear model and analysis of variance (ANOVA)
     - User input to guide optimization
-    - @@latex: \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}@@
 
 **** Validation                                                     :B_block:
      :PROPERTIES:
@@ -374,8 +374,14 @@
 
   #+begin_export latex
   \begin{center}
-  \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering The \alert{variance} of $\bm{\hat{\beta}}$ is proportional to \\
-      the \alert{covariance matrix} $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+  \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering   The  variance   of
+      $\bm{\hat{\beta}}$  is  \alert{proportional}  to \\  the  covariance  matrix
+      $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+
+  \pause
+
+  \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering   We   can   improve
+      $\bm{\hat{\beta}}$ \\ \alert{without knowledge} of $\bm{Y}$}}
   \end{center}
   #+end_export
 
@@ -407,13 +413,12 @@
     :
     : creating full factorial with 15 runs ...
 
-**** Optimality Criteria                                            :B_block:
+**** Optimality Criteria on $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$  :B_block:
      :PROPERTIES:
      :BEAMER_env: block
      :END:
-
-      - *D* (determinant): minimizes generalized variance of $\bm{\hat{\beta}}$
-      - *A* (trace): average variance of $\bm{\hat{\beta}}$
+      - *D*: minimizes the determinant
+      - *A*: minimizes the trace
       - \dots
 
 
@@ -455,7 +460,7 @@
    #+ATTR_LATEX: :width .72\textwidth
    [[../../../img/sampling_comparison.pdf]]
    #+END_CENTER
-* Case Study: HLS for FPGAs
+* Case Study: HLS for FPGAs                                        :noexport:
 ** An Example Using Meta-Heuristics: HLS for FPGAs
 *** Autotuning HLS for FPGAs
     :PROPERTIES:
@@ -682,25 +687,174 @@
    #+ATTR_LATEX: :width \linewidth
    [[../../../img/split_histograms.pdf]]
    #+END_CENTER
-** SPAPT: Optimizing =bicgkernel=
-   #+BEGIN_CENTER
-   #+ATTR_LATEX: :width .7\columnwidth
-   [[../../../img/updated_bicgkernel_I.pdf]]
-   #+END_CENTER
-** SPAPT: Optimizing =bicgkernel=
-   #+BEGIN_CENTER
-   #+ATTR_LATEX: :width .7\columnwidth
-   [[../../../img/updated_bicgkernel.pdf]]
-   #+END_CENTER
+** SPAPT: Looking for Structure in /bicgkernel/
+*** ED Methods for /bicgkernel/                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    *Consistently* fixes parameters and levels:
+    - Quickly identifies *global* structure
+    - Restricts to better sub-regions
+
+    Further exploration:
+    - Certain effects ``mask'' others
+    - Improving starting model:
+      - Cubic terms were not significant
+*** Figure
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/bicgkernel_factors.pdf]]
+    #+LATEX: }
+    #+LATEX: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/bicgkernel_updated.pdf]]
+    #+LATEX: }
+** Conclusion
+*** Conclusion: Laplacian and SPAPT Experiments                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Exploiting   global   search   space   structure   helps   finding   good
+      configurations fast
+    - The ED approach is parsimonious, transparent, and can be effective for autotuning
+    - TODO: Improve
+
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
+    \end{center}
+    #+end_export
+
+** Gaussian Process Regression
+*** Experimental Design Approach                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - @@latex: \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}@@
+    - *Gaussian Process Regression*
+    - Low-discrepancy sampling
+    - User input to guide optimization
+**** Gaussian Process Regression
+     - *Nonparametric*
+     - Samples *functions*
+     - *Conditions* multivariate normal probability distributions to *observed data*
+*** Illustration                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/multivariate_normal_sample.pdf]]
+
+    #+begin_export latex
+    \center{\small
+    A multivariate distribution
+    }
+    #+end_export
+** Gaussian Process Regression
+   #+ATTR_LATEX: :width .95\columnwidth
+   #+ATTR_ORG: :width 400
+   [[../../../img/rasmussen_prior_posterior.pdf]]
+
+   #+begin_export latex
+   \center{\small
+   Rasmussen \& Williams, Gaussian Processes  for Machine Learning
+   }
+   #+end_export
+** Gaussian Process Regression
+*** Original                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Original \textit{bicgkernel} subspace, \alert{180 experiments}
+    }
+    #+end_export
+*** Predicted                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \only<1>{
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space_5_pred.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Predicted by a Gaussian Process using \alert{5 experiments}
+    }
+    #+end_export
+    #+LATEX: }
+
+    #+LATEX: \only<2>{
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space_10_pred.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Predicted by a Gaussian Process using \alert{10 experiments}
+    }
+    #+end_export
+    #+LATEX: }
+
+    #+LATEX: \only<3>{
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space_20_pred.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Predicted by a Gaussian Process using \alert{20 experiments}
+    }
+    #+end_export
+    #+LATEX: }
+
+    #+LATEX: \only<4>{
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space_50_pred.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Predicted by a Gaussian Process using \alert{50 experiments}
+    }
+    #+end_export
+    #+LATEX: }
+
+    #+LATEX: \only<5>{
+    #+ATTR_LATEX: :width .95\columnwidth
+    #+ATTR_ORG: :width 400
+    [[../../../img/bicgkernel_averaged_search_space_100_pred.pdf]]
+
+    #+begin_export latex
+    \center{\footnotesize
+    Predicted by a Gaussian Process using \alert{100 experiments}
+    }
+    #+end_export
+    #+LATEX: }
+** Gaussian Process Regression on /bicgkernel/
+   - TODO Figure: Most recent *performance measurements*
 * Next Steps
-** Next Steps: Two months at Hewlett Packard Labs
+** Next Steps
 *** Apply Experimental Design methods on:                         :B_block:
     :PROPERTIES:
     :BEAMER_env: block
     :END:
     - Design space exploration for *quantization* on DNN layers
     - Neural Architecture Search (*NAS*) on CPUs and GPUs
-** Quantization on DNN Layers
+    - TODO: Improve, add other next steps
+** Quantization on DNN Layers                                      :noexport:
    #+ATTR_LATEX: :width \columnwidth
    #+ATTR_ORG: :width 600
    [[../../../img/haq_quantization.png]]
@@ -711,7 +865,7 @@
    \end{center}
    #+end_export
 
-** Quantization on DNN Layers
+** Quantization on DNN Layers                                      :noexport:
    #+ATTR_LATEX: :width .7\columnwidth
    #+ATTR_ORG: :width 600
    [[../../../img/haq_quantization_II.png]]
@@ -722,7 +876,7 @@
    \end{center}
    #+end_export
 
-** Neural Architecture Search
+** Neural Architecture Search                                      :noexport:
    #+ATTR_LATEX: :width .9\columnwidth
    #+ATTR_ORG: :width 600
    [[../../../img/proxylessnas_III.png]]
@@ -733,7 +887,7 @@
    \end{center}
    #+end_export
 
-** Neural Architecture Search
+** Neural Architecture Search                                      :noexport:
    #+ATTR_LATEX: :width .85\columnwidth
    #+ATTR_ORG: :width 600
    [[../../../img/proxylessnas.png]]
@@ -744,7 +898,7 @@
    \end{center}
    #+end_export
 
-** Neural Architecture Search
+** Neural Architecture Search                                      :noexport:
    #+ATTR_LATEX: :width .75\columnwidth
    #+ATTR_ORG: :width 600
    [[../../../img/proxylessnas_II.png]]

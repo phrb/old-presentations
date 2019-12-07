@@ -1,4 +1,4 @@
-% Created 2019-12-04 Wed 17:10
+% Created 2019-12-07 Sat 15:27
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -78,8 +78,8 @@ tabsize=2,
 \maketitle
 
 \section{Autotuning}
-\label{sec:org43a8f42}
-\begin{frame}[label={sec:orgb80100e}]{Autotuning: Optimizing Program Configurations}
+\label{sec:org0850821}
+\begin{frame}[label={sec:orgab172d6}]{Autotuning: Optimizing Program Configurations}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -128,7 +128,7 @@ that optimizes an \mbox{\alert{objective}}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org40fb639}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org5023ef1}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -156,7 +156,7 @@ Unrolling, tiling and performance for a \alert{biconjugate gradient} kernel
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org850d0ae}]{Autotuning: High-Dimensional Search Spaces}
+\begin{frame}[label={sec:org0ee62f9}]{Autotuning: High-Dimensional Search Spaces}
 \begin{block}{1. \alert{Combinatorial Explosion \& Sampling}}
 \begin{itemize}
 \item 10 boolean parameters generate \(2^{10}\) combinations
@@ -198,7 +198,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org63fe464}]{Autotuning: Approaches}
+\begin{frame}[label={sec:orgd9d8f49}]{Autotuning: Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Several Approaches}
@@ -239,8 +239,8 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 \section{Experimental Design}
-\label{sec:org659d508}
-\begin{frame}[label={sec:orga0e1381}]{Experimental Design: An Example on Agriculture}
+\label{sec:orgd8090b6}
+\begin{frame}[label={sec:orgac8637c}]{Experimental Design: An Example on Agriculture}
 \begin{columns}
 \begin{column}{0.55\columnwidth}
 \begin{center}
@@ -267,7 +267,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org95f56c5}]{Experimental Design}
+\begin{frame}[label={sec:orgddae9b9}]{Experimental Design}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Terminology}
@@ -283,7 +283,7 @@ spacing \(10^{-2}\)
 \begin{itemize}
 \item Identifying \alert{significant factors}
 \item Investigating possible \alert{models}
-\item Finding candidates for \alert{further experimentation}
+\item Finding \alert{candidates} for further exploration
 \end{itemize}
 \end{block}
 \end{block}
@@ -308,7 +308,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org8d35656}]{Applying Experimental Design to Autotuning}
+\begin{frame}[label={sec:orgd9cf538}]{Applying Experimental Design to Autotuning}
 \begin{columns}
 \begin{column}{0.45\columnwidth}
 \begin{block}{Design Requirements}
@@ -324,6 +324,7 @@ A minimal screening design for \(7\) 2-level factors:
 \begin{column}{0.55\columnwidth}
 \begin{block}{Initial Experimental Design Approach}
 \begin{itemize}
+\item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
 \item D-Optimal designs
 \begin{itemize}
 \item Flexible
@@ -332,7 +333,6 @@ A minimal screening design for \(7\) 2-level factors:
 \end{itemize}
 \item Linear model and analysis of variance (ANOVA)
 \item User input to guide optimization
-\item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
 \end{itemize}
 
 \begin{block}{Validation}
@@ -349,7 +349,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orge4b90a0}]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:orgc7319a4}]{D-Optimal Designs: A Simple Example in R}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Space}
@@ -375,15 +375,21 @@ x_2 = & \; (``A", ``B", ``C"))
 \end{center}
 
 \begin{center}
-\colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering The \alert{variance} of $\bm{\hat{\beta}}$ is proportional to \\
-    the \alert{covariance matrix} $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+\colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering   The  variance   of
+    $\bm{\hat{\beta}}$  is  \alert{proportional}  to \\  the  covariance  matrix
+    $\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}$}}
+
+\pause
+
+\colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering   We   can   improve
+    $\bm{\hat{\beta}}$ \\ \alert{without knowledge} of $\bm{Y}$}}
 \end{center}
 \end{block}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org757a939},fragile]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:org5d28bbe},fragile]{D-Optimal Designs: A Simple Example in R}
  \begin{columns}
 \begin{column}{0.7\columnwidth}
 \begin{block}{Source code in \texttt{R}}
@@ -404,10 +410,10 @@ output <- optFederov(~ x1 + x2,
                      nTrials = 7)
 \end{lstlisting}
 
-\begin{block}{Optimality Criteria}
+\begin{block}{Optimality Criteria on \(\left(\bm{X}^{\intercal}\bm{X}\right)^{-1}\)}
 \begin{itemize}
-\item \alert{D} (determinant): minimizes generalized variance of \(\bm{\hat{\beta}}\)
-\item \alert{A} (trace): average variance of \(\bm{\hat{\beta}}\)
+\item \alert{D}: minimizes the determinant
+\item \alert{A}: minimizes the trace
 \item \dots{}
 \end{itemize}
 \end{block}
@@ -421,18 +427,18 @@ output <- optFederov(~ x1 + x2,
 \scriptsize
 
 \begin{verbatim}
-$D
+I% $D
 [1] 0.1797856
 
 $design
    x1 x2
-1   1  C
-2   1  A
+1   5  B
 3   5  A
-5   3  B
-6   3  A
-12  2  A
-14  4  B
+4   1  B
+5   2  C
+7   5  C
+10  4  A
+13  3  A
 \end{verbatim}
 
 
@@ -442,78 +448,16 @@ $design
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org3486c76}]{Comparing Sampling Strategies}
+\begin{frame}[label={sec:orgc5ba8cc}]{Comparing Sampling Strategies}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\textwidth]{../../../img/sampling_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\section{Case Study: HLS for FPGAs}
-\label{sec:orgead503d}
-\begin{frame}[label={sec:orgd26ffeb}]{An Example Using Meta-Heuristics: HLS for FPGAs}
-\begin{columns}
-\begin{column}{0.4\columnwidth}
-\begin{block}{Autotuning HLS for FPGAs}
-\begin{itemize}
-\item CHStone benchmark
-\item 141 factors, most with multiple levels
-\item \alert{\(10^{128}\)} combinations
-\item \alert{1\textasciitilde{}10min} to measure
-\item \alert{Multiple objectives}
-\item Search with meta-heuristics:
-\begin{itemize}
-\item Unstructured data hinders analysis
-\end{itemize}
-\end{itemize}
-\end{block}
-\end{column}
-\begin{column}{0.6\columnwidth}
-\begin{block}{Coverage of the Design Space}
-\begin{center}
-\includegraphics[width=.85\columnwidth]{../../../img/fpga_space.png}
-\end{center}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-\begin{frame}[label={sec:org41d897b}]{Results: Targeting Performance}
-\begin{columns}
-\begin{column}{0.2\columnwidth}
-\begin{block}{Metric Weights}
-\begin{table}[htpb]
-  \scriptsize
-  \centering
-  \begin{tabular}{@{}lcccc@{}}
-    \toprule
-    Metric & \textit{Performance} \\ \midrule
-    \textit{LUT} & \cellcolor[HTML]{DD9583} Low \\
-    \textit{Registers} & \cellcolor[HTML]{E3DBB3} Medium \\
-    \textit{BRAMs} & \cellcolor[HTML]{DD9583} Low \\
-    \textit{DSPs} & \cellcolor[HTML]{DD9583} Low \\
-    \textit{FMax} & \cellcolor[HTML]{9B94B6} High \\
-    \textit{Cycles} & \cellcolor[HTML]{DD9583} Low \\ \bottomrule
-  \end{tabular}
-\end{table}
-\end{block}
-\end{column}
-\begin{column}{0.8\columnwidth}
-\begin{block}{Improvements after 1.5h of Autotuning}
-\begin{center}
-\includegraphics[width=.9\linewidth]{../../../img/heatmap_default_stratixV_perf-eps-converted-to.pdf}
-\end{center}
-
-\begin{center}
-\scriptsize{Autotuning high-level synthesis for \\ FPGAs using OpenTuner and LegUp (ReConFig 2017)}
-\end{center}
-\end{block}
-\end{column}
-\end{columns}
-\end{frame}
-
 \section{A Transparent and Parsimonious ED Approach to Autotuning}
-\label{sec:org6a976d1}
-\begin{frame}[label={sec:org80e37fc}]{A Experimental Design Approach to Autotuning}
+\label{sec:org5328926}
+\begin{frame}[label={sec:org90b6933}]{A Experimental Design Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.74\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -527,8 +471,8 @@ $design
 \end{center}
 \end{frame}
 \section{Results on a GPU Laplacian Kernel}
-\label{sec:org59e25ad}
-\begin{frame}[label={sec:org90caa52}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:orgf78ed92}
+\begin{frame}[label={sec:org8a8b274}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Problem}
@@ -574,8 +518,8 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \end{center}
 \end{frame}
 \section{Results on the SPAPT Benchmark}
-\label{sec:org805f712}
-\begin{frame}[label={sec:org92aa806},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+\label{sec:org6bd8000}
+\begin{frame}[label={sec:orga35a8a5},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
  \begin{columns}
 \begin{column}{0.41\columnwidth}
 \begin{block}{Search Problem}
@@ -599,7 +543,7 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 
 \begin{center}
 \begin{table}[t]
-\label{tab:org238b383}
+\label{tab:org1cf82a1}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -633,96 +577,187 @@ Kernel & Operation & Factors & Size\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org9be8c66}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org0a94bb4}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org54ebfeb}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org6bd6254}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orga68a80a},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
- \begin{center}
+\begin{frame}[label={sec:org142a970}]{SPAPT: Looking for Structure in \emph{bicgkernel}}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{ED Methods for \emph{bicgkernel}}
+\alert{Consistently} fixes parameters and levels:
+\begin{itemize}
+\item Quickly identifies \alert{global} structure
+\item Restricts to better sub-regions
+\end{itemize}
+
+Further exploration:
+\begin{itemize}
+\item Certain effects ``mask'' others
+\item Improving starting model:
+\begin{itemize}
+\item Cubic terms were not significant
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\only<1>{
 \begin{center}
-\includegraphics[width=.7\columnwidth]{../../../img/updated_bicgkernel_I.pdf}
+\includegraphics[width=\columnwidth]{../../../img/bicgkernel_factors.pdf}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=\columnwidth]{../../../img/bicgkernel_updated.pdf}
 \end{center}
+}
+\end{column}
+\end{columns}
 \end{frame}
-\begin{frame}[label={sec:org88dae01},fragile]{SPAPT: Optimizing \texttt{bicgkernel}}
- \begin{center}
+\begin{frame}[label={sec:orgda8065f}]{Conclusion}
+\begin{block}{Conclusion: Laplacian and SPAPT Experiments}
+\begin{itemize}
+\item Exploiting   global   search   space   structure   helps   finding   good
+configurations fast
+\item The ED approach is parsimonious, transparent, and can be effective for autotuning
+\item TODO: Improve
+\end{itemize}
+
 \begin{center}
-\includegraphics[width=.7\columnwidth]{../../../img/updated_bicgkernel.pdf}
+\colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
 \end{center}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:orgdf75600}]{Gaussian Process Regression}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Experimental Design Approach}
+\begin{itemize}
+\item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
+\item \alert{Gaussian Process Regression}
+\item Low-discrepancy sampling
+\item User input to guide optimization
+\end{itemize}
+\begin{block}{Gaussian Process Regression}
+\begin{itemize}
+\item \alert{Nonparametric}
+\item Samples \alert{functions}
+\item \alert{Conditions} multivariate normal probability distributions to \alert{observed data}
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/multivariate_normal_sample.pdf}
 \end{center}
+
+\center{\small
+A multivariate distribution
+}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgb6c869a}]{Gaussian Process Regression}
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/rasmussen_prior_posterior.pdf}
+\end{center}
+
+\center{\small
+Rasmussen \& Williams, Gaussian Processes  for Machine Learning
+}
+\end{frame}
+\begin{frame}[label={sec:orgb8a1473}]{Gaussian Process Regression}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space.pdf}
+\end{center}
+
+\center{\footnotesize
+Original \textit{bicgkernel} subspace, \alert{180 experiments}
+}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\only<1>{
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space_5_pred.pdf}
+\end{center}
+
+\center{\footnotesize
+Predicted by a Gaussian Process using \alert{5 experiments}
+}
+}
+
+\only<2>{
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space_10_pred.pdf}
+\end{center}
+
+\center{\footnotesize
+Predicted by a Gaussian Process using \alert{10 experiments}
+}
+}
+
+\only<3>{
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space_20_pred.pdf}
+\end{center}
+
+\center{\footnotesize
+Predicted by a Gaussian Process using \alert{20 experiments}
+}
+}
+
+\only<4>{
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space_50_pred.pdf}
+\end{center}
+
+\center{\footnotesize
+Predicted by a Gaussian Process using \alert{50 experiments}
+}
+}
+
+\only<5>{
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_averaged_search_space_100_pred.pdf}
+\end{center}
+
+\center{\footnotesize
+Predicted by a Gaussian Process using \alert{100 experiments}
+}
+}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgfc2e94f}]{Gaussian Process Regression on \emph{bicgkernel}}
+\begin{itemize}
+\item TODO Figure: Most recent \alert{performance measurements}
+\end{itemize}
 \end{frame}
 \section{Next Steps}
-\label{sec:org90dc29b}
-\begin{frame}[label={sec:org30ac61a}]{Next Steps: Two months at Hewlett Packard Labs}
+\label{sec:orgfb14950}
+\begin{frame}[label={sec:orge16cd75}]{Next Steps}
 \begin{block}{Apply Experimental Design methods on:}
 \begin{itemize}
 \item Design space exploration for \alert{quantization} on DNN layers
 \item Neural Architecture Search (\alert{NAS}) on CPUs and GPUs
+\item TODO: Improve, add other next steps
 \end{itemize}
 \end{block}
-\end{frame}
-\begin{frame}[label={sec:orgae31bb9}]{Quantization on DNN Layers}
-\begin{center}
-\includegraphics[width=\columnwidth]{../../../img/haq_quantization.png}
-\end{center}
-
-\begin{center}
-\scriptsize{HAQ: Hardware-Aware Automated Quantization with Mixed Precision (CV 2018)}
-\end{center}
-\end{frame}
-
-\begin{frame}[label={sec:orgb52ab38}]{Quantization on DNN Layers}
-\begin{center}
-\includegraphics[width=.7\columnwidth]{../../../img/haq_quantization_II.png}
-\end{center}
-
-\begin{center}
-\scriptsize{HAQ: Hardware-Aware Automated Quantization with Mixed Precision (CV 2018)}
-\end{center}
-\end{frame}
-
-\begin{frame}[label={sec:org71dc6e7}]{Neural Architecture Search}
-\begin{center}
-\includegraphics[width=.9\columnwidth]{../../../img/proxylessnas_III.png}
-\end{center}
-
-\begin{center}
-\scriptsize{ProxylessNAS: Direct Neural Architecture Search on Target Task and Hardware (ICLR 2019)}
-\end{center}
-\end{frame}
-
-\begin{frame}[label={sec:orgc968031}]{Neural Architecture Search}
-\begin{center}
-\includegraphics[width=.85\columnwidth]{../../../img/proxylessnas.png}
-\end{center}
-
-\begin{center}
-\scriptsize{ProxylessNAS: Direct Neural Architecture Search on Target Task and Hardware (ICLR 2019)}
-\end{center}
-\end{frame}
-
-\begin{frame}[label={sec:org987ef14}]{Neural Architecture Search}
-\begin{center}
-\includegraphics[width=.75\columnwidth]{../../../img/proxylessnas_II.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=.85\columnwidth]{../../../img/proxylessnas_I.png}
-\end{center}
-
-\begin{center}
-\scriptsize{ProxylessNAS: Direct Neural Architecture Search on Target Task and Hardware (ICLR 2019)}
-\end{center}
 \end{frame}
 \maketitle
 \end{document}

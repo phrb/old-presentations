@@ -33,17 +33,17 @@
 
   #+RESULTS:
 * Generating Figures                               :B_ignoreheading:noexport:
-  :PROPERTIES:
-  :BEAMER_env: ignoreheading
-  :END:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
 ** SPAPT
 *** Cloning/Pulling the Repository
-    #+HEADER: :results output :eval no-export
-    #+BEGIN_SRC shell
-    git clone https://github.com/phrb/dlmt_spapt_experiments.git || (cd dlmt_spapt_experiments && git pull)
-    #+END_SRC
+#+HEADER: :results output :eval no-export
+#+BEGIN_SRC shell
+git clone https://github.com/phrb/dlmt_spapt_experiments.git || (cd dlmt_spapt_experiments && git pull)
+#+END_SRC
 
-    #+RESULTS:
+#+RESULTS:
 *** Histograms and Iterations Plots
 **** Loading Data
 #+HEADER: :results output :session *R* :eval no-export

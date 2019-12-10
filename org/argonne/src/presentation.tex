@@ -1,4 +1,4 @@
-% Created 2019-12-07 Sat 15:27
+% Created 2019-12-10 Tue 10:47
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -63,11 +63,11 @@ tabsize=2,
 \graphicspath{{../../img/}}
 \addtobeamertemplate{block begin}{}{\justifying}
 \usetheme{default}
-\author{ \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
-\date{ \scriptsize \textit{phrb@ime.usp.br} \\[1em] \textit{Universidade de São Paulo, Brazil} \\ \textit{Université Grenoble Alpes, France}}
+\author{ \footnotesize \textbf{\alert{Pedro Bruel}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman}
+\date{ \scriptsize \textit{phrb@ime.usp.br} \\[1em] \textit{Université Grenoble Alpes, France} \\ \textit{Universidade de São Paulo, Brazil}}
 \title{Autotuning under Tight Budget Constraints:  \\ An Experimental Design Approach}
 \hypersetup{
- pdfauthor={ \footnotesize \textbf{\alert{Pedro Bruel$^{*}$}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman},
+ pdfauthor={ \footnotesize \textbf{\alert{Pedro Bruel}},  Steven Quinito Masnada, Brice Videau, Arnaud Legrand, Jean-Marc Vincent, Alfredo Goldman},
  pdftitle={Autotuning under Tight Budget Constraints:  \\ An Experimental Design Approach},
  pdfkeywords={},
  pdfsubject={},
@@ -78,8 +78,8 @@ tabsize=2,
 \maketitle
 
 \section{Autotuning}
-\label{sec:org0850821}
-\begin{frame}[label={sec:orgab172d6}]{Autotuning: Optimizing Program Configurations}
+\label{sec:org4e6596b}
+\begin{frame}[label={sec:orgcc55431}]{Autotuning: Optimizing Program Configurations}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -128,7 +128,7 @@ that optimizes an \mbox{\alert{objective}}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org5023ef1}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org65cca3f}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -156,7 +156,7 @@ Unrolling, tiling and performance for a \alert{biconjugate gradient} kernel
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org0ee62f9}]{Autotuning: High-Dimensional Search Spaces}
+\begin{frame}[label={sec:org959a820}]{Autotuning: High-Dimensional Search Spaces}
 \begin{block}{1. \alert{Combinatorial Explosion \& Sampling}}
 \begin{itemize}
 \item 10 boolean parameters generate \(2^{10}\) combinations
@@ -170,7 +170,7 @@ spacing \(10^{-2}\)
 \begin{column}{0.5\columnwidth}
 \begin{block}{2. \alert{Geometry}}
 \begin{itemize}
-\item Mixing discrete and continous factors
+\item Mixing numerical and categorical factors
 \item ``Smoothness''
 \item Interactions
 \item Constraints
@@ -198,7 +198,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgd9d8f49}]{Autotuning: Approaches}
+\begin{frame}[label={sec:orga11c9e0}]{Autotuning: Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Several Approaches}
@@ -231,7 +231,7 @@ spacing \(10^{-2}\)
 \end{block}
 \begin{block}{We propose using:}
 \begin{itemize}
-\item \alert{Experimental Design} (\alert{ED})
+\item \alert{Experimental Design} (\alert{ED}), or \alert{Design of Experiments} (\alert{DoE})
 \end{itemize}
 \end{block}
 \end{block}
@@ -239,8 +239,8 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 \section{Experimental Design}
-\label{sec:orgd8090b6}
-\begin{frame}[label={sec:orgac8637c}]{Experimental Design: An Example on Agriculture}
+\label{sec:org837dc13}
+\begin{frame}[label={sec:org642ea60}]{Experimental Design: An Example on Agriculture}
 \begin{columns}
 \begin{column}{0.55\columnwidth}
 \begin{center}
@@ -267,7 +267,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgddae9b9}]{Experimental Design}
+\begin{frame}[label={sec:org8314b39}]{Experimental Design}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Terminology}
@@ -279,11 +279,11 @@ spacing \(10^{-2}\)
 \item \uncover<2>{Performance model: guides selection}
 \end{itemize}
 
-\begin{block}{Analyzing Results Enable:}
+\begin{block}{Analyzing Results Enables:}
 \begin{itemize}
 \item Identifying \alert{significant factors}
-\item Investigating possible \alert{models}
 \item Finding \alert{candidates} for further exploration
+\item Investigating possible \alert{models}
 \end{itemize}
 \end{block}
 \end{block}
@@ -299,7 +299,12 @@ A minimal screening design for \(7\) 2-level factors:
 \end{center}
 \vspace{-.2cm}
 
+\only<1>{
 \input{latex/plackett_burman.tex}
+}
+\only<2>{
+\input{latex/plackett_burman_intercept.tex}
+}
 \vspace{-.2cm}
 
 \uncover<2>{$$response = \theta{} + \alpha{}A + \beta{}B + \gamma{}C + \dots$$}
@@ -308,7 +313,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgd9cf538}]{Applying Experimental Design to Autotuning}
+\begin{frame}[label={sec:org2d01443}]{Applying Experimental Design to Autotuning}
 \begin{columns}
 \begin{column}{0.45\columnwidth}
 \begin{block}{Design Requirements}
@@ -325,13 +330,13 @@ A minimal screening design for \(7\) 2-level factors:
 \begin{block}{Initial Experimental Design Approach}
 \begin{itemize}
 \item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
-\item D-Optimal designs
+\item \alert{D-Optimal} designs
 \begin{itemize}
 \item Flexible
 \item Minimize variance of coefficient estimators
 \item Support different factor types
 \end{itemize}
-\item Linear model and analysis of variance (ANOVA)
+\item \alert{Linear model} and analysis of variance (\alert{ANOVA})
 \item User input to guide optimization
 \end{itemize}
 
@@ -349,16 +354,15 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgc7319a4}]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:orgcfc28a7}]{D-Optimal Designs: A Simple Example in R}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Space}
-% \(\mathbf{X} = \{x_1 = \{1, 2, 3, 4, 5\}, x_2 = \{"A", "B", "C"\}\}\)
 \begin{itemize}
 \item Factors \& Levels:
 \begin{align*}
-\mathbf{X} = (x_1 = & \; (1, 2, 3, 4, 5), \\
-x_2 = & \; (``A", ``B", ``C"))
+\mathbf{X} = x_i \in (x_{i,1} \in & \; (1, 2, 3, 4, 5), \\
+x_{i,2} \in & \; (``A", ``B", ``C"))
 \end{align*}
 \item 15 possible experiments
 \item Model: \(\mathbf{Y} = \mathbf{X}\bm{\beta} + \bm{\varepsilon}\)
@@ -389,7 +393,7 @@ x_2 = & \; (``A", ``B", ``C"))
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org5d28bbe},fragile]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:org2db987f},fragile]{D-Optimal Designs: A Simple Example in R}
  \begin{columns}
 \begin{column}{0.7\columnwidth}
 \begin{block}{Source code in \texttt{R}}
@@ -427,18 +431,18 @@ output <- optFederov(~ x1 + x2,
 \scriptsize
 
 \begin{verbatim}
-I% $D
+$D
 [1] 0.1797856
 
 $design
    x1 x2
-1   5  B
-3   5  A
-4   1  B
-5   2  C
-7   5  C
-10  4  A
-13  3  A
+4   5  A
+5   4  A
+7   3  A
+9   2  A
+10  1  A
+11  3  C
+13  1  B
 \end{verbatim}
 
 
@@ -448,7 +452,7 @@ $design
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgc5ba8cc}]{Comparing Sampling Strategies}
+\begin{frame}[label={sec:org63e16d9}]{Comparing Sampling Strategies: \(z = \theta + x + x^2 + y + y^2 + \varepsilon\)}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\textwidth]{../../../img/sampling_comparison.pdf}
@@ -456,8 +460,8 @@ $design
 \end{center}
 \end{frame}
 \section{A Transparent and Parsimonious ED Approach to Autotuning}
-\label{sec:org5328926}
-\begin{frame}[label={sec:org90b6933}]{A Experimental Design Approach to Autotuning}
+\label{sec:org1e115fb}
+\begin{frame}[label={sec:orgd40fd99}]{A Experimental Design Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.74\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -471,15 +475,16 @@ $design
 \end{center}
 \end{frame}
 \section{Results on a GPU Laplacian Kernel}
-\label{sec:orgf78ed92}
-\begin{frame}[label={sec:org8a8b274}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:org8c8128b}
+\begin{frame}[label={sec:orgb5fe414}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Problem}
 \begin{itemize}
-\item Relatively small valid search space
-\item Completely evaluated
-\item Global optimum is \alert{known}
+\item 7 parameters: 6 \alert{numerical}, 1 \alert{boolean}
+\item Good starting performance model
+\item Measured all 23120 configurations
+\item Known \alert{global optimum}
 \item Budget of \alert{125 points}
 \end{itemize}
 \end{block}
@@ -513,24 +518,24 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 
 \begin{center}
 \begin{center}
-\includegraphics[width=.88\columnwidth]{../../../img/comparison_histogram.pdf}
+\includegraphics[width=\columnwidth]{../../../img/comparison_histogram.pdf}
 \end{center}
 \end{center}
 \end{frame}
 \section{Results on the SPAPT Benchmark}
-\label{sec:org6bd8000}
-\begin{frame}[label={sec:orga35a8a5},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+\label{sec:org407f4f2}
+\begin{frame}[label={sec:orgb012e61},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
  \begin{columns}
 \begin{column}{0.41\columnwidth}
 \begin{block}{Search Problem}
 \begin{itemize}
-\item Orio: source code transformation
+\item \alert{Orio}: source code transformation
 \item Baseline: \texttt{gcc -O3}, no transformations
 \item Random sampling (\alert{RS}) vs. D-Optimal approach (\alert{DLMT})
 \item 10 repetitions: measure \alert{speedup} and \alert{time-to-solution}
 \item Out of 16 kernels:
 \begin{itemize}
-\item 3 with no impact
+\item 3 with small impact
 \item 6 with similar performance gains
 \item \colorbox{Highlight}{7 with \alert{gains found faster}}
 \end{itemize}
@@ -543,7 +548,7 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 
 \begin{center}
 \begin{table}[t]
-\label{tab:org1cf82a1}
+\label{tab:org9b7608f}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -577,21 +582,21 @@ Kernel & Operation & Factors & Size\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org0a94bb4}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org04fdad3}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org6bd6254}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:orgbfde378}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org142a970}]{SPAPT: Looking for Structure in \emph{bicgkernel}}
+\begin{frame}[label={sec:org310abfe}]{SPAPT: Looking for Structure in \emph{bicgkernel}}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{ED Methods for \emph{bicgkernel}}
@@ -603,7 +608,7 @@ Kernel & Operation & Factors & Size\\
 
 Further exploration:
 \begin{itemize}
-\item Certain effects ``mask'' others
+\item Certain strong effects \alert{``mask''} others
 \item Improving starting model:
 \begin{itemize}
 \item Cubic terms were not significant
@@ -625,61 +630,79 @@ Further exploration:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgda8065f}]{Conclusion}
-\begin{block}{Conclusion: Laplacian and SPAPT Experiments}
+\begin{frame}[label={sec:orge5639b7}]{Laplacian and SPAPT kernels Experiments}
+With these initial experiments, we showed that:
+
+\begin{columns}
+\begin{column}{0.5\columnwidth}
 \begin{itemize}
-\item Exploiting   global   search   space   structure   helps   finding   good
-configurations fast
-\item The ED approach is parsimonious, transparent, and can be effective for autotuning
-\item TODO: Improve
+\item Exploiting \alert{global search space structure} helps finding good configurations
+fast
+\end{itemize}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{itemize}
+\item The ED approach is parsimonious, transparent, and \alert{effective} for autotuning
+\end{itemize}
+\end{column}
+\end{columns}
+\vspace{0.5cm}
+In order  to identify  and exploit \alert{local  structures}, we  need:
+
+\begin{itemize}
+\item More \alert{modeling ``flexibility''}
+\item \alert{Domain knowledge}
 \end{itemize}
 
+\begin{block}{Efforts for Reproducibility}
 \begin{center}
-\colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Souce code \& data} at \alert{github.com/phrb/ccgrid19}}}
+\colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Source code} \& \alert{data} at github.com/phrb/ccgrid19}}
 \end{center}
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgdf75600}]{Gaussian Process Regression}
+
+\section{Gaussian Process Regression}
+\label{sec:org1d0d5da}
+\begin{frame}[label={sec:org1579b5e}]{Experimental Design with Gaussian Process Regression}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
-\begin{block}{Experimental Design Approach}
+\begin{block}{Gaussian Process Regression (GPR)}
+\begin{itemize}
+\item \alert{Nonparametric}, samples \alert{functions}
+\item \alert{Covariance} functions controls priors
+\item \alert{Conditions} joint normal probability distributions to \alert{observed data}
+\end{itemize}
+\begin{block}{Experimental Design with GPR}
 \begin{itemize}
 \item \colorbox{Highlight}{\alert{Parsimony} \& \alert{Transparency}}
-\item \alert{Gaussian Process Regression}
-\item Low-discrepancy sampling
+\item \alert{Low-discrepancy} sampling
 \item User input to guide optimization
-\end{itemize}
-\begin{block}{Gaussian Process Regression}
-\begin{itemize}
-\item \alert{Nonparametric}
-\item Samples \alert{functions}
-\item \alert{Conditions} multivariate normal probability distributions to \alert{observed data}
 \end{itemize}
 \end{block}
 \end{block}
 \end{column}
 \begin{column}{0.5\columnwidth}
 \begin{center}
-\includegraphics[width=.95\columnwidth]{../../../img/multivariate_normal_sample.pdf}
+\includegraphics[width=.99\columnwidth]{../../../img/rasmussen_prior.pdf}
 \end{center}
 
-\center{\small
-A multivariate distribution
+\center{\footnotesize
+Rasmussen \& Williams, Gaussian Processes \\ for Machine Learning
 }
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgb6c869a}]{Gaussian Process Regression}
+\begin{frame}[label={sec:org42fb39a}]{Gaussian Process Regression: Conditioned Posterior}
 \begin{center}
-\includegraphics[width=.95\columnwidth]{../../../img/rasmussen_prior_posterior.pdf}
+\includegraphics[width=.99\columnwidth]{../../../img/rasmussen_prior_posterior.pdf}
 \end{center}
 
 \center{\small
 Rasmussen \& Williams, Gaussian Processes  for Machine Learning
 }
 \end{frame}
-\begin{frame}[label={sec:orgb8a1473}]{Gaussian Process Regression}
+\begin{frame}[label={sec:orgf23593d}]{Gaussian Process Regression: Example on a \emph{bickernel} Subspace}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -687,7 +710,7 @@ Rasmussen \& Williams, Gaussian Processes  for Machine Learning
 \end{center}
 
 \center{\footnotesize
-Original \textit{bicgkernel} subspace, \alert{180 experiments}
+Original \textit{bicgkernel} subspace, \alert{180 points}
 }
 \end{column}
 \begin{column}{0.5\columnwidth}
@@ -697,7 +720,7 @@ Original \textit{bicgkernel} subspace, \alert{180 experiments}
 \end{center}
 
 \center{\footnotesize
-Predicted by a Gaussian Process using \alert{5 experiments}
+Predicted by a Gaussian Process using \alert{5 points}
 }
 }
 
@@ -707,7 +730,7 @@ Predicted by a Gaussian Process using \alert{5 experiments}
 \end{center}
 
 \center{\footnotesize
-Predicted by a Gaussian Process using \alert{10 experiments}
+Predicted by a Gaussian Process using \alert{10 points}
 }
 }
 
@@ -717,7 +740,7 @@ Predicted by a Gaussian Process using \alert{10 experiments}
 \end{center}
 
 \center{\footnotesize
-Predicted by a Gaussian Process using \alert{20 experiments}
+Predicted by a Gaussian Process using \alert{20 points}
 }
 }
 
@@ -727,7 +750,7 @@ Predicted by a Gaussian Process using \alert{20 experiments}
 \end{center}
 
 \center{\footnotesize
-Predicted by a Gaussian Process using \alert{50 experiments}
+Predicted by a Gaussian Process using \alert{50 points}
 }
 }
 
@@ -737,27 +760,43 @@ Predicted by a Gaussian Process using \alert{50 experiments}
 \end{center}
 
 \center{\footnotesize
-Predicted by a Gaussian Process using \alert{100 experiments}
+Predicted by a Gaussian Process using \alert{100 points}
 }
 }
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgfc2e94f}]{Gaussian Process Regression on \emph{bicgkernel}}
-\begin{itemize}
-\item TODO Figure: Most recent \alert{performance measurements}
-\end{itemize}
+\begin{frame}[label={sec:org7fc8dc4}]{Gaussian Process Regression: Results on the Complete \emph{bicgkernel} Space}
+\begin{center}
+\includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_gpr_results.pdf}
+\end{center}
 \end{frame}
 \section{Next Steps}
-\label{sec:orgfb14950}
-\begin{frame}[label={sec:orge16cd75}]{Next Steps}
+\label{sec:org4c79a47}
+\begin{frame}[label={sec:org2dd662a}]{Next Steps}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Improving our GPR Approach}
+\begin{itemize}
+\item Increase sampling on subspaces
+\item Choice of \alert{covariance function}, or \alert{kernels}
+\item \alert{Flexibility} and \alert{explainability}:
+\begin{itemize}
+\item Combining kernels
+\item Bayesian Information Criterion
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.5\columnwidth}
 \begin{block}{Apply Experimental Design methods on:}
 \begin{itemize}
 \item Design space exploration for \alert{quantization} on DNN layers
 \item Neural Architecture Search (\alert{NAS}) on CPUs and GPUs
-\item TODO: Improve, add other next steps
 \end{itemize}
 \end{block}
+\end{column}
+\end{columns}
 \end{frame}
 \maketitle
 \end{document}

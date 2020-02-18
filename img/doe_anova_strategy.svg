@@ -25,9 +25,9 @@
      showgrid="false"
      inkscape:current-layer="layer2"
      inkscape:document-units="mm"
-     inkscape:cy="389.43884"
-     inkscape:cx="725.84845"
-     inkscape:zoom="0.70710678"
+     inkscape:cy="417.82242"
+     inkscape:cx="1118.1396"
+     inkscape:zoom="0.35355339"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -1365,7 +1365,7 @@
        id="path1383-2"
        inkscape:connector-curvature="0" />
     <ellipse
-       style="display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.05799997;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="display:inline;fill:#f7f7f7;fill-opacity:0.99215686;stroke:#000000;stroke-width:1.05799997;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="path2765-6"
        cx="275.0751"
        cy="103.10169"
@@ -1586,5 +1586,5 @@
            height="158.39192"
            x="1153.9983"
            y="281.08771" /></flowRegion><flowPara
-         id="flowPara5148"></flowPara></flowRoot>  </g>
+         id="flowPara5148" /></flowRoot>  </g>
 </svg>

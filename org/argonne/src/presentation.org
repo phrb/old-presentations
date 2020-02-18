@@ -792,6 +792,35 @@
     Rasmussen \& Williams, Gaussian Processes \\ for Machine Learning
     }
     #+end_export
+** Gaussian Process Regression: Sampling Functions
+*** Expected Values                                           :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - $m(\mathbf{x}) = \mathbb{E}[f(\mathbf{x})]$
+
+*** Covariance Matrix                                         :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    *Kernel*:
+    - $k(\mathbf{x},\mathbf{x^\prime}) = \mathbb{E}[(f(\mathbf{x}) - m(\mathbf{x}))(f(\mathbf{x^\prime}) - m(\mathbf{x^\prime}))]$
+*** Distribution of Sampled Function Values                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+   #+begin_export latex
+   \begin{equation*}
+     \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix} \sim \mathcal{N}\left(
+     \begin{bmatrix} m(\mathbf{x}^{(1)}) \\ \vdots \\ m(\mathbf{x}^{(n)}) \end{bmatrix},
+     \begin{bmatrix} k(\mathbf{x}^{(1)},\mathbf{x}^{(1)}) & \dots & k(\mathbf{x}^{(1)},\mathbf{x}^{(n)}) \\
+       \vdots & \ddots & \vdots \\
+       k(\mathbf{x}^{(n)},\mathbf{x}^{(1)}) & \dots & k(\mathbf{x}^{(n)},\mathbf{x}^{(n)})
+     \end{bmatrix}\right)
+   \end{equation*}
+   #+end_export
 ** Gaussian Process Regression: Conditioned Posterior
    #+ATTR_LATEX: :width .99\columnwidth
    #+ATTR_ORG: :width 400

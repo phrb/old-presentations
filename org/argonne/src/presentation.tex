@@ -1,4 +1,4 @@
-% Created 2019-12-10 Tue 10:47
+% Created 2019-12-12 Thu 11:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -78,8 +78,8 @@ tabsize=2,
 \maketitle
 
 \section{Autotuning}
-\label{sec:org4e6596b}
-\begin{frame}[label={sec:orgcc55431}]{Autotuning: Optimizing Program Configurations}
+\label{sec:org1450870}
+\begin{frame}[label={sec:orgc2cc140}]{Autotuning: Optimizing Program Configurations}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Architectures for High Performance Computing}
@@ -128,7 +128,7 @@ that optimizes an \mbox{\alert{objective}}
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org65cca3f}]{Autotuning: Search Spaces}
+\begin{frame}[label={sec:org88a4422}]{Autotuning: Search Spaces}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Search Spaces}
@@ -156,7 +156,7 @@ Unrolling, tiling and performance for a \alert{biconjugate gradient} kernel
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org959a820}]{Autotuning: High-Dimensional Search Spaces}
+\begin{frame}[label={sec:orgbe519dc}]{Autotuning: High-Dimensional Search Spaces}
 \begin{block}{1. \alert{Combinatorial Explosion \& Sampling}}
 \begin{itemize}
 \item 10 boolean parameters generate \(2^{10}\) combinations
@@ -198,7 +198,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orga11c9e0}]{Autotuning: Approaches}
+\begin{frame}[label={sec:org4403b71}]{Autotuning: Approaches}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Several Approaches}
@@ -239,8 +239,8 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 \section{Experimental Design}
-\label{sec:org837dc13}
-\begin{frame}[label={sec:org642ea60}]{Experimental Design: An Example on Agriculture}
+\label{sec:orga00f1ca}
+\begin{frame}[label={sec:orgd575b98}]{Experimental Design: An Example on Agriculture}
 \begin{columns}
 \begin{column}{0.55\columnwidth}
 \begin{center}
@@ -267,7 +267,7 @@ spacing \(10^{-2}\)
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org8314b39}]{Experimental Design}
+\begin{frame}[label={sec:org841dc5b}]{Experimental Design}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Terminology}
@@ -313,7 +313,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org2d01443}]{Applying Experimental Design to Autotuning}
+\begin{frame}[label={sec:orgcf85b26}]{Applying Experimental Design to Autotuning}
 \begin{columns}
 \begin{column}{0.45\columnwidth}
 \begin{block}{Design Requirements}
@@ -354,7 +354,7 @@ A minimal screening design for \(7\) 2-level factors:
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:orgcfc28a7}]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:orgee4fd1d}]{D-Optimal Designs: A Simple Example in R}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Space}
@@ -393,7 +393,7 @@ x_{i,2} \in & \; (``A", ``B", ``C"))
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org2db987f},fragile]{D-Optimal Designs: A Simple Example in R}
+\begin{frame}[label={sec:org7308c76},fragile]{D-Optimal Designs: A Simple Example in R}
  \begin{columns}
 \begin{column}{0.7\columnwidth}
 \begin{block}{Source code in \texttt{R}}
@@ -436,13 +436,13 @@ $D
 
 $design
    x1 x2
-4   5  A
-5   4  A
-7   3  A
-9   2  A
-10  1  A
-11  3  C
-13  1  B
+1   5  A
+3   3  C
+5   4  C
+10  3  B
+12  1  C
+14  2  C
+15  2  A
 \end{verbatim}
 
 
@@ -452,7 +452,7 @@ $design
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org63e16d9}]{Comparing Sampling Strategies: \(z = \theta + x + x^2 + y + y^2 + \varepsilon\)}
+\begin{frame}[label={sec:org657a306}]{Comparing Sampling Strategies: \(z = \theta + x + x^2 + y + y^2 + \varepsilon\)}
 \begin{center}
 \begin{center}
 \includegraphics[width=.72\textwidth]{../../../img/sampling_comparison.pdf}
@@ -460,8 +460,8 @@ $design
 \end{center}
 \end{frame}
 \section{A Transparent and Parsimonious ED Approach to Autotuning}
-\label{sec:org1e115fb}
-\begin{frame}[label={sec:orgd40fd99}]{A Experimental Design Approach to Autotuning}
+\label{sec:org4859cf5}
+\begin{frame}[label={sec:org201ea42}]{A Experimental Design Approach to Autotuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=.74\linewidth]{../../../img/doe_anova_strategy.pdf}
@@ -475,8 +475,8 @@ $design
 \end{center}
 \end{frame}
 \section{Results on a GPU Laplacian Kernel}
-\label{sec:org8c8128b}
-\begin{frame}[label={sec:orgb5fe414}]{GPU Laplacian Kernel: A Motivating Example}
+\label{sec:orgecfeaf7}
+\begin{frame}[label={sec:orga726d74}]{GPU Laplacian Kernel: A Motivating Example}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Search Problem}
@@ -523,8 +523,8 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 \end{center}
 \end{frame}
 \section{Results on the SPAPT Benchmark}
-\label{sec:org407f4f2}
-\begin{frame}[label={sec:orgb012e61},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
+\label{sec:org733835b}
+\begin{frame}[label={sec:org43bdef2},fragile]{SPAPT: Search Problems in Automatic Performance Tuning}
  \begin{columns}
 \begin{column}{0.41\columnwidth}
 \begin{block}{Search Problem}
@@ -548,7 +548,7 @@ cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
 
 \begin{center}
 \begin{table}[t]
-\label{tab:org9b7608f}
+\label{tab:orgb45337f}
 \centering
 \scriptsize
 \begin{tabular}{llll}
@@ -582,21 +582,21 @@ Kernel & Operation & Factors & Size\\
 \end{columns}
 \end{frame}
 
-\begin{frame}[label={sec:org04fdad3}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:orgc55f992}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/iteration_best_comparison.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgbfde378}]{SPAPT: Search Problems in Automatic Performance Tuning}
+\begin{frame}[label={sec:org79c0dfa}]{SPAPT: Search Problems in Automatic Performance Tuning}
 \begin{center}
 \begin{center}
 \includegraphics[width=\linewidth]{../../../img/split_histograms.pdf}
 \end{center}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org310abfe}]{SPAPT: Looking for Structure in \emph{bicgkernel}}
+\begin{frame}[label={sec:org598edf3}]{SPAPT: Looking for Structure in \emph{bicgkernel}}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{ED Methods for \emph{bicgkernel}}
@@ -630,7 +630,7 @@ Further exploration:
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orge5639b7}]{Laplacian and SPAPT kernels Experiments}
+\begin{frame}[label={sec:org4ba545b}]{Laplacian and SPAPT kernels Experiments}
 With these initial experiments, we showed that:
 
 \begin{columns}
@@ -663,8 +663,8 @@ In order  to identify  and exploit \alert{local  structures}, we  need:
 
 
 \section{Gaussian Process Regression}
-\label{sec:org1d0d5da}
-\begin{frame}[label={sec:org1579b5e}]{Experimental Design with Gaussian Process Regression}
+\label{sec:org1906239}
+\begin{frame}[label={sec:org0fd5b4a}]{Experimental Design with Gaussian Process Regression}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Gaussian Process Regression (GPR)}
@@ -693,7 +693,37 @@ Rasmussen \& Williams, Gaussian Processes \\ for Machine Learning
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org42fb39a}]{Gaussian Process Regression: Conditioned Posterior}
+\begin{frame}[label={sec:org98ca458}]{Gaussian Process Regression: Sampling Functions}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Expected Values}
+\begin{itemize}
+\item \(m(\mathbf{x}) = \mathbb{E}[f(\mathbf{x})]\)
+\end{itemize}
+\end{block}
+\end{column}
+
+\begin{column}{0.5\columnwidth}
+\begin{block}{Covariance Matrix}
+\alert{Kernel}:
+\begin{itemize}
+\item \(k(\mathbf{x},\mathbf{x^\prime}) = \mathbb{E}[(f(\mathbf{x}) - m(\mathbf{x}))(f(\mathbf{x^\prime}) - m(\mathbf{x^\prime}))]\)
+\end{itemize}
+\end{block}
+\end{column}
+\end{columns}
+\begin{block}{Distribution of Sampled Function Values}
+\begin{equation*}
+  \begin{bmatrix} y_1 \\ \vdots \\ y_n \end{bmatrix} \sim \mathcal{N}\left(
+  \begin{bmatrix} m(\mathbf{x}^{(1)}) \\ \vdots \\ m(\mathbf{x}^{(n)}) \end{bmatrix},
+  \begin{bmatrix} k(\mathbf{x}^{(1)},\mathbf{x}^{(1)}) & \dots & k(\mathbf{x}^{(1)},\mathbf{x}^{(n)}) \\
+    \vdots & \ddots & \vdots \\
+    k(\mathbf{x}^{(n)},\mathbf{x}^{(1)}) & \dots & k(\mathbf{x}^{(n)},\mathbf{x}^{(n)})
+  \end{bmatrix}\right)
+\end{equation*}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgd2561f8}]{Gaussian Process Regression: Conditioned Posterior}
 \begin{center}
 \includegraphics[width=.99\columnwidth]{../../../img/rasmussen_prior_posterior.pdf}
 \end{center}
@@ -702,7 +732,7 @@ Rasmussen \& Williams, Gaussian Processes \\ for Machine Learning
 Rasmussen \& Williams, Gaussian Processes  for Machine Learning
 }
 \end{frame}
-\begin{frame}[label={sec:orgf23593d}]{Gaussian Process Regression: Example on a \emph{bickernel} Subspace}
+\begin{frame}[label={sec:org69fdb48}]{Gaussian Process Regression: Example on a \emph{bickernel} Subspace}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{center}
@@ -766,14 +796,14 @@ Predicted by a Gaussian Process using \alert{100 points}
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org7fc8dc4}]{Gaussian Process Regression: Results on the Complete \emph{bicgkernel} Space}
+\begin{frame}[label={sec:orgf90b1b6}]{Gaussian Process Regression: Results on the Complete \emph{bicgkernel} Space}
 \begin{center}
 \includegraphics[width=.95\columnwidth]{../../../img/bicgkernel_gpr_results.pdf}
 \end{center}
 \end{frame}
 \section{Next Steps}
-\label{sec:org4c79a47}
-\begin{frame}[label={sec:org2dd662a}]{Next Steps}
+\label{sec:org40824ac}
+\begin{frame}[label={sec:orgef28d6b}]{Next Steps}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Improving our GPR Approach}

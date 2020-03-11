@@ -5,7 +5,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:2 num:t toc:t @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -34,9 +34,11 @@
 #+LATEX_HEADER: \usepackage{ragged2e}
 #+LATEX_HEADER: \usepackage{textcomp}
 #+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{multirow}
 #+LATEX_HEADER: \usepgfplotslibrary{dateplot}
 #+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
-#+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
 #+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
 #+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
 #+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}

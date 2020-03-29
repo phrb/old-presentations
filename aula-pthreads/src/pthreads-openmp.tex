@@ -1,11 +1,13 @@
-\documentclass[10pt, compress]{beamer}
-
+\documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 \usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}
 
 \usepackage{sourcecodepro}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{marvosym}
 \usepackage{listings}
+\usepackage{caption}
+\usepackage{xeCJK}
 \usepackage{graphicx}
 \usepackage[brazilian]{babel}
 \usepackage[scale=2]{ccicons}
@@ -13,19 +15,19 @@
 \usepackage{relsize}
 \usepackage{wasysym}
 \usepackage{animate}
-
-\usepackage{pgfplots}
-\usepgfplotslibrary{dateplot}
-
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{bm}
 \definecolor{Base}{HTML}{191F26}
-\definecolor{Accent}{HTML}{157FFF}
-
+\definecolor{Accent}{HTML}{bb0300}
 \setbeamercolor{alerted text}{fg=Accent}
 \setbeamercolor{frametitle}{bg=Base}
-
-\setsansfont[BoldFont={Source Sans Pro Semibold},
-              Numbers={OldStyle}]{Source Sans Pro}
-
+\setbeamercolor{normal text}{bg=black!2,fg=Base}
+\setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+\addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
 \lstset{ %
   backgroundcolor={},
   basicstyle=\ttfamily\footnotesize,
@@ -59,12 +61,12 @@
 
 \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
 
-\graphicspath{{../img/}}
+\graphicspath{{../../img/}}
 
-\title{Introdução a Pthreads \& OpenMP}
+\title{Introdução a \textit{Pthreads} \& \textit{OpenMP}}
 \author{\footnotesize Pedro Bruel \\ {\scriptsize \emph{phrb@ime.usp.br}}}
-\institute{\includegraphics[height=2cm]{imelogo}\\[0.2cm] Instituto de Matemática e Estatística \\ Universidade de São Paulo}
-\date{\scriptsize \today}
+\institute{{\large\Biohazard} Versão Quarentena}
+\date{\scriptsize 30 de Março de 2020}
 
 \begin{document}
 
@@ -72,35 +74,12 @@
 
 \section*{Introdução}
 
-\subsection*{Sobre o EP1}
-
-\begin{frame}
-    \frametitle{Sobre o EP1}
-    Na aula passada faltou:
-
-    \begin{itemize}
-        \item Data de Entrega do EP1: \alert{25/04}
-        \item Demonstrar GNU \texttt{screen}
-    \end{itemize}
-\end{frame}
-
-\subsection*{Roteiro}
-
-\begin{frame}
-    \frametitle{Roteiro}
-    \setbeamertemplate{section in toc}[sections numbered]
-    \tableofcontents[hideallsubsections]
-\end{frame}
-
 \begin{frame}
     \frametitle{Slides}
-    \begin{center}
-        \includegraphics[width=.18\textwidth]{github}
-    \end{center}
     Os slides e todo o código fonte estão no \alert{GitHub}:
 
     \begin{itemize}
-        \item \url{github.com/phrb/aula-pthreads-openmp}
+        \item {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/pthreads}}
     \end{itemize}
 \end{frame}
 
@@ -127,14 +106,7 @@
 \begin{frame}
     \frametitle{Programação Concorrente: Motivação}
     \begin{center}
-        \includegraphics[width=.55\textwidth]{shared_work}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Programação Concorrente: Motivação}
-    \begin{center}
-        \animategraphics[loop,autoplay,width=\linewidth]{12}{puppies/puppies-}{0}{68}
+        \includegraphics[width=.43\textwidth]{shared_work}
     \end{center}
 \end{frame}
 
@@ -151,8 +123,6 @@
         \item Portable Operating System Interface (\alert{POSIX})
     \end{itemize}
 
-    \pause
-
     \alert{IEEE POSIX Threads}:
     \begin{itemize}
         \item Define um \alert{modelo de execução}
@@ -166,7 +136,7 @@
 \begin{frame}
     \frametitle{Processos \& Threads}
     \begin{center}
-        \includegraphics[width=\textwidth]{process-and-thread}
+        \includegraphics[width=0.8\columnwidth]{process-and-thread}
     \end{center}
 \end{frame}
 
@@ -216,6 +186,7 @@
 
 \begin{frame}[fragile]
     \frametitle{POSIX Threads: Hello, World!}
+    \begin{adjustbox}{width=.65\textwidth,center}
     \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
     #include <pthread.h>
     #include <stdio.h>
@@ -243,11 +214,14 @@
         pthread_exit(NULL);
     };
     \end{lstlisting}
+    \end{adjustbox}
 \end{frame}
 
 \begin{frame}
     \frametitle{POSIX Threads: Mais Exemplos}
-    Exemplos em \url{https://github.com/phrb/aula-pthreads-openmp}:
+    Exemplos de código:
+
+    {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/pthreads}}
     \begin{itemize}
         \item Hello, World!
         \item Argumentos
@@ -257,26 +231,6 @@
 \end{frame}
 
 \section{OpenMP}
-
-\maketitle
-
-\begin{frame}
-    \frametitle{Roteiro}
-    \setbeamertemplate{section in toc}[sections numbered]
-    \tableofcontents[hideallsubsections]
-\end{frame}
-
-\begin{frame}
-    \frametitle{Slides}
-    \begin{center}
-        \includegraphics[width=.18\textwidth]{github}
-    \end{center}
-    Os slides e todo o código fonte estão no \alert{GitHub}:
-
-    \begin{itemize}
-        \item \url{github.com/phrb/aula-pthreads-openmp}
-    \end{itemize}
-\end{frame}
 
 \begin{frame}
     \frametitle{OpenMP}
@@ -289,14 +243,11 @@
         \item Variáveis de ambiente
     \end{itemize}
 
-    \pause
-
     Objetivos:
     \begin{itemize}
-        \item \alert{Padronizar}
-        \item \alert{Simplificar}
-        \item \alert{Facilitar o uso}
-        \item \alert{Permitir portabilidade}
+        \item Padronizar
+        \item Simplificar
+        \item Promover \alert{portabilidade}
     \end{itemize}
 \end{frame}
 
@@ -309,14 +260,13 @@
         \item Paralelismo \alert{explícito e aninhável}
         \item \alert{Diretivas} de compilador
         \item Modelo \alert{Fork-Join}
-        \item I/O e memória?
     \end{itemize}
 \end{frame}
 
 \begin{frame}
     \frametitle{OpenMP: Fork-Join}
     \begin{center}
-        \includegraphics[width=\textwidth]{omp-fork-join}
+        \includegraphics[width=.99\textwidth]{omp-fork-join}
     \end{center}
 \end{frame}
 
@@ -332,19 +282,19 @@
     \end{itemize}
 
     Modelo:
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}[basicstyle=\ttfamily]
         #pragma omp directive [clause, ...]
     \end{lstlisting}
 
     Exemplo:
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}[basicstyle=\ttfamily]
         #pragma omp parallel default(shared) private(beta,pi)
     \end{lstlisting}
 \end{frame}
 
 \begin{frame}[fragile]
     \frametitle{OpenMP: Biblioteca Runtime}
-    Usadas para:
+    Usada para:
     \begin{itemize}
         \item Obter e definir \alert{número de threads}
         \item Obter \alert{IDs de threads}
@@ -354,7 +304,7 @@
     \end{itemize}
 
     Exemplo:
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}[basicstyle=\ttfamily]
         #include <omp.h>
         int omp_get_num_threads(void)
     \end{lstlisting}
@@ -373,7 +323,7 @@
     \end{itemize}
 
     Exemplo:
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+    \begin{lstlisting}[basicstyle=\ttfamily]
         export OMP_NUM_THREADS=8
     \end{lstlisting}
 \end{frame}
@@ -391,6 +341,7 @@
 
 \begin{frame}[fragile]
     \frametitle{OMP: Hello, World!}
+    \begin{adjustbox}{width=.65\textwidth,center}
     \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
     #include <stdio.h>
     #include <omp.h>
@@ -411,11 +362,14 @@
         return 0;
     };
     \end{lstlisting}
+    \end{adjustbox}
 \end{frame}
 
 \begin{frame}
     \frametitle{OpenMP: Mais Exemplos}
-    Exemplos em \url{https://github.com/phrb/aula-pthreads-openmp}:
+    Exemplos de código:
+
+    {\scriptsize\url{https://github.com/phrb/presentations/tree/master/aula-pthreads/code_samples/omp}}
     \begin{itemize}
         \item Hello, World!
         \item Parallel \texttt{for}
@@ -424,42 +378,8 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{OpenMP 4.5}
-    Versão \alert{4.5} da \alert{API OpenMP}:
-    \begin{itemize}
-        \item Lançada em \alert{Novembro de 2015}
-        \item OpenMP \alert{Architecture Review Board} (ARB)
-        \item Requer \alert{GCC 6}:
-            \begin{itemize}
-                \item Xeon Phi
-                \item Algumas GPGPUs AMD
-                \item GPGPUs Nvidia no futuro
-            \end{itemize}
-        \item \alert{Especificação completa} da API no repositório
-    \end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
-    \frametitle{OpenMP 4.5: Exemplo com \texttt{taskloop}}
-    \alert{Dividir e sincronizar} $1024$ iterações de um laço entre $32$
-    \textit{threads}, usando \alert{OpenMP $<$ 4.5}:
-
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-    #pragma omp taskgroup
-    {
-        for(int tmp = 0; tmp < 32; tmp++){
-            #pragma omp task
-            for(long l = tmp * 32; l < tmp * 32 + 32; l++){
-                do_something (l);
-            };
-        };
-    };
-    \end{lstlisting}
-\end{frame}
-
-\begin{frame}[fragile]
-    \frametitle{OpenMP 4.5: Exemplo com \texttt{taskloop}}
+    \frametitle{OpenMP: Exemplo com \texttt{taskloop}}
     \alert{Dividir e sincronizar} $1024$ iterações de um laço entre $32$
     \textit{threads}, usando \alert{OpenMP $\geq$ 4.5}:
 
@@ -469,13 +389,6 @@
         do_something(l);
     };
     \end{lstlisting}
-
-    \pause
-
-    Para saber mais, no \alert{blog da RedHat}:
-    \begin{center}
-        \scriptsize{\url{https://developers.redhat.com/blog/2016/03/22/what-is-new-in-openmp-4-5-3/}}
-    \end{center}
 \end{frame}
 
 \maketitle

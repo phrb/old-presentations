@@ -66,7 +66,7 @@
 \title{Introdução a \textit{Pthreads} \& \textit{OpenMP}}
 \author{\footnotesize Pedro Bruel \\ {\scriptsize \emph{phrb@ime.usp.br}}}
 \institute{{\large\Biohazard} Versão Quarentena}
-\date{\scriptsize 30 de Março de 2020}
+\date{\scriptsize 2020}
 
 \begin{document}
 
@@ -378,18 +378,18 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-    \frametitle{OpenMP: Exemplo com \texttt{taskloop}}
-    \alert{Dividir e sincronizar} $1024$ iterações de um laço entre $32$
-    \textit{threads}, usando \alert{OpenMP $\geq$ 4.5}:
-
-    \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
-    #pragma omp taskloop num_tasks(32)
-    for (long l = 0; l < 1024; l++){
-        do_something(l);
-    };
-    \end{lstlisting}
-\end{frame}
+% \begin{frame}[fragile]
+%     \frametitle{OpenMP: Exemplo com \texttt{taskloop}}
+%     \alert{Dividir e sincronizar} $1024$ iterações de um laço entre $32$
+%     \textit{threads}, usando \alert{OpenMP $\geq$ 4.5}:
+%
+%     \begin{lstlisting}[basicstyle=\ttfamily\scriptsize]
+%     #pragma omp taskloop num_tasks(32)
+%     for (long l = 0; l < 1024; l++){
+%         do_something(l);
+%     };
+%     \end{lstlisting}
+% \end{frame}
 
 \maketitle
 

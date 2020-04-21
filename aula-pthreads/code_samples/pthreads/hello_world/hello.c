@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define NUM_THREADS 5
+#define NUM_THREADS 16
 
 void *print_hello(void *threadid){
     long tid;
@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
     pthread_t threads[NUM_THREADS];
     int error_code;
     long t;
-    for(t = 0;t < NUM_THREADS; t++){
+    for(t = 0; t < NUM_THREADS; t++){
         printf("In main: creating thread %ld\n", t);
         error_code = pthread_create(&threads[t], NULL,
                                     print_hello, (void *) t);

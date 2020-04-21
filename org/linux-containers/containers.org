@@ -102,7 +102,6 @@
   :PROPERTIES:
   :BEAMER_env: ignoreheading
   :END:
-
 ** Containers from Scratch
 *** Talks
     - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]

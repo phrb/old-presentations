@@ -25,6 +25,12 @@ void *print_hello(void *threadarg){
     sum       = my_data->sum;
     hello_msg = my_data->message;
     printf("Thread %d: %s \t Sum=%d\n", taskid, hello_msg, sum);
+
+    int my_sum = sum;
+    for(int i = 1; i < 100 * NUM_THREADS; i++) {
+      my_sum *= i;
+    }
+
     pthread_exit(NULL);
 };
 
@@ -40,7 +46,7 @@ int main(int argc, char *argv[]){
     messages[3] = "Klingon: Nuq neH!";
     messages[4] = "German: Guten Tag, Welt!";
     messages[5] = "Russian: Zdravstvytye, mir!";
-    messages[6] = "Japan: Sekai e konnichiwa!";
+    messages[6] = "Japanese: Sekai e konnichiwa!";
     messages[7] = "Latin: Orbis, te saluto!";
 
     for(t = 0; t < NUM_THREADS; t++){

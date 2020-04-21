@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#define NUM_THREADS 4
+#define NUM_THREADS 8
 
 void *do_work(void *t){
     int i;
@@ -14,7 +14,7 @@ void *do_work(void *t){
     for (i = 0; i < 1000000; i++){
         result = result + sin(i) * tan(i);
     };
-    printf("Thread %ld done. Result = %e\n",tid, result);
+    printf("Thread %ld done. Result = %e\n", tid, result);
     pthread_exit((void*) t);
 };
 
@@ -39,6 +39,7 @@ int main (int argc, char *argv[]){
     };
 
     pthread_attr_destroy(&attr);
+
     for(t = 0; t < NUM_THREADS; t++){
         error_code = pthread_join(thread[t], &status);
         if (error_code){

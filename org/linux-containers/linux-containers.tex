@@ -1,4 +1,4 @@
-% Created 2020-05-21 Thu 22:34
+% Created 2020-05-21 Thu 23:03
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -79,8 +79,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:org6f4ebeb}
-\begin{frame}[label={sec:org69f49ad}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:org3b96706}
+\begin{frame}[label={sec:org9785621}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -139,50 +139,56 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org68c3c9a}]{OS-Level Virtualization}
+\begin{frame}[label={sec:orgcd4cacd}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orge1ae3a5}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org2f4349d}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgaddd8af}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org9e7d41f}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:orgda21be7}
-\begin{frame}[label={sec:org911e8ac}]{How Containers Work Zine}
+\label{sec:orgfd27a3c}
+\begin{frame}[label={sec:org9136ecf}]{How Containers Work Zine}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org7be6430}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:orgfb02269}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org4de3152}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:orgac7956a}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org7c5b834}
-\begin{frame}[label={sec:orgec764f8},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:org06c43a6}
+\begin{frame}[label={sec:orga2a9d35},fragile]{Containers from Scratch: Obtaing an "Image"}
  \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
+#!/usr/bin/bash
+
 IMG_DIR="alpine_img"
-IMG_URL="https://us.images.linuxcontainers.org/images/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
-mkdir -p $IMG_DIR && curl $IMG_URL | tar xJ -C $IMG_DIR
+IMG_REPO="https://us.images.linuxcontainers.org/images"
+IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
+[ ! -d $IMG_DIR ] && \
+    mkdir -p $IMG_DIR && \
+    curl $IMG_URL | tar xJ -C $IMG_DIR
+cd $IMG_DIR
 \end{lstlisting}
 \end{frame}
-\begin{frame}[label={sec:org76a9658},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:orgc6f87c5},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 CGROUP_ID="MAC0475-145"
@@ -192,8 +198,20 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{lstlisting}
 \end{frame}
 
+\begin{frame}[label={sec:org696b7cb},fragile]{Containers from Scratch: Launching an Alpine Container}
+ \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+HOSTNAME="alpine-container"
+sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
+     unshare -fmuipn --mount-proc \
+     chroot "$PWD/" \
+     /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
+\end{lstlisting}
+\end{frame}
+
+
 \section{Docker Containers}
-\label{sec:orgca365b8}
+\label{sec:orgd92d2f1}
 \section{Docker Compose}
-\label{sec:orgf4bae41}
+\label{sec:org3bb7bdc}
 \end{document}

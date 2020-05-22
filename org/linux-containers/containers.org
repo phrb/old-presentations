@@ -188,7 +188,10 @@
    #+ATTR_LATEX: :width \columnwidth
    [[file:../../img/virtualization_kernel.pdf]]
 * Containers on Linux
-** How Containers Work Zine
+** How do Containers Work?
+   #+ATTR_LATEX: :width .81\columnwidth
+   [[file:../../img/how-containers-work_pg0.pdf]]
+** How do Containers Work?
    Images used *with permission*:
    #+ATTR_LATEX: :width .72\columnwidth
    [[file:../../img/hcw_permission_twitter.png]]

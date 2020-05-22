@@ -1,7 +1,7 @@
-#+TITLE: @@latex: Linux Containers and Dockers
+#+TITLE: @@latex: Introduction to OS-Level Virtualization on Linux@@
 #+AUTHOR:    @@latex: \vspace{-2em}@@ \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
 #+EMAIL:     phrb@ime.usp.br
-#+DATE:      \scriptsize 4 de Março de 2020
+#+DATE:      \scriptsize May 25th, 2020
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -103,6 +103,11 @@
   :BEAMER_env: ignoreheading
   :END:
 ** Containers from Scratch
+*** Getting Files from Docker Images
+    #+begin_SRC shell :results output :session *Shell* :eval no-export :exports results
+    sudo docker pull debian:latest
+    sudo docker save debian:latest | gzip > data/debian_latest.tar.gz
+    #+end_SRC
 *** Talks
     - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
     - [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
@@ -116,3 +121,112 @@
     - [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
 *** Tutorials
     - [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
+*** Useful Links
+    - [[https://en.wikipedia.org/wiki/Cgroups][Cgroups]]
+    - [[https://en.wikipedia.org/wiki/Linux_namespaces][Namespaces]]
+    - [[https://en.wikipedia.org/wiki/List_of_Linux_containers][List of Linux Containers]]
+    - [[https://en.wikipedia.org/wiki/Operating_system-level_virtualization][OS-level virtualization]]
+    - [[https://github.com/opencontainers/][OpenContainers Initiative]]
+* Introduction
+** What are Simulation, Emulation, Virtualization?
+*** Images                                                            :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.75
+    :END:
+    #+latex: \only<1-2>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/pilotwings64.jpg]]
+    #+latex: }
+    #+latex: \only<3>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64.png]]
+    #+latex: }
+    #+latex: \only<4>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64_win7.png]]
+    #+latex: }
+    #+latex: \only<5-6>{
+    #+ATTR_LATEX: :width 0.9\columnwidth
+    [[file:../../img/wii_n64_win7_debian.png]]
+    #+latex: }
+
+*** Progression                                                       :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.25
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<3>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<4>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<5>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/debian_win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+    #+latex: \only<6>{
+    #+ATTR_LATEX: :width .7\columnwidth
+    [[file:../../img/arch_debian_win7_wii_n64_pw64_flight.pdf]]
+    #+latex: }
+** OS-Level Virtualization
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virtualization_concept.pdf]]
+** OS-Level Virtualization on Linux
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../img/virtualization_normal_kernel.pdf]]
+** OS-Level Virtualization on Linux
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../img/virtualization_kernel.pdf]]
+* Containers on Linux
+** How Containers Work Zine
+   Images used *with permission*:
+   #+ATTR_LATEX: :width .72\columnwidth
+   [[file:../../img/hcw_permission_twitter.png]]
+** Containers on Linux are Just Processes
+   #+ATTR_LATEX: :width .86\columnwidth
+   [[file:../../img/how-containers-work_pg7.pdf]]
+** Containers on Linux use Some Kernel Features
+   #+ATTR_LATEX: :width .86\columnwidth
+   [[file:../../img/how-containers-work_pg8.pdf]]
+* Containers from Scratch
+** Containers from Scratch: Obtaing an Image
+   #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
+   IMG_DIR="alpine_img"
+   IMG_URL="https://us.images.linuxcontainers.org/images/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
+   mkdir -p $IMG_DIR && curl $IMG_URL | tar xJ -C $IMG_DIR
+   #+end_SRC
+
+   #+RESULTS:
+   : IMG_DIR="alpine_img"   IMG_DIR=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m_[33mi[33mm[33mg[33m"[39m[?2004l
+   : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% IMG_URL="https://us.images.linuxcontainers.org/images/alpine/3.11/amd64/default/20200521_1<g/images/alpine/3.11/amd64/default/20200521_13                                              :00/rootfs.tar.xz"<[33mg[33m/[33mi[33mm[33ma[33mg[33me[33ms[33m/[33ma[33ml[33mp[33mi[33mn[33me[33m/[33m3[33m.[33m1[33m1[33m/[33ma[33mm[33md[33m6[33m4[33m/[33md[33me[33mf[33ma[33mu[33ml[33mt[33m/[33m2[33m0[33m2[33m0[33m0[33m5[33m2[33m1[33m_[33m1[33m3[33m:[33m0[33m0[33m/[33mr[33mo[33mo[33mt[33mf[33ms[33m.[33mt[33ma[33mr[33m.[33mx[33mz[33m"[39m[?2004l
+   : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% mkdir -p $IMG_DIR && curl $IMG_URL | tar xJ -C $IMG_DIR   [32mm[32mk[32md[32mi[32mr[39m -p $IMG_DIR && [32mc[32mu[32mr[32ml[39m $IMG_URL | [32mt[32ma[32mr[39m xJ -C $IMG_DIR[?2004l
+   : Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+   :                                  Dload  Upload   Total   Spent    Left  Speed
+   :   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0echo 'org_babel_sh_eoe'
+   :   0 2407k    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  9 2407k    9  240k    0     0   128k      0  0:00:18  0:00:01  0:00:17  128k 35 2407k   35  848k    0     0   306k      0  0:00:07  0:00:02  0:00:05  305k 57 2407k   57 1376k    0     0   362k      0  0:00:06  0:00:03  0:00:03  362k 91 2407k   91 2208k    0     0   458k      0  0:00:05  0:00:04  0:00:01  458k100 2407k  100 2407k    0     0   479k      0  0:00:05  0:00:05 --:--:--  604k
+** Containers from Scratch: Creating cgroups and Setting Limits
+   #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code
+   CGROUP_ID="MAC0475-145"
+   sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"
+   sudo cgset -r cpu.shares=512 "$CGROUP_ID" # 1024 is 100% CPU
+   sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
+   #+end_SRC
+
+   #+RESULTS:
+   : CGROUP_ID="MAC0475-145"   CGROUP_ID=[33m"[33mM[33mA[33mC[33m0[33m4[33m7[33m5[33m-[33m1[33m4[33m5[33m"[39m[?2004l
+   : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"[?2004l
+   : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% sudo cgset -r cpu.shares=512 "$CGROUP_ID" # 1024 is 100% CPU[?2004l
+   : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"[?2004l
+
+* Docker Containers
+* Docker Compose

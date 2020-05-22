@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="968.5069"
+   height="438.82083"
+   viewBox="0 0 256.25077 116.10467"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="dse_summary.svg"
+   inkscape:export-filename="/home/phrb/cloud/presentations/img/dse_summary.png"
+   inkscape:export-xdpi="179.91"
+   inkscape:export-ydpi="179.91">
+  <defs
+     id="defs2">
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5007"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutL"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutL"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5004"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,-4.8,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Mend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4853"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.4,0,0,-0.4,-4,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="marker5128"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path5126"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4847"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-4"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-5"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-6"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-0-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-63-5"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-06-6"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-1-9"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+    <marker
+       inkscape:stockid="EmptyTriangleOutM"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="EmptyTriangleOutM-5-3"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         inkscape:connector-curvature="0"
+         id="path5007-4-7"
+         d="M 5.77,0 -2.88,5 V -5 Z"
+         style="fill:#ffffff;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.4,0,0,0.4,-1.8,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="452.26894"
+     inkscape:cy="120.92549"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     fit-margin-top="20"
+     fit-margin-left="20"
+     fit-margin-right="20"
+     fit-margin-bottom="20"
+     inkscape:window-width="1920"
+     inkscape:window-height="1060"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(55.810393,4.2783999)">
+    <g
+       id="g7312">
+      <text
+         id="text4524-3"
+         y="13.771228"
+         x="-46.167328"
+         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-weight:bold;stroke-width:0.26458332"
+           y="13.771228"
+           x="-46.167328"
+           id="tspan4522-6"
+           sodipodi:role="line">User Problem</tspan></text>
+      <text
+         id="text4546-0"
+         y="21.692947"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.26458332"
+           y="21.692947"
+           x="-46.090157"
+           id="tspan4544-9"
+           sodipodi:role="line">Design Space:</tspan><tspan
+           id="tspan4616"
+           style="stroke-width:0.26458332"
+           y="28.014725"
+           x="-46.090157"
+           sodipodi:role="line">- Parameters</tspan><tspan
+           id="tspan4614"
+           style="stroke-width:0.26458332"
+           y="34.336502"
+           x="-46.090157"
+           sodipodi:role="line">- Constraints</tspan></text>
+      <text
+         id="text4546-0-3"
+         y="45.57238"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4647"
+           style="stroke-width:0.26458332"
+           y="45.57238"
+           x="-46.090157"
+           sodipodi:role="line">Optimization Metrics:</tspan><tspan
+           id="tspan4653"
+           style="stroke-width:0.26458332"
+           y="51.894157"
+           x="-46.090157"
+           sodipodi:role="line">- Circuit Area</tspan><tspan
+           id="tspan4657"
+           style="stroke-width:0.26458332"
+           y="58.215935"
+           x="-46.090157"
+           sodipodi:role="line">- DNN Accuracy</tspan><tspan
+           id="tspan4659"
+           style="stroke-width:0.26458332"
+           y="64.537712"
+           x="-46.090157"
+           sodipodi:role="line">- Execution Time</tspan><tspan
+           id="tspan4661"
+           style="stroke-width:0.26458332"
+           y="70.859489"
+           x="-46.090157"
+           sodipodi:role="line">- ...</tspan></text>
+      <text
+         id="text4546-0-3-2"
+         y="82.047142"
+         x="-46.090157"
+         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           id="tspan4735"
+           style="stroke-width:0.26458332"
+           y="82.047142"
+           x="-46.090157"
+           sodipodi:role="line">Performance measurements:</tspan><tspan
+           id="tspan4731"
+           style="stroke-width:0.26458332"
+           y="88.368919"
+           x="-46.090157"
+           sodipodi:role="line">- Initial explorations, validation</tspan><tspan
+           style="stroke-width:0.26458332"
+           y="94.690697"
+           x="-46.090157"
+           sodipodi:role="line"
+           id="tspan1095">- Further design restrictions</tspan></text>
+      <rect
+         y="7.2812371"
+         x="-50.254143"
+         height="92.985405"
+         width="74.083336"
+         id="rect4773"
+         style="opacity:0.96499999;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+    </g>
+    <g
+       id="g7270"
+       transform="translate(-0.24663291,-31.220835)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2"
+         d="M 118.45402,95.320897 H 25.282891"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5"
+         d="M 118.45402,100.51807 H 25.28289"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7"
+         d="M 118.45402,105.71522 H 25.282892"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5)" />
+    </g>
+    <g
+       id="g7293"
+       transform="translate(3.1011001)">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-2-5"
+         d="M 21.384367,46.467463 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-0-6)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-5-2"
+         d="M 21.384367,41.27029 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-06-6)" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4796-7-5"
+         d="M 21.384367,36.07314 H 114.5555"
+         style="fill:none;stroke:#000000;stroke-width:0.52916676;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:1.05833346, 2.11666692;stroke-dashoffset:0;stroke-opacity:1;marker-end:url(#EmptyTriangleOutM-5-3)" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="29.715034"
+       y="12.345137"
+       id="text6880"><tspan
+         sodipodi:role="line"
+         x="29.715034"
+         y="12.345137"
+         style="stroke-width:0.26458332"
+         id="tspan6886">1. Design Space specification:</tspan><tspan
+         sodipodi:role="line"
+         x="29.715034"
+         y="18.666914"
+         style="stroke-width:0.26458332"
+         id="tspan6892">    - Parameters, constraints, metrics</tspan><tspan
+         sodipodi:role="line"
+         x="29.715034"
+         y="24.988691"
+         style="stroke-width:0.26458332"
+         id="tspan6971">2. Performance measurements</tspan><tspan
+         sodipodi:role="line"
+         x="29.715034"
+         y="31.310469"
+         style="stroke-width:0.26458332"
+         id="tspan6973">3. Optimization method choice</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="33.708591"
+       y="83.674881"
+       id="text6880-0"><tspan
+         sodipodi:role="line"
+         x="33.708591"
+         y="83.674881"
+         style="stroke-width:0.26458332"
+         id="tspan6888-6">1. List of experiments to run</tspan><tspan
+         sodipodi:role="line"
+         x="33.708591"
+         y="89.996658"
+         style="stroke-width:0.26458332"
+         id="tspan6967">2. Best configuration</tspan><tspan
+         sodipodi:role="line"
+         x="33.708591"
+         y="96.318436"
+         style="stroke-width:0.26458332"
+         id="tspan6965">3. Statistical Analyses</tspan><tspan
+         sodipodi:role="line"
+         x="33.708591"
+         y="102.64021"
+         style="stroke-width:0.26458332"
+         id="tspan6975">4. Optimization method suggestions</tspan></text>
+    <g
+       id="g1120"
+       transform="translate(0,11.759861)">
+      <text
+         id="text4524"
+         y="-3.6125159"
+         x="132.18274"
+         style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="font-weight:bold;stroke-width:0.26458332"
+           y="-3.6125159"
+           x="132.18274"
+           id="tspan4522"
+           sodipodi:role="line">Autotuning Methodology</tspan></text>
+      <rect
+         y="-10.482011"
+         x="119.01472"
+         height="104.99218"
+         width="75.869423"
+         id="rect4773-2"
+         style="opacity:0.96499999;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.5291667;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke" />
+      <g
+         transform="translate(-38.024405,-13.797865)"
+         id="g7211">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="164.78629"
+           y="80.705429"
+           id="text4550"><tspan
+             sodipodi:role="line"
+             id="tspan4548"
+             x="164.78629"
+             y="80.705429"
+             style="stroke-width:0.26458332">Statistical Analysis:</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="87.027206"
+             style="stroke-width:0.26458332"
+             id="tspan4763">- Keep track of optimization</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="93.348984"
+             style="stroke-width:0.26458332"
+             id="tspan4767">- Building &amp; reusing models</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="99.670761"
+             style="stroke-width:0.26458332"
+             id="tspan4771">- Data visualization</tspan></text>
+        <rect
+           style="opacity:0.96499999;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="rect4773-2-4-4"
+           width="66.916573"
+           height="30.030111"
+           x="161.42693"
+           y="73.407776" />
+      </g>
+      <g
+         transform="translate(-38.024405,-16.84536)"
+         id="g7219">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="164.78629"
+           y="50.001492"
+           id="text4524-35"><tspan
+             sodipodi:role="line"
+             id="tspan4522-62"
+             x="164.78629"
+             y="50.001492"
+             style="stroke-width:0.26458332">Statistical Learning and</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="56.323269"
+             style="stroke-width:0.26458332"
+             id="tspan4745">Search Heuristics:</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="62.645046"
+             style="stroke-width:0.26458332"
+             id="tspan4749">- Where to explore next</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="68.96682"
+             style="stroke-width:0.26458332"
+             id="tspan4759">- Exploit models</tspan></text>
+        <rect
+           style="opacity:0.96499999;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="rect4773-2-4-4-4"
+           width="66.916573"
+           height="30.030111"
+           x="161.42693"
+           y="43.192177" />
+      </g>
+      <g
+         transform="translate(-38.024405,-16.31065)"
+         id="g7226">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-weight:normal;font-size:4.93888855px;line-height:1.27999997;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+           x="164.78629"
+           y="23.254711"
+           id="text4546"><tspan
+             sodipodi:role="line"
+             id="tspan4544"
+             x="164.78629"
+             y="23.254711"
+             style="stroke-width:0.26458332">Experimental Design:</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="29.576488"
+             style="stroke-width:0.26458332"
+             id="tspan4741">- Initial experiments</tspan><tspan
+             sodipodi:role="line"
+             x="164.78629"
+             y="35.898266"
+             style="stroke-width:0.26458332"
+             id="tspan4755">- Cost reduction</tspan></text>
+        <rect
+           style="opacity:0.96499999;fill:none;fill-opacity:0.99215686;stroke:#000000;stroke-width:0.52916682;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="rect4773-2-4-4-3"
+           width="66.916573"
+           height="23.22654"
+           x="161.42693"
+           y="16.197952" />
+      </g>
+    </g>
+  </g>
+</svg>

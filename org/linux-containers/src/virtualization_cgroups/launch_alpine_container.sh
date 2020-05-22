@@ -20,4 +20,5 @@ sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
 
 # Cleanup:
-sudo cgdelete "cpu,cpuacct:/$CGROUP_ID"
+sudo cgdelete cpu,cpuacct:/$CGROUP_ID
+sudo cgdelete memory:/$CGROUP_ID

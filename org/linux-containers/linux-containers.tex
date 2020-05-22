@@ -1,4 +1,4 @@
-% Created 2020-05-21 Thu 23:17
+% Created 2020-05-22 Fri 01:00
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -79,8 +79,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:orga7aa00f}
-\begin{frame}[label={sec:orgd8eb795}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:org83fc5d7}
+\begin{frame}[label={sec:org32a71b9}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -139,47 +139,80 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org67e5a81}]{OS-Level Virtualization}
+\begin{frame}[label={sec:orge1721e7}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org96aa01c}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgbbc7e78}]{OS-Level Virtualization: Scope of this Talk}
+\begin{columns}
+\begin{column}{0.4\columnwidth}
+\begin{block}{Scope}
+\begin{itemize}
+\item Why should you \alert{use containers}?
+\begin{itemize}
+\item Reproducible builds
+\item Environment versioning
+\item It's also \alert{easier}
+\end{itemize}
+\item How do containers \alert{work}?
+\item What \alert{tools} are available?
+\begin{itemize}
+\item LXC, \alert{Docker}, chroot, Singularity, \(\dots\)
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{column}
+\begin{column}{0.6\columnwidth}
+\only<1>{
+\begin{center}
+\includegraphics[width=.9\columnwidth]{../../img/project_no_containers.pdf}
+\end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=.9\columnwidth]{../../img/project_with_containers.pdf}
+\end{center}
+}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org3f51b06}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org065c834}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgc914aa0}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:org580c00f}
-\begin{frame}[label={sec:org6d5ce38}]{How Containers Work Zine}
+\label{sec:org43306c5}
+\begin{frame}[label={sec:orgf61a746}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org2748aaf}]{How Containers Work Zine}
+\begin{frame}[label={sec:org587c1ab}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org546f2bf}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:org4d0ef36}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org4c0f4d0}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:org3f2183f}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org3e1c6bb}
-\begin{frame}[label={sec:orge64232d},fragile]{Containers from Scratch: Obtaing an "Image"}
+\label{sec:orgc77596f}
+\begin{frame}[label={sec:orgee34d85},fragile]{Containers from Scratch: Obtaing an ``Image''}
  \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 #!/usr/bin/bash
@@ -193,7 +226,7 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 cd $IMG_DIR
 \end{lstlisting}
 \end{frame}
-\begin{frame}[label={sec:org91d2421},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org3f6762d},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 CGROUP_ID="MAC0475-145"
@@ -203,7 +236,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[label={sec:org1017276},fragile]{Containers from Scratch: Launching the Alpine Container}
+\begin{frame}[label={sec:org642f965},fragile]{Containers from Scratch: Launching the Alpine Container}
  \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 HOSTNAME="alpine-container"
@@ -212,14 +245,19 @@ sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
      chroot "$PWD/" \
      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
 
+\end{lstlisting}
+
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
 # Cleanup:
-sudo cgdelete "cpu,cpuacct:/$CGROUP_ID"
+sudo cgdelete cpu,cpuacct:/$CGROUP_ID
+sudo cgdelete memory:/$CGROUP_ID
 \end{lstlisting}
 \end{frame}
 
 
 \section{Docker Containers}
-\label{sec:orgd52a3ec}
+\label{sec:orga7f7874}
 \section{Docker Compose}
-\label{sec:orgaa8d9fe}
+\label{sec:org2a1bb27}
 \end{document}

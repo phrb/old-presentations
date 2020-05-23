@@ -10,7 +10,7 @@ cd $IMG_DIR
 
 CGROUP_ID="MAC0475-145"
 sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"
-sudo cgset -r cpu.shares=512 "$CGROUP_ID" # 1024 is 100% CPU
+sudo cgset -r cpu.shares=512 "$CGROUP_ID"
 sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 
 HOSTNAME="alpine-container"
@@ -19,6 +19,4 @@ sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
      chroot "$PWD/" \
      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
 
-# Cleanup:
-sudo cgdelete cpu,cpuacct:/$CGROUP_ID
-sudo cgdelete memory:/$CGROUP_ID
+sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID

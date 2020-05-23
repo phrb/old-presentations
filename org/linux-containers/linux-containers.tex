@@ -1,4 +1,4 @@
-% Created 2020-05-22 Fri 18:36
+% Created 2020-05-23 Sat 01:32
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -79,8 +79,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:org8ecf6d4}
-\begin{frame}[label={sec:orgbf47f84}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:org69afdb2}
+\begin{frame}[label={sec:org0d8aeff}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -139,12 +139,12 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org473a42b}]{OS-Level Virtualization}
+\begin{frame}[label={sec:org2c4131e}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orga03bebe}]{OS-Level Virtualization: Scope of this Talk}
+\begin{frame}[label={sec:org9dbaec6}]{OS-Level Virtualization: Scope of this Talk}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Scope}
@@ -179,42 +179,42 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org937dc54}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgdca4dbf}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orga1dcb62}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org5d14a2d}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:orgd13ebbd}
-\begin{frame}[label={sec:org10fdf69}]{How do Containers Work?}
+\label{sec:org279ac04}
+\begin{frame}[label={sec:org1f71f0f}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgd0114c9}]{How do Containers Work?}
+\begin{frame}[label={sec:org8b5ae0d}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org730a5d3}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:org7c75d1c}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org6c9b007}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:org8353752}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org600eb09}
-\begin{frame}[label={sec:org741680d},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:org1befe20}
+\begin{frame}[label={sec:orgebb22df},fragile]{Containers from Scratch: Obtaing an Image}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 An \alert{image} usually means:
@@ -248,12 +248,11 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 [ ! -d $IMG_DIR ] && \
     mkdir -p $IMG_DIR && \
     curl $IMG_URL | tar xJ -C $IMG_DIR
-cd $IMG_DIR
 \end{lstlisting}
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orga1cecbe},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org28a5f18},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  We will create a \alert{cgroup} allowing up to:
 \begin{itemize}
 \item \alert{50\%} CPU usage: 512/1024 \alert{shares}
@@ -271,7 +270,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgcbc7ad8},fragile]{Containers from Scratch: Launching our Alpine Container}
+\begin{frame}[label={sec:org7982afc},fragile]{Containers from Scratch: Launching our Alpine Container}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -295,7 +294,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 HOSTNAME="alpine-container"
 sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
      unshare -fmuipn --mount-proc \
-     chroot "$PWD/" \
+     chroot "$IMG_DIR/" \
      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
 
 \end{lstlisting}
@@ -311,7 +310,7 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 
 
 \section{Docker Containers}
-\label{sec:orgcf59fa9}
+\label{sec:org36e6c68}
 \section{Docker Compose}
-\label{sec:orgc94f0b3}
+\label{sec:org40332e5}
 \end{document}

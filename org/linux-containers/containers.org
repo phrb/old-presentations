@@ -251,7 +251,7 @@
     - No need for metadata
 
 *** Bash Script
-    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
     #!/usr/bin/bash
 
     IMG_DIR="alpine_img"
@@ -260,18 +260,18 @@
     [ ! -d $IMG_DIR ] && \
         mkdir -p $IMG_DIR && \
         curl $IMG_URL | tar xJ -C $IMG_DIR
-    cd $IMG_DIR
     #+end_SRC
 
     #+RESULTS:
     :
     : !/usr/bin/bash   [30m#[30m![30m/[30mu[30ms[30mr[30m/[30mb[30mi[30mn[30m/[30mb[30ma[30ms[30mh[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% [?2004l
-    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% IMG_DIR="alpine_img"   IMG_DIR=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m_[33mi[33mm[33mg[33m"[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% IMG_REPO="https://us.images.linuxcontainers.org/images"   IMG_REPO=[33m"[33mh[33mt[33mt[33mp[33ms[33m:[33m/[33m/[33mu[33ms[33m.[33mi[33mm[33ma[33mg[33me[33ms[33m.[33ml[33mi[33mn[33mu[33mx[33mc[33mo[33mn[33mt[33ma[33mi[33mn[33me[33mr[33ms[33m.[33mo[33mr[33mg[33m/[33mi[33mm[33ma[33mg[33me[33ms[33m"[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"   IMG_URL=[33m"[33m$[33mI[33mM[33mG[33m_[33mR[33mE[33mP[33mO[39m[33m/[33ma[33ml[33mp[33mi[33mn[33me[33m/[33m3[33m.[33m1[33m1[33m/[33ma[33mm[33md[33m6[33m4[33m/[33md[33me[33mf[33ma[33mu[33ml[33mt[33m/[33m2[33m0[33m2[33m0[33m0[33m5[33m2[33m1[33m_[33m1[33m3[33m:[33m0[33m0[33m/[33mr[33mo[33mo[33mt[33mf[33ms[33m.[33mt[33ma[33mr[33m.[33mx[33mz[33m"[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% [ ! -d $IMG_DIR ] && \   [32m[[39m ! -d $IMG_DIR [32m][39m && [31m\[39m[?2004l
+    : I% [?2004hI% [?2004l
+    : I% [?2004hI% IMG_DIR="alpine_img"   IMG_DIR=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m_[33mi[33mm[33mg[33m"[39m[?2004l
+    : I% [?2004hI% IMG_REPO="https://us.images.linuxcontainers.org/images"   IMG_REPO=[33m"[33mh[33mt[33mt[33mp[33ms[33m:[33m/[33m/[33mu[33ms[33m.[33mi[33mm[33ma[33mg[33me[33ms[33m.[33ml[33mi[33mn[33mu[33mx[33mc[33mo[33mn[33mt[33ma[33mi[33mn[33me[33mr[33ms[33m.[33mo[33mr[33mg[33m/[33mi[33mm[33ma[33mg[33me[33ms[33m"[39m[?2004l
+    : I% [?2004hI% IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"   IMG_URL=[33m"[33m$[33mI[33mM[33mG[33m_[33mR[33mE[33mP[33mO[39m[33m/[33ma[33ml[33mp[33mi[33mn[33me[33m/[33m3[33m.[33m1[33m1[33m/[33ma[33mm[33md[33m6[33m4[33m/[33md[33me[33mf[33ma[33mu[33ml[33mt[33m/[33m2[33m0[33m2[33m0[33m0[33m5[33m2[33m1[33m_[33m1[33m3[33m:[33m0[33m0[33m/[33mr[33mo[33mo[33mt[33mf[33ms[33m.[33mt[33ma[33mr[33m.[33mx[33mz[33m"[39m[?2004l
+    : I% [?2004hI% [ ! -d $IMG_DIR ] && \   [32m[[39m ! -d $IMG_DIR [32m][39m && [31m\[39m[?2004l
     : [?2004h>     mkdir -p $IMG_DIR && \      [32mm[32mk[32md[32mi[32mr[39m -p $IMG_DIR && [31m\[39m[?2004l
+    : [?2004h>     curl $IMG_URL | tar xJ -C $IMG_DIR      [32mc[32mu[32mr[32ml[39m $IMG_URL | [32mt[32ma[32mr[39m xJ -C $IMG_DIR[?2004l
 
 ** Containers from Scratch: Creating cgroups and Setting Limits
    We will create a *cgroup* allowing up to:
@@ -279,7 +279,7 @@
    - *10GB* of RAM
 
 *** Script
-    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
     CGROUP_ID="MAC0475-145"
     sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"
     sudo cgset -r cpu.shares=512 "$CGROUP_ID"
@@ -288,8 +288,12 @@
 
     #+RESULTS:
     : CGROUP_ID="MAC0475-145"   CGROUP_ID=[33m"[33mM[33mA[33mC[33m0[33m4[33m7[33m5[33m-[33m1[33m4[33m5[33m"[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containers/alpine_imgI% [?2004hI% sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32mc[32mr[32me[32ma[32mt[32me[39m -g [33m"[33mc[33mp[33mu[33m,[33mc[33mp[33mu[33ma[33mc[33mc[33mt[33m,[33mm[33me[33mm[33mo[33mr[33my[33m:[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+    : I% [?2004hI% sudo cgcreate -g "cpu,cpuacct,memory:$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32mc[32mr[32me[32ma[32mt[32me[39m -g [33m"[33mc[33mp[33mu[33m,[33mc[33mp[33mu[33ma[33mc[33mc[33mt[33m,[33mm[33me[33mm[33mo[33mr[33my[33m:[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+    : [sudo] password for phrb:
     : CGROUP_ID"
+    : I% [?2004hI% sudo cgset -r cpu.shares=512 "$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32ms[32me[32mt[39m -r cpu.shares=512 [33m"[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
+    : CGROUP_ID"
+    : I% [?2004hI% sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"   [32ms[32mu[32md[32mo[39m [32mc[32mg[32ms[32me[32mt[39m -r memory.limit_in_bytes=10000000000 [33m"[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m[?2004l
 
 ** Containers from Scratch: Launching our Alpine Container
 *** Left                                                              :BMCOL:
@@ -311,29 +315,32 @@
     :PROPERTIES:
     :BEAMER_env: block
     :END:
-    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
     HOSTNAME="alpine-container"
     sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \
          unshare -fmuipn --mount-proc \
-         chroot "$PWD/" \
+         chroot "$IMG_DIR/" \
          /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"
 
     #+end_SRC
 
+    #+RESULTS:
+    : HOSTNAME="alpine-container"   HOSTNAME=[33m"[33ma[33ml[33mp[33mi[33mn[33me[33m-[33mc[33mo[33mn[33mt[33ma[33mi[33mn[33me[33mr[33m"[39m[?2004l
+    : I% [?2004hI% sudo cgexec -g "cpu,cpuacct,memory:$CGROUP_ID" \   [32ms[32mu[32md[32mo[39m [32mc[32mg[32me[32mx[32me[32mc[39m -g [33m"[33mc[33mp[33mu[33m,[33mc[33mp[33mu[33ma[33mc[33mc[33mt[33m,[33mm[33me[33mm[33mo[33mr[33my[33m:[33m$[33mC[33mG[33mR[33mO[33mU[33mP[33m_[33mI[33mD[39m[33m"[39m \[?2004l
+    : [?2004h>      unshare -fmuipn --mount-proc \[?2004l
+    : [?2004h>      chroot "$IMG_DIR/" \[33m"[33m$[33mI[33mM[33mG[33m_[33mD[33mI[33mR[39m[33m/[33m"[39m \[?2004l
+    : [?2004h>      /bin/sh -c "PATH=/bin && mount -t proc proc /proc && hostname $HOSTNAME && sh"       /bin/sh -c [33m"[33mP[33mA[33mT[33mH[33m=[33m/[33mb[33mi[33mn[33m [33m&[33m&[33m [33mm[33mo[33mu[33mn[33mt[33m [33m-[33mt[33m [33mp[33mr[33mo[33mc[33m [33mp[33mr[33mo[33mc[33m [33m/[33mp[33mr[33mo[33mc[33m [33m&[33m&[33m [33mh[33mo[33ms[33mt[33mn[33ma[33mm[33me[33m [33m$[33mH[33mO[33mS[33mT[33mN[33mA[33mM[33mE[39m[33m [33m&[33m&[33m [33ms[33mh[33m"[39m[?2004l
+
     And some *cleanup* after:
 
-    #+begin_SRC bash :results output :session *Shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle "src/virtualization_cgroups/launch_alpine_container.sh"
     sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
     #+end_SRC
 
     #+RESULTS:
     :
-    : Cleanup:   [30m#[30m [30mC[30ml[30me[30ma[30mn[30mu[30mp[30m:[39m[?2004l
-    : ]0;~/cloud/presentations/org/linux-containers/alpine_imgI% [?2004hI% sudo cgdelete cpu,cpuacct:/$CGROUP_ID   [32ms[32mu[32md[32mo[39m [32mc[32mg[32md[32me[32ml[32me[32mt[32me[39m cpu,cpuacct:/$CGROUP_ID[?2004l
-    : CGROUP_ID
+    : CGROUP_ID[?2004l
     : cgdelete: cannot remove group '/MAC0475-145': No such file or directory
-    : ]0;~/cloud/presentations/org/linux-containers/alpine_imgI% [?2004hI% sudo cgdelete memory:/$CGROUP_ID   [32ms[32mu[32md[32mo[39m [32mc[32mg[32md[32me[32ml[32me[32mt[32me[39m memory:/$CGROUP_ID[?2004l
-    : echo 'org_babel_sh_eoe'
 
 
 * Docker Containers

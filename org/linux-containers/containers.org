@@ -9,7 +9,7 @@
 #+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+EXPORT_FILE_NAME: linux-containers.pdf
+#+EXPORT_FILE_NAME: os-level-virtualization-linux.pdf
 #+LINK_UP:
 #+LINK_HOME:
 
@@ -114,10 +114,18 @@
   #+RESULTS:
 
 
-* Resources                                        :B_ignoreheading:noexport:
+* Introduction to OS-Level Virtualization on Linux: Resources :B_ignoreheading:noexport:
   :PROPERTIES:
   :BEAMER_env: ignoreheading
+  :EXPORT_FILE_NAME: README
   :END:
+
+  This is  the repository of  a talk on  OS-Level Virtualization on  Linux, with
+  examples using Linux tools and also Docker. Check the =src= directory for all the
+  code shown on the slides, and more!
+
+  Below is a list of interesting related links.
+
 ** Containers from Scratch
 *** Getting Files from Docker Images
     #+begin_SRC shell :results output :session *Shell* :eval no-export :exports results
@@ -435,8 +443,14 @@
    - Check the examples and [[https://docs.docker.com/engine/reference/commandline/cli/][the docs]] for more
 * Dockerfiles
 ** Environment Versioning with Dockerfiles
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .64\columnwidth
+   [[file:../../img/virt_with_docker.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
    #+ATTR_LATEX: :width .78\columnwidth
    [[file:../../img/virt_with_dockerfile.pdf]]
+   #+latex: }
 *** Dockerfiles                                                     :B_block:
     :PROPERTIES:
     :BEAMER_env: block
@@ -489,18 +503,32 @@
     sudo docker container rm --force bb
     #+end_SRC
 
-    - Check the *tutorial* [[https://docs.docker.com/get-started/part2/][here]]
+    - Check the [[https://docs.docker.com/get-started/part2/][complete tutorial]]
 * Docker Compose
 ** Combining Services with Docker Compose
-   #+ATTR_LATEX: :width .88\columnwidth
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .81\columnwidth
+   [[file:../../img/virt_with_dockerfile.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
+   #+ATTR_LATEX: :width .94\columnwidth
    [[file:../../img/virt_with_docker_compose.pdf]]
+   #+latex: }
+*** Docker-compose                                                  :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Uses *Dockerfiles* too
+    - Defines *services* on *separate containers*:
+      - Configure service *communication*
+      - Maintain separate service *projects*
 ** Combining Services with Docker Compose: Flask + Redis
    #+begin_SRC python :results output :session *Python* :eval no-export :exports code :tangle ./src/flask_redis/app.py
    import time, redis
    from flask import Flask
 
    app = Flask(__name__)
-   cache = redis.Redis(host='redis', port=6379)
+   cache = redis.Redis(host = 'redis', port = 6379)
 
    def get_hit_count():
        retries = 5
@@ -525,10 +553,14 @@
    #+end_SRC
 
 ** Combining Services with Docker Compose: Flask + Redis
-*** Flask + Redis Dockerfile                                        :B_block:
+*** Flask Dockerfile                                                :B_block:
     :PROPERTIES:
     :BEAMER_env: block
     :END:
+
+    - Use an Alpine image, with Python 3.7
+    - Configure and install *Flask* dependencies
+    - Define a default *container command*
 
     #+begin_SRC dockerfile :results output :eval no-export :exports code :tangle ./src/flask_redis/Dockerfile
     FROM python:3.7-alpine
@@ -548,6 +580,9 @@
     :BEAMER_env: block
     :END:
 
+    - Define *service architecture*
+    - Use the *default* Redis Alpine image
+
     #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/flask_redis/docker-compose.yml
     version: '3'
     services:
@@ -562,3 +597,30 @@
       redis:
         image: "redis:alpine"
     #+end_src
+
+    - Check the [[https://docs.docker.com/compose/gettingstarted/][complete tutorial]]
+* Conclusion
+** OS-Level Virtualization: Conclusion
+*** Take-away                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+    - You should *use containers*!
+      - Reproducible builds
+      - Environment versioning
+      - It's *easy*
+    - Containers are *processes*
+    - Many *tools* are available:
+
+    #+ATTR_LATEX: :width .8\columnwidth
+    [[file:../../img/containers.jpg]]
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width .9\columnwidth
+    [[file:../../img/project_with_containers.pdf]]
+    #+latex: }

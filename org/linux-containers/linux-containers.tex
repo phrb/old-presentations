@@ -1,4 +1,4 @@
-% Created 2020-05-24 Sun 19:11
+% Created 2020-05-24 Sun 19:40
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -95,8 +95,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:org5097b5e}
-\begin{frame}[label={sec:org284c688}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:org5d1acfd}
+\begin{frame}[label={sec:orge91a09b}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -155,12 +155,12 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org940265e}]{OS-Level Virtualization}
+\begin{frame}[label={sec:org9ad4e7a}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org73e0ffc}]{OS-Level Virtualization: Scope of this Talk}
+\begin{frame}[label={sec:orge9dbc94}]{OS-Level Virtualization: Scope of this Talk}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Scope}
@@ -195,42 +195,42 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org5cf7e6b}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org914a470}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org4fb8ce9}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgd5fb122}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:org9e198fe}
-\begin{frame}[label={sec:org17a2970}]{How do Containers Work?}
+\label{sec:orgcb84d0b}
+\begin{frame}[label={sec:org6b4a7a3}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org53e9af8}]{How do Containers Work?}
+\begin{frame}[label={sec:org374af33}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orga16da27}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:orge191dc2}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orge3fdb30}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:org96b68ed}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org20a499d}
-\begin{frame}[label={sec:orgec5f769},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:orgdde33f8}
+\begin{frame}[label={sec:org72b118f},fragile]{Containers from Scratch: Obtaing an Image}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 An \alert{image} usually means:
@@ -268,7 +268,7 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org34f07d0},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org7470a36},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  We will create a \alert{cgroup} allowing up to:
 \begin{itemize}
 \item \alert{50\%} CPU usage: 512/1024 \alert{shares}
@@ -286,7 +286,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org8f219e1},fragile]{Containers from Scratch: Launching our Alpine Container}
+\begin{frame}[label={sec:org8208c8f},fragile]{Containers from Scratch: Launching our Alpine Container}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -325,7 +325,7 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{frame}
 
 
-\begin{frame}[label={sec:orgc3e5f57}]{Containers from Scratch: Resources}
+\begin{frame}[label={sec:org3d6109f}]{Containers from Scratch: Resources}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Talks}
@@ -357,8 +357,8 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{columns}
 \end{frame}
 \section{Docker Containers}
-\label{sec:org3230db2}
-\begin{frame}[label={sec:orgfa58cc6},fragile]{The Docker API for Containers}
+\label{sec:orgf6be905}
+\begin{frame}[label={sec:org1fd8058},fragile]{The Docker API for Containers}
  \only<1>{
 \begin{center}
 \includegraphics[width=.6\columnwidth]{../../img/virt_no_docker.pdf}
@@ -381,7 +381,7 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org865e856},fragile]{The Docker API for Containers}
+\begin{frame}[label={sec:orgef5f792},fragile]{The Docker API for Containers}
  Some \alert{API functions}:
 \footnotesize
 \begin{center}
@@ -407,11 +407,18 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{itemize}
 \end{frame}
 \section{Dockerfiles}
-\label{sec:orgeaefe5f}
-\begin{frame}[label={sec:org51b6e83}]{Environment Versioning with Dockerfiles}
+\label{sec:orgd622b0d}
+\begin{frame}[label={sec:orga1a85da}]{Environment Versioning with Dockerfiles}
+\only<1>{
+\begin{center}
+\includegraphics[width=.64\columnwidth]{../../img/virt_with_docker.pdf}
+\end{center}
+}
+\only<2>{
 \begin{center}
 \includegraphics[width=.78\columnwidth]{../../img/virt_with_dockerfile.pdf}
 \end{center}
+}
 \begin{block}{Dockerfiles}
 \begin{itemize}
 \item Similar to \alert{makefiles}
@@ -424,7 +431,7 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org698a760},fragile]{Dockerfiles: A Simple Bulletin Board}
+\begin{frame}[label={sec:org1147c79},fragile]{Dockerfiles: A Simple Bulletin Board}
  \begin{block}{Cloning the Repository}
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -444,7 +451,7 @@ COPY . .
 \end{lstlisting}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org3c8f4b9},fragile]{Dockerfiles: Building and Running}
+\begin{frame}[label={sec:orga8133bd},fragile]{Dockerfiles: Building and Running}
  \begin{block}{Building the Image}
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -462,25 +469,42 @@ sudo docker container rm --force bb
 \end{lstlisting}
 
 \begin{itemize}
-\item Check the \alert{tutorial} \href{https://docs.docker.com/get-started/part2/}{here}
+\item Check the \href{https://docs.docker.com/get-started/part2/}{complete tutorial}
 \end{itemize}
 \end{block}
 \end{frame}
 \section{Docker Compose}
-\label{sec:org708e199}
-\begin{frame}[label={sec:orgd49ab4a}]{Combining Services with Docker Compose}
+\label{sec:orgca8e6ac}
+\begin{frame}[label={sec:org7a9fe2e}]{Combining Services with Docker Compose}
+\only<1>{
 \begin{center}
-\includegraphics[width=.82\columnwidth]{../../img/virt_with_docker_compose.pdf}
+\includegraphics[width=.81\columnwidth]{../../img/virt_with_dockerfile.pdf}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=.94\columnwidth]{../../img/virt_with_docker_compose.pdf}
+\end{center}
+}
+\begin{block}{Docker-compose}
+\begin{itemize}
+\item Uses \alert{Dockerfiles} too
+\item Defines \alert{services} on \alert{separate containers}:
+\begin{itemize}
+\item Configure service \alert{communication}
+\item Maintain separate service \alert{projects}
+\end{itemize}
+\end{itemize}
+\end{block}
 \end{frame}
-\begin{frame}[label={sec:org21a3462},fragile]{Combining Services with Docker Compose: Flask + Redis}
+\begin{frame}[label={sec:orgd03b029},fragile]{Combining Services with Docker Compose: Flask + Redis}
  \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 import time, redis
 from flask import Flask
 
 app = Flask(__name__)
-cache = redis.Redis(host='redis', port=6379)
+cache = redis.Redis(host = 'redis', port = 6379)
 
 def get_hit_count():
     retries = 5
@@ -500,8 +524,14 @@ def hello():
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[label={sec:orgc0ecd46},fragile]{Combining Services with Docker Compose: Flask + Redis}
- \begin{block}{Flask + Redis Dockerfile}
+\begin{frame}[label={sec:org838e644},fragile]{Combining Services with Docker Compose: Flask + Redis}
+ \begin{block}{Flask Dockerfile}
+\begin{itemize}
+\item Use an Alpine image, with Python 3.7
+\item Configure and install \alert{Flask} dependencies
+\item Define a default \alert{container command}
+\end{itemize}
+
 \lstset{language=dockerfile,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 FROM python:3.7-alpine
@@ -517,8 +547,13 @@ CMD ["flask", "run"]
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org95fe7b6},fragile]{Combining Services with Docker Compose: Flask + Redis}
+\begin{frame}[label={sec:org4f461e1},fragile]{Combining Services with Docker Compose: Flask + Redis}
  \begin{block}{Docker Compose Configuration}
+\begin{itemize}
+\item Define \alert{service architecture}
+\item Use the \alert{default} Redis Alpine image
+\end{itemize}
+
 \lstset{language=yaml,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 version: '3'
@@ -534,6 +569,42 @@ services:
   redis:
     image: "redis:alpine"
 \end{lstlisting}
+
+\begin{itemize}
+\item Check the \href{https://docs.docker.com/compose/gettingstarted/}{complete tutorial}
+\end{itemize}
 \end{block}
+\end{frame}
+\section{Conclusion}
+\label{sec:orgd9d8560}
+\begin{frame}[label={sec:org2e2610f}]{OS-Level Virtualization: Conclusion}
+\begin{columns}
+\begin{column}{0.4\columnwidth}
+\begin{block}{Take-away}
+\begin{itemize}
+\item You should \alert{use containers}!
+\begin{itemize}
+\item Reproducible builds
+\item Environment versioning
+\item It's \alert{easy}
+\end{itemize}
+\item Containers are \alert{processes}
+\item Many \alert{tools} are available:
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=.8\columnwidth]{../../img/containers.jpg}
+\end{center}
+\end{block}
+\end{column}
+
+\begin{column}{0.6\columnwidth}
+\only<1>{
+\begin{center}
+\includegraphics[width=.9\columnwidth]{../../img/project_with_containers.pdf}
+\end{center}
+}
+\end{column}
+\end{columns}
 \end{frame}
 \end{document}

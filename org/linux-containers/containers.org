@@ -433,6 +433,7 @@
    |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
    #+latex: \normalsize
    - Check the examples and [[https://docs.docker.com/engine/reference/commandline/cli/][the docs]] for more
+* Dockerfiles
 ** Environment Versioning with Dockerfiles
    #+ATTR_LATEX: :width .78\columnwidth
    [[file:../../img/virt_with_dockerfile.pdf]]
@@ -446,31 +447,54 @@
       - Environment variables
       - Install dependencies
 ** Dockerfiles: A Simple Bulletin Board
-   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/clone.sh
-   git clone https://github.com/dockersamples/node-bulletin-board
-   cd node-bulletin-board/bulletin-board-app
-   #+end_SRC
+*** Cloning the Repository                                          :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
 
-   #+RESULTS:
-   : git clone https://github.com/dockersamples/node-bulletin-board   [32mg[32mi[32mt[39m clone https://github.com/dockersamples/node-bulletin-board[?2004l
-   : Cloning into 'node-bulletin-board'...
-   : remote: Enumerating objects: 124, done.
-   : (1/124)Receiving objects:   1% (2/124)Receiving objects:   2% (3/124)Receiving objects:   3% (4/124)Receiving objects:   4% (5/124)Receiving objects:   5% (7/124)Receiving objects:   6% (8/124)Receiving objects:   7% (9/124)Receiving objects:   8% (10/124)Receiving objects:   9% (12/124)Receiving objects:  10% (13/124)Receiving objects:  11% (14/124)Receiving objects:  12% (15/124)Receiving objects:  13% (17/124)Receiving objects:  14% (18/124)Receiving objects:  15% (19/124)Receiving objects:  16% (20/124)Receiving objects:  17% (22/124)Receiving objects:  18% (23/124)cd node-bulletin-board/bulletin-board-app
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/clone.sh
+    git clone https://github.com/dockersamples/node-bulletin-board
+    #+end_SRC
+*** Dockerfile
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
 
-   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/build_run.sh
-   cd node-bulletin-board/bulletin-board-app
-   sudo docker image build --tag bulletinboard:1.0 .
-   sudo docker container run --publish 8000:8080 --detach --name bb bulletinboard:1.0
-   #+end_SRC
+    #+begin_SRC dockerfile :results output :eval no-export :exports code
+    FROM node:current-slim
+    WORKDIR /usr/src/app
+    COPY package.json .
+    RUN npm install
+    EXPOSE 8080
+    CMD [ "npm", "start" ]
+    COPY . .
+    #+end_SRC
+** Dockerfiles: Building and Running
+*** Building the Image                                              :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/build_run.sh
+    cd node-bulletin-board/bulletin-board-app
+    sudo docker image build --tag bulletinboard:1.0 .
+    sudo docker container run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+    #+end_SRC
 
-   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/cleanup.sh
-   cd node-bulletin-board/bulletin-board-app
-   sudo docker container rm --force bb
-   #+end_SRC
+*** Cleaning up                                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/cleanup.sh
+    cd node-bulletin-board/bulletin-board-app
+    sudo docker container rm --force bb
+    #+end_SRC
 
-
+    - Check the *tutorial* [[https://docs.docker.com/get-started/part2/][here]]
 * Docker Compose
-** Combining Services with Docker Compose: A Flask Server
+** Combining Services with Docker Compose
+   #+ATTR_LATEX: :width .88\columnwidth
+   [[file:../../img/virt_with_docker_compose.pdf]]
+** Combining Services with Docker Compose: Flask + Redis
    #+begin_SRC python :results output :session *Python* :eval no-export :exports code :tangle ./src/flask_redis/app.py
    import time, redis
    from flask import Flask
@@ -500,7 +524,7 @@
    redis
    #+end_SRC
 
-** Combining Services with Docker Compose
+** Combining Services with Docker Compose: Flask + Redis
 *** Flask + Redis Dockerfile                                        :B_block:
     :PROPERTIES:
     :BEAMER_env: block
@@ -518,7 +542,7 @@
     CMD ["flask", "run"]
     #+end_src
 
-** Combining Services with Docker Compose
+** Combining Services with Docker Compose: Flask + Redis
 *** Docker Compose Configuration                                    :B_block:
     :PROPERTIES:
     :BEAMER_env: block

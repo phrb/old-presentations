@@ -1,4 +1,4 @@
-% Created 2020-05-24 Sun 17:35
+% Created 2020-05-24 Sun 17:55
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -95,8 +95,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:orgaba55d4}
-\begin{frame}[label={sec:org3e25a6b}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:orgdf9c78e}
+\begin{frame}[label={sec:org723c931}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -155,12 +155,12 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org75055a9}]{OS-Level Virtualization}
+\begin{frame}[label={sec:org57f1b97}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orge6f5c06}]{OS-Level Virtualization: Scope of this Talk}
+\begin{frame}[label={sec:orga1514b9}]{OS-Level Virtualization: Scope of this Talk}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Scope}
@@ -195,42 +195,42 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org03cd2c5}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org7ed8e89}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgbd54c7e}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgc21b8f9}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:org3ddc40d}
-\begin{frame}[label={sec:orgd443b4b}]{How do Containers Work?}
+\label{sec:orgce13197}
+\begin{frame}[label={sec:orgb5bb52b}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org792c3d7}]{How do Containers Work?}
+\begin{frame}[label={sec:org0d1587a}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:orgf5c2334}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:org794209a}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org55bd5ce}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:orgd2ed734}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:orgd67d45e}
-\begin{frame}[label={sec:orgce7817c},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:org4c178d9}
+\begin{frame}[label={sec:orgd4e33a1},fragile]{Containers from Scratch: Obtaing an Image}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 An \alert{image} usually means:
@@ -268,7 +268,7 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org6599008},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org5f27727},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  We will create a \alert{cgroup} allowing up to:
 \begin{itemize}
 \item \alert{50\%} CPU usage: 512/1024 \alert{shares}
@@ -286,7 +286,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org66384d3},fragile]{Containers from Scratch: Launching our Alpine Container}
+\begin{frame}[label={sec:org9e94d09},fragile]{Containers from Scratch: Launching our Alpine Container}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -325,7 +325,7 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{frame}
 
 
-\begin{frame}[label={sec:orga6fe52b}]{Containers from Scratch: Resources}
+\begin{frame}[label={sec:org7e7606f}]{Containers from Scratch: Resources}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Talks}
@@ -357,8 +357,8 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{columns}
 \end{frame}
 \section{Docker Containers}
-\label{sec:org7e0cef0}
-\begin{frame}[label={sec:org981fa34},fragile]{The Docker API for Containers}
+\label{sec:orgb7d63bb}
+\begin{frame}[label={sec:orgf02e781},fragile]{The Docker API for Containers}
  \only<1>{
 \begin{center}
 \includegraphics[width=.6\columnwidth]{../../img/virt_no_docker.pdf}
@@ -381,7 +381,7 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orga9ee04f},fragile]{The Docker API for Containers}
+\begin{frame}[label={sec:org9f75eb9},fragile]{The Docker API for Containers}
  Some \alert{API functions}:
 \footnotesize
 \begin{center}
@@ -407,8 +407,8 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{itemize}
 \end{frame}
 \section{Docker Compose}
-\label{sec:orgad4ee8d}
-\begin{frame}[label={sec:org6a6156d}]{Environment Versioning with Dockerfiles}
+\label{sec:orgaf67c72}
+\begin{frame}[label={sec:org497644d}]{Environment Versioning with Dockerfiles}
 \begin{center}
 \includegraphics[width=.78\columnwidth]{../../img/virt_with_dockerfile.pdf}
 \end{center}
@@ -424,87 +424,66 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgf5abb8f},fragile]{Combining Services with Docker Compose}
- \begin{block}{A Rails Dockerfile}
+\begin{frame}[label={sec:orgf74fbe5},fragile]{Combining Services with Docker Compose: A Flask Server}
+ \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+import time, redis
+from flask import Flask
+
+app = Flask(__name__)
+cache = redis.Redis(host='redis', port=6379)
+
+def get_hit_count():
+    retries = 5
+    while True:
+        try:
+            return cache.incr('hits')
+        except redis.exceptions.ConnectionError as exc:
+            if retries == 0:
+                raise exc
+            retries -= 1
+            time.sleep(0.5)
+
+@app.route('/')
+def hello():
+    count = get_hit_count()
+    return 'Hello World! I have been seen {} times.\n'.format(count)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[label={sec:org577e3c1},fragile]{Combining Services with Docker Compose}
+ \begin{block}{Flask + Redis Dockerfile}
 \lstset{language=dockerfile,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
-FROM ruby:2.5
-RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-RUN mkdir /myapp
-WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
-RUN bundle install
-COPY . /myapp
-
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
-EXPOSE 3000
-
-CMD ["rails", "server", "-b", "0.0.0.0"]
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP app.py
+ENV FLASK_RUN_HOST 0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+COPY . .
+CMD ["flask", "run"]
 \end{lstlisting}
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org94587e1},fragile]{Combining Services with Docker Compose}
- \begin{block}{Entry-point Script}
-\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
-\begin{lstlisting}
-#!/bin/bash
-
-set -e
-rm -f /myapp/tmp/pids/server.pid
-exec "$@"
-\end{lstlisting}
-
-\begin{itemize}
-\item Define \alert{startup configuration}
-\end{itemize}
-\end{block}
-\end{frame}
-\begin{frame}[label={sec:orgb448367},fragile]{Combining Services with Docker Compose}
+\begin{frame}[label={sec:orgfeeec9d},fragile]{Combining Services with Docker Compose}
  \begin{block}{Docker Compose Configuration}
 \lstset{language=yaml,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 version: '3'
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./tmp/db:/var/lib/postgresql/data
   web:
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    volumes:
-      - .:/myapp
     ports:
-      - "3000:3000"
-    depends_on:
-      - db
-\end{lstlisting}
-\end{block}
-\end{frame}
-\begin{frame}[label={sec:org2995109},fragile]{Combining Services with Docker Compose}
- \begin{block}{Docker Compose Database Configuration}
-\lstset{language=yaml,label= ,caption= ,captionpos=b,numbers=none}
-\begin{lstlisting}
-default: &default
-  adapter: postgresql
-  encoding: unicode
-  host: db
-  username: postgres
-  password:
-  pool: 5
-
-development:
-  <<: *default
-  database: myapp_development
-
-
-test:
-  <<: *default
-  database: myapp_test
+      - "5000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+  redis:
+    image: "redis:alpine"
 \end{lstlisting}
 \end{block}
 \end{frame}

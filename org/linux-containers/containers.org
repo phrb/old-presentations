@@ -433,7 +433,6 @@
    |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
    #+latex: \normalsize
    - Check the examples and [[https://docs.docker.com/engine/reference/commandline/cli/][the docs]] for more
-* Docker Compose
 ** Environment Versioning with Dockerfiles
    #+ATTR_LATEX: :width .78\columnwidth
    [[file:../../img/virt_with_dockerfile.pdf]]
@@ -446,89 +445,96 @@
       - Versions of images from [[https://hub.docker.com/search?q=&type=image][dockerhub]]
       - Environment variables
       - Install dependencies
+** Dockerfiles: A Simple Bulletin Board
+   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/clone.sh
+   git clone https://github.com/dockersamples/node-bulletin-board
+   cd node-bulletin-board/bulletin-board-app
+   #+end_SRC
+
+   #+RESULTS:
+   : git clone https://github.com/dockersamples/node-bulletin-board   [32mg[32mi[32mt[39m clone https://github.com/dockersamples/node-bulletin-board[?2004l
+   : Cloning into 'node-bulletin-board'...
+   : remote: Enumerating objects: 124, done.
+   : (1/124)Receiving objects:   1% (2/124)Receiving objects:   2% (3/124)Receiving objects:   3% (4/124)Receiving objects:   4% (5/124)Receiving objects:   5% (7/124)Receiving objects:   6% (8/124)Receiving objects:   7% (9/124)Receiving objects:   8% (10/124)Receiving objects:   9% (12/124)Receiving objects:  10% (13/124)Receiving objects:  11% (14/124)Receiving objects:  12% (15/124)Receiving objects:  13% (17/124)Receiving objects:  14% (18/124)Receiving objects:  15% (19/124)Receiving objects:  16% (20/124)Receiving objects:  17% (22/124)Receiving objects:  18% (23/124)cd node-bulletin-board/bulletin-board-app
+
+   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/build_run.sh
+   cd node-bulletin-board/bulletin-board-app
+   sudo docker image build --tag bulletinboard:1.0 .
+   sudo docker container run --publish 8000:8080 --detach --name bb bulletinboard:1.0
+   #+end_SRC
+
+   #+begin_SRC shell :results output :session *shell* :eval no-export :exports code :tangle ./src/bulletin_dockerfile/cleanup.sh
+   cd node-bulletin-board/bulletin-board-app
+   sudo docker container rm --force bb
+   #+end_SRC
+
+
+* Docker Compose
+** Combining Services with Docker Compose: A Flask Server
+   #+begin_SRC python :results output :session *Python* :eval no-export :exports code :tangle ./src/flask_redis/app.py
+   import time, redis
+   from flask import Flask
+
+   app = Flask(__name__)
+   cache = redis.Redis(host='redis', port=6379)
+
+   def get_hit_count():
+       retries = 5
+       while True:
+           try:
+               return cache.incr('hits')
+           except redis.exceptions.ConnectionError as exc:
+               if retries == 0:
+                   raise exc
+               retries -= 1
+               time.sleep(0.5)
+
+   @app.route('/')
+   def hello():
+       count = get_hit_count()
+       return 'Hello World! I have been seen {} times.\n'.format(count)
+   #+end_SRC
+
+   #+begin_SRC python :results output :session *Python* :eval no-export :exports none :tangle ./src/flask_redis/requirements.txt
+   flask
+   redis
+   #+end_SRC
+
 ** Combining Services with Docker Compose
-*** A Rails Dockerfile                                              :B_block:
+*** Flask + Redis Dockerfile                                        :B_block:
     :PROPERTIES:
     :BEAMER_env: block
     :END:
 
-    #+begin_SRC dockerfile :results output :eval no-export :exports code :tangle ./src/rails_postgres/Dockerfile
-    FROM ruby:2.5
-    RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-    RUN mkdir /myapp
-    WORKDIR /myapp
-    COPY Gemfile /myapp/Gemfile
-    COPY Gemfile.lock /myapp/Gemfile.lock
-    RUN bundle install
-    COPY . /myapp
-
-    COPY entrypoint.sh /usr/bin/
-    RUN chmod +x /usr/bin/entrypoint.sh
-    ENTRYPOINT ["entrypoint.sh"]
-    EXPOSE 3000
-
-    CMD ["rails", "server", "-b", "0.0.0.0"]
+    #+begin_SRC dockerfile :results output :eval no-export :exports code :tangle ./src/flask_redis/Dockerfile
+    FROM python:3.7-alpine
+    WORKDIR /code
+    ENV FLASK_APP app.py
+    ENV FLASK_RUN_HOST 0.0.0.0
+    RUN apk add --no-cache gcc musl-dev linux-headers
+    COPY requirements.txt requirements.txt
+    RUN pip install -r requirements.txt
+    COPY . .
+    CMD ["flask", "run"]
     #+end_src
 
-** Combining Services with Docker Compose
-*** Entry-point Script                                              :B_block:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :END:
-
-    #+begin_SRC bash :results output :eval no-export :exports code :tangle ./src/rails_postgres/entrypoint.sh
-    #!/bin/bash
-
-    set -e
-    rm -f /myapp/tmp/pids/server.pid
-    exec "$@"
-    #+end_src
-
-    - Define *startup configuration*
 ** Combining Services with Docker Compose
 *** Docker Compose Configuration                                    :B_block:
     :PROPERTIES:
     :BEAMER_env: block
     :END:
 
-    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/rails_postgres/docker-compose.yml
+    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/flask_redis/docker-compose.yml
     version: '3'
     services:
-      db:
-        image: postgres
-        volumes:
-          - ./tmp/db:/var/lib/postgresql/data
       web:
         build: .
-        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-        volumes:
-          - .:/myapp
         ports:
-          - "3000:3000"
-        depends_on:
-          - db
-    #+end_src
-** Combining Services with Docker Compose
-*** Docker Compose Database Configuration                           :B_block:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :END:
-
-    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/rails_postgres/config/database.yml
-    default: &default
-      adapter: postgresql
-      encoding: unicode
-      host: db
-      username: postgres
-      password:
-      pool: 5
-
-    development:
-      <<: *default
-      database: myapp_development
-
-
-    test:
-      <<: *default
-      database: myapp_test
+          - "5000:5000"
+        volumes:
+          - .:/code
+        environment:
+          FLASK_ENV: development
+      redis:
+        image: "redis:alpine"
     #+end_src

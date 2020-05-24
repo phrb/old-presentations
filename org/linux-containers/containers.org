@@ -114,43 +114,43 @@
   #+RESULTS:
 
 
-* Introduction to OS-Level Virtualization on Linux: Resources :B_ignoreheading:noexport:
+* Resources                                        :B_ignoreheading:noexport:
   :PROPERTIES:
   :BEAMER_env: ignoreheading
   :EXPORT_FILE_NAME: README
   :END:
+** Introduction to OS-Level Virtualization on Linux
+   This is  the repository of  a talk on  OS-Level Virtualization on  Linux, with
+   examples using Linux tools and also Docker. Check the =src= directory for all the
+   code shown on the slides, and more!
 
-  This is  the repository of  a talk on  OS-Level Virtualization on  Linux, with
-  examples using Linux tools and also Docker. Check the =src= directory for all the
-  code shown on the slides, and more!
+   Below is a list of interesting related links.
 
-  Below is a list of interesting related links.
-
-** Containers from Scratch
-*** Getting Files from Docker Images
-    #+begin_SRC shell :results output :session *Shell* :eval no-export :exports results
-    sudo docker pull debian:latest
-    sudo docker save debian:latest | gzip > data/debian_latest.tar.gz
-    #+end_SRC
-*** Talks
-    - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
-    - [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
-    - [[https://www.youtube.com/watch?v=I326bpbdvJo][Antony Shaw, Pycon]]
-*** Images
-    - [[https://pbs.twimg.com/media/ERP973GXYAAaD9d?format=jpg&name=large][Julia Evans, Containers aren't magic]]
-    - [[https://pbs.twimg.com/media/ESZIbtfXQAIPwNs?format=jpg&name=large][Julia Evans, containers = processes]]
-*** Code
-    - [[https://github.com/lizrice/containers-from-scratch][lizrice, containers from scratch in Go]]
-    - [[https://github.com/p8952/bocker][Bocker, docker in bash]]
-    - [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
-*** Tutorials
-    - [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
-*** Useful Links
-    - [[https://en.wikipedia.org/wiki/Cgroups][Cgroups]]
-    - [[https://en.wikipedia.org/wiki/Linux_namespaces][Namespaces]]
-    - [[https://en.wikipedia.org/wiki/List_of_Linux_containers][List of Linux Containers]]
-    - [[https://en.wikipedia.org/wiki/Operating_system-level_virtualization][OS-level virtualization]]
-    - [[https://github.com/opencontainers/][OpenContainers Initiative]]
+*** Containers from Scratch
+**** Getting Files from Docker Images
+     #+begin_SRC shell :results output :session *Shell* :eval no-export :exports results
+     sudo docker pull debian:latest
+     sudo docker save debian:latest | gzip > data/debian_latest.tar.gz
+     #+end_SRC
+**** Talks
+     - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
+     - [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
+     - [[https://www.youtube.com/watch?v=I326bpbdvJo][Antony Shaw, Pycon]]
+**** Images
+     - [[https://pbs.twimg.com/media/ERP973GXYAAaD9d?format=jpg&name=large][Julia Evans, Containers aren't magic]]
+     - [[https://pbs.twimg.com/media/ESZIbtfXQAIPwNs?format=jpg&name=large][Julia Evans, containers = processes]]
+**** Code
+     - [[https://github.com/lizrice/containers-from-scratch][lizrice, containers from scratch in Go]]
+     - [[https://github.com/p8952/bocker][Bocker, docker in bash]]
+     - [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
+**** Tutorials
+     - [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
+**** Useful Links
+     - [[https://en.wikipedia.org/wiki/Cgroups][Cgroups]]
+     - [[https://en.wikipedia.org/wiki/Linux_namespaces][Namespaces]]
+     - [[https://en.wikipedia.org/wiki/List_of_Linux_containers][List of Linux Containers]]
+     - [[https://en.wikipedia.org/wiki/Operating_system-level_virtualization][OS-level virtualization]]
+     - [[https://github.com/opencontainers/][OpenContainers Initiative]]
 * Introduction
 ** What are Simulation, Emulation, Virtualization?
 *** Images                                                            :BMCOL:

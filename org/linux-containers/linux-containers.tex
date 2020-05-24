@@ -1,4 +1,4 @@
-% Created 2020-05-23 Sat 01:32
+% Created 2020-05-24 Sun 17:35
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -8,6 +8,7 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{multirow}
 \usepackage{caption}
 \usepackage{xeCJK}
 \usepackage{graphicx}
@@ -40,6 +41,22 @@ morecomment=[n]{\#=}{=\#},%
 morestring=[s]{"}{"},%
 morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
+\lstdefinelanguage{dockerfile}{
+keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+sensitive=false,
+comment=[l]{\#},
+morestring=[b]',
+morestring=[b]"
+}
+\lstdefinelanguage{yaml}{
+keywords={true,false,null,y,n},
+ndkeywords={},
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+morestring=[b]',
+morestring=[b]"
+}
 \lstset{ %
 backgroundcolor={},
 basicstyle=\ttfamily\scriptsize,
@@ -50,7 +67,6 @@ commentstyle=\color{Accent},
 extendedchars=true,
 frame=n,
 keywordstyle=\color{Accent},
-language=R,
 rulecolor=\color{black},
 showspaces=false,
 showstringspaces=false,
@@ -79,8 +95,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:org69afdb2}
-\begin{frame}[label={sec:org0d8aeff}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:orgaba55d4}
+\begin{frame}[label={sec:org3e25a6b}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -139,12 +155,12 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org2c4131e}]{OS-Level Virtualization}
+\begin{frame}[label={sec:org75055a9}]{OS-Level Virtualization}
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org9dbaec6}]{OS-Level Virtualization: Scope of this Talk}
+\begin{frame}[label={sec:orge6f5c06}]{OS-Level Virtualization: Scope of this Talk}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Scope}
@@ -179,42 +195,42 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgdca4dbf}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org03cd2c5}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org5d14a2d}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgbd54c7e}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:org279ac04}
-\begin{frame}[label={sec:org1f71f0f}]{How do Containers Work?}
+\label{sec:org3ddc40d}
+\begin{frame}[label={sec:orgd443b4b}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org8b5ae0d}]{How do Containers Work?}
+\begin{frame}[label={sec:org792c3d7}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org7c75d1c}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:orgf5c2334}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org8353752}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:org55bd5ce}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org1befe20}
-\begin{frame}[label={sec:orgebb22df},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:orgd67d45e}
+\begin{frame}[label={sec:orgce7817c},fragile]{Containers from Scratch: Obtaing an Image}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 An \alert{image} usually means:
@@ -252,7 +268,7 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org28a5f18},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org6599008},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  We will create a \alert{cgroup} allowing up to:
 \begin{itemize}
 \item \alert{50\%} CPU usage: 512/1024 \alert{shares}
@@ -270,7 +286,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org7982afc},fragile]{Containers from Scratch: Launching our Alpine Container}
+\begin{frame}[label={sec:org66384d3},fragile]{Containers from Scratch: Launching our Alpine Container}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -309,8 +325,187 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{frame}
 
 
+\begin{frame}[label={sec:orga6fe52b}]{Containers from Scratch: Resources}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Talks}
+\begin{itemize}
+\item \href{https://www.youtube.com/watch?v=8fi7uSYlOdc}{Liz Rice, GOTO 2018}
+\item \href{https://www.youtube.com/watch?v=\_TsSmSu57Zo}{Liz Rice, Container Camp}
+\item \href{https://www.youtube.com/watch?v=I326bpbdvJo}{Antony Shaw, Pycon}
+\end{itemize}
+\begin{block}{Code}
+\begin{itemize}
+\item \href{https://github.com/lizrice/containers-from-scratch}{lizrice, containers from scratch in Go}
+\item \href{https://github.com/p8952/bocker}{Bocker, docker in bash}
+\item \href{https://github.com/tonybaloney/mocker}{Mocker, docker in python}
+\end{itemize}
+\end{block}
+\end{block}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{block}{Tutorials}
+\begin{itemize}
+\item \href{https://btholt.github.io/complete-intro-to-containers/}{btholt, Complete Intro to Containers}
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=.99\columnwidth]{../../img/lizrice_goto2018.jpg}
+\end{center}
+\end{block}
+\end{column}
+\end{columns}
+\end{frame}
 \section{Docker Containers}
-\label{sec:org36e6c68}
+\label{sec:org7e0cef0}
+\begin{frame}[label={sec:org981fa34},fragile]{The Docker API for Containers}
+ \only<1>{
+\begin{center}
+\includegraphics[width=.6\columnwidth]{../../img/virt_no_docker.pdf}
+\end{center}
+}
+\only<2-3>{
+\begin{center}
+\includegraphics[width=.7\columnwidth]{../../img/virt_with_docker.pdf}
+\end{center}
+}
+
+\begin{block}<3>{Reproducing the Alpine Container}
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#! /bin/bash
+
+sudo docker image pull alpine
+sudo docker container run -it --memory=10g --cpu-shares=512 alpine
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:orga9ee04f},fragile]{The Docker API for Containers}
+ Some \alert{API functions}:
+\footnotesize
+\begin{center}
+\begin{tabular}{p{0.1\columnwidth}p{0.1\columnwidth}p{0.06\columnwidth}p{0.22\columnwidth}p{0.28\columnwidth}}
+\toprule
+\textbf{Docker API} &  &  & \textbf{Description} & \textbf{In Our Script}\\
+\midrule
+ \multirow{9}{*}{\texttt{docker}} &  \multirow{4}{*}{\texttt{image}} & \texttt{pull} & Downloads images & \texttt{mkdir}, \texttt{curl}, \texttt{tar}\\
+ &  & \texttt{ls} & Lists downloaded images & \\
+ &  & \texttt{save} & Writes image to a \texttt{.tar} & \\
+ &  & \texttt{build} & Builds an image & \\
+ &  &  &  & \\
+ &  \multirow{4}{*}{\texttt{container}} & \texttt{run} & Runs containers in images & \texttt{cgcreate}, \texttt{cgset}, \texttt{cgexec}, \texttt{unshare}, \texttt{chroot}, \texttt{hostname}, \texttt{mount}\\
+ &  & \texttt{ls} & Lists running containers & \\
+ &  & \texttt{attach} & Attaches to a container & \\
+ &  & \texttt{commit} & Saves container to image & \\
+\bottomrule
+\end{tabular}
+\end{center}
+\normalsize
+\begin{itemize}
+\item Check the examples and \href{https://docs.docker.com/engine/reference/commandline/cli/}{the docs} for more
+\end{itemize}
+\end{frame}
 \section{Docker Compose}
-\label{sec:org40332e5}
+\label{sec:orgad4ee8d}
+\begin{frame}[label={sec:org6a6156d}]{Environment Versioning with Dockerfiles}
+\begin{center}
+\includegraphics[width=.78\columnwidth]{../../img/virt_with_dockerfile.pdf}
+\end{center}
+\begin{block}{Dockerfiles}
+\begin{itemize}
+\item Similar to \alert{makefiles}
+\item Define container \alert{properties}:
+\begin{itemize}
+\item Versions of images from \href{https://hub.docker.com/search?q=\&type=image}{dockerhub}
+\item Environment variables
+\item Install dependencies
+\end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgf5abb8f},fragile]{Combining Services with Docker Compose}
+ \begin{block}{A Rails Dockerfile}
+\lstset{language=dockerfile,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+FROM ruby:2.5
+RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+RUN mkdir /myapp
+WORKDIR /myapp
+COPY Gemfile /myapp/Gemfile
+COPY Gemfile.lock /myapp/Gemfile.lock
+RUN bundle install
+COPY . /myapp
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+EXPOSE 3000
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[label={sec:org94587e1},fragile]{Combining Services with Docker Compose}
+ \begin{block}{Entry-point Script}
+\lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+#!/bin/bash
+
+set -e
+rm -f /myapp/tmp/pids/server.pid
+exec "$@"
+\end{lstlisting}
+
+\begin{itemize}
+\item Define \alert{startup configuration}
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:orgb448367},fragile]{Combining Services with Docker Compose}
+ \begin{block}{Docker Compose Configuration}
+\lstset{language=yaml,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+version: '3'
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/myapp
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+\end{lstlisting}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org2995109},fragile]{Combining Services with Docker Compose}
+ \begin{block}{Docker Compose Database Configuration}
+\lstset{language=yaml,label= ,caption= ,captionpos=b,numbers=none}
+\begin{lstlisting}
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: db
+  username: postgres
+  password:
+  pool: 5
+
+development:
+  <<: *default
+  database: myapp_development
+
+
+test:
+  <<: *default
+  database: myapp_test
+\end{lstlisting}
+\end{block}
+\end{frame}
 \end{document}

@@ -24,6 +24,7 @@
 #+LATEX_HEADER: \usepackage{booktabs}
 #+LATEX_HEADER: \usepackage{array}
 #+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{multirow}
 #+LATEX_HEADER: \usepackage{caption}
 #+LATEX_HEADER: \usepackage{xeCJK}
 #+LATEX_HEADER: \usepackage{graphicx}
@@ -58,6 +59,22 @@
 #+LATEX_HEADER:    morestring=[s]{"}{"},%
 #+LATEX_HEADER:    morestring=[m]{'}{'},%
 #+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstdefinelanguage{dockerfile}{
+#+LATEX_HEADER:   keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstdefinelanguage{yaml}{
+#+LATEX_HEADER:   keywords={true,false,null,y,n},
+#+LATEX_HEADER:   ndkeywords={},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morecomment=[s]{/*}{*/},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
 #+LATEX_HEADER: \lstset{ %
 #+LATEX_HEADER:   backgroundcolor={},
 #+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
@@ -69,7 +86,6 @@
 #+LATEX_HEADER:   extendedchars=true,
 #+LATEX_HEADER:   frame=n,
 #+LATEX_HEADER:   keywordstyle=\color{Accent},
-#+LATEX_HEADER:   language=R,
 #+LATEX_HEADER:   rulecolor=\color{black},
 #+LATEX_HEADER:   showspaces=false,
 #+LATEX_HEADER:   showstringspaces=false,
@@ -343,5 +359,176 @@
     : cgdelete: cannot remove group '/MAC0475-145': No such file or directory
 
 
+** Containers from Scratch: Resources
+*** Talks                                                     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - [[https://www.youtube.com/watch?v=8fi7uSYlOdc][Liz Rice, GOTO 2018]]
+    - [[https://www.youtube.com/watch?v=_TsSmSu57Zo][Liz Rice, Container Camp]]
+    - [[https://www.youtube.com/watch?v=I326bpbdvJo][Antony Shaw, Pycon]]
+**** Code
+     - [[https://github.com/lizrice/containers-from-scratch][lizrice, containers from scratch in Go]]
+     - [[https://github.com/p8952/bocker][Bocker, docker in bash]]
+     - [[https://github.com/tonybaloney/mocker][Mocker, docker in python]]
+*** Tutorials                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - [[https://btholt.github.io/complete-intro-to-containers/][btholt, Complete Intro to Containers]]
+
+    #+ATTR_LATEX: :width .99\columnwidth
+    [[file:../../img/lizrice_goto2018.jpg]]
 * Docker Containers
+** The Docker API for Containers
+   #+latex: \only<1>{
+   #+ATTR_LATEX: :width .6\columnwidth
+   [[file:../../img/virt_no_docker.pdf]]
+   #+latex: }
+   #+latex: \only<2-3>{
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virt_with_docker.pdf]]
+   #+latex: }
+
+*** Reproducing the Alpine Container                                :B_block:
+    :PROPERTIES:
+    :BEAMER_act: <3>
+    :BEAMER_env: block
+    :END:
+    #+begin_SRC bash :results output :session *shell* :eval no-export :exports code :tangle ./src/docker_alpine/docker_alpine.sh
+    #! /bin/bash
+
+    sudo docker image pull alpine
+    sudo docker container run -it --memory=10g --cpu-shares=512 alpine
+    #+end_SRC
+
+    #+RESULTS:
+    : sudo docker image pull alpine   [32ms[32mu[32md[32mo[39m [32md[32mo[32mc[32mk[32me[32mr[39m image pull alpine[?2004l
+    : [sudo] password for phrb:
+    : Using default tag: latest
+    : latest: Pulling from library/alpine
+    : Digest: sha256:9a839e63dad54c3a6d1834e29692c8492d93f90c59c978c1ed79109ea4fb9a54
+    : Status: Image is up to date for alpine:latest
+    : docker.io/library/alpine:latest
+    : ]0;~/cloud/presentations/org/linux-containersI% [?2004hI% sudo docker container run -it --memory=10g --cpu-shares=512 alpine   [32ms[32mu[32md[32mo[39m [32md[32mo[32mc[32mk[32me[32mr[39m container run -it --memory=10g --cpu-shares=512 alpine[?2004l
+
+** The Docker API for Containers
+   Some *API functions*:
+   #+latex: \footnotesize
+   #+ATTR_LATEX: :booktabs t :align p{0.1\columnwidth}p{0.1\columnwidth}p{0.06\columnwidth}p{0.22\columnwidth}p{0.28\columnwidth}
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   | \textbf{Docker API}                         |                                                |        | \textbf{Description}      | \textbf{In Our Script}                                    |
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   | @@latex: \multirow{9}{*}{\texttt{docker}}@@ | @@latex: \multirow{4}{*}{\texttt{image}}@@     | =pull=   | Downloads images          | =mkdir=, =curl=, =tar=                                          |
+   |                                             |                                                | =ls=     | Lists downloaded images   |                                                           |
+   |                                             |                                                | =save=   | Writes image to a =.tar=    |                                                           |
+   |                                             |                                                | =build=  | Builds an image           |                                                           |
+   |                                             |                                                |        |                           |                                                           |
+   |                                             | @@latex: \multirow{4}{*}{\texttt{container}}@@ | =run=    | Runs containers in images | =cgcreate=, =cgset=, =cgexec=, =unshare=, =chroot=, =hostname=, =mount= |
+   |                                             |                                                | =ls=     | Lists running containers  |                                                           |
+   |                                             |                                                | =attach= | Attaches to a container   |                                                           |
+   |                                             |                                                | =commit= | Saves container to image  |                                                           |
+   |---------------------------------------------+------------------------------------------------+--------+---------------------------+-----------------------------------------------------------|
+   #+latex: \normalsize
+   - Check the examples and [[https://docs.docker.com/engine/reference/commandline/cli/][the docs]] for more
 * Docker Compose
+** Environment Versioning with Dockerfiles
+   #+ATTR_LATEX: :width .78\columnwidth
+   [[file:../../img/virt_with_dockerfile.pdf]]
+*** Dockerfiles                                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - Similar to *makefiles*
+    - Define container *properties*:
+      - Versions of images from [[https://hub.docker.com/search?q=&type=image][dockerhub]]
+      - Environment variables
+      - Install dependencies
+** Combining Services with Docker Compose
+*** A Rails Dockerfile                                              :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC dockerfile :results output :eval no-export :exports code :tangle ./src/rails_postgres/Dockerfile
+    FROM ruby:2.5
+    RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
+    RUN mkdir /myapp
+    WORKDIR /myapp
+    COPY Gemfile /myapp/Gemfile
+    COPY Gemfile.lock /myapp/Gemfile.lock
+    RUN bundle install
+    COPY . /myapp
+
+    COPY entrypoint.sh /usr/bin/
+    RUN chmod +x /usr/bin/entrypoint.sh
+    ENTRYPOINT ["entrypoint.sh"]
+    EXPOSE 3000
+
+    CMD ["rails", "server", "-b", "0.0.0.0"]
+    #+end_src
+
+** Combining Services with Docker Compose
+*** Entry-point Script                                              :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC bash :results output :eval no-export :exports code :tangle ./src/rails_postgres/entrypoint.sh
+    #!/bin/bash
+
+    set -e
+    rm -f /myapp/tmp/pids/server.pid
+    exec "$@"
+    #+end_src
+
+    - Define *startup configuration*
+** Combining Services with Docker Compose
+*** Docker Compose Configuration                                    :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/rails_postgres/docker-compose.yml
+    version: '3'
+    services:
+      db:
+        image: postgres
+        volumes:
+          - ./tmp/db:/var/lib/postgresql/data
+      web:
+        build: .
+        command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+        volumes:
+          - .:/myapp
+        ports:
+          - "3000:3000"
+        depends_on:
+          - db
+    #+end_src
+** Combining Services with Docker Compose
+*** Docker Compose Database Configuration                           :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+
+    #+begin_SRC yaml :results output :eval no-export :exports code :tangle ./src/rails_postgres/config/database.yml
+    default: &default
+      adapter: postgresql
+      encoding: unicode
+      host: db
+      username: postgres
+      password:
+      pool: 5
+
+    development:
+      <<: *default
+      database: myapp_development
+
+
+    test:
+      <<: *default
+      database: myapp_test
+    #+end_src

@@ -1,4 +1,4 @@
-% Created 2020-05-24 Sun 19:47
+% Created 2020-05-24 Sun 23:27
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -95,8 +95,8 @@ tabsize=2,
 \maketitle
 
 \section{Introduction}
-\label{sec:orgded3528}
-\begin{frame}[label={sec:org33c1ee2}]{What are Simulation, Emulation, Virtualization?}
+\label{sec:org1decffb}
+\begin{frame}[label={sec:orge9aad6b}]{What are Simulation, Emulation, Virtualization?}
 \begin{columns}
 \begin{column}{0.75\columnwidth}
 \only<1-2>{
@@ -155,21 +155,28 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:org0f01b01}]{OS-Level Virtualization}
+\begin{frame}[label={sec:org6d68b96}]{OS-Level Virtualization}
+\only<1>{
 \begin{center}
 \includegraphics[width=.7\columnwidth]{../../img/virtualization_concept.pdf}
 \end{center}
+}
+\only<2>{
+\begin{center}
+\includegraphics[width=.7\columnwidth]{../../img/virtualization_concept_1.pdf}
+\end{center}
+}
 \end{frame}
-\begin{frame}[label={sec:org44592dd}]{OS-Level Virtualization: Scope of this Talk}
+\begin{frame}[label={sec:orgb4724f6}]{OS-Level Virtualization: Scope of this Talk}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
-\begin{block}{Scope}
+\begin{block}{Scope of this Talk}
 \begin{itemize}
 \item Why should you \alert{use containers}?
 \begin{itemize}
-\item Reproducible builds
 \item Environment versioning
-\item It's also \alert{easier}
+\item Reproducible builds
+\item It can be \alert{easier}
 \end{itemize}
 \item How do containers \alert{work}?
 \item What \alert{tools} are available?
@@ -195,42 +202,42 @@ tabsize=2,
 \end{column}
 \end{columns}
 \end{frame}
-\begin{frame}[label={sec:orgb9efd48}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:orgaa33d9a}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_normal_kernel.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org4fa1a8c}]{OS-Level Virtualization on Linux}
+\begin{frame}[label={sec:org9de12c8}]{OS-Level Virtualization on Linux}
 \begin{center}
 \includegraphics[width=\columnwidth]{../../img/virtualization_kernel.pdf}
 \end{center}
 \end{frame}
 \section{Containers on Linux}
-\label{sec:org78828c0}
-\begin{frame}[label={sec:orgdfe10ff}]{How do Containers Work?}
+\label{sec:org51641d4}
+\begin{frame}[label={sec:org66bef9b}]{How do Containers Work?}
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/how-containers-work_pg0.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org3bf063a}]{How do Containers Work?}
+\begin{frame}[label={sec:orgc0ebf60}]{How do Containers Work?}
 Images used \alert{with permission}:
 \begin{center}
 \includegraphics[width=.72\columnwidth]{../../img/hcw_permission_twitter.png}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org5dd3c7a}]{Containers on Linux are Just Processes}
+\begin{frame}[label={sec:orga2fe4ab}]{Containers on Linux are Just Processes}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg7.pdf}
 \end{center}
 \end{frame}
-\begin{frame}[label={sec:org29b2810}]{Containers on Linux use Some Kernel Features}
+\begin{frame}[label={sec:orgc76c5a7}]{Containers on Linux use Some Kernel Features}
 \begin{center}
 \includegraphics[width=.86\columnwidth]{../../img/how-containers-work_pg8.pdf}
 \end{center}
 \end{frame}
 \section{Containers from Scratch}
-\label{sec:org8574e58}
-\begin{frame}[label={sec:org2562343},fragile]{Containers from Scratch: Obtaing an Image}
+\label{sec:orga10262b}
+\begin{frame}[label={sec:org1373bfc},fragile]{Containers from Scratch: Obtaing an Image}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 An \alert{image} usually means:
@@ -268,7 +275,7 @@ IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org6f842ed},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
+\begin{frame}[label={sec:org4fa4bea},fragile]{Containers from Scratch: Creating cgroups and Setting Limits}
  We will create a \alert{cgroup} allowing up to:
 \begin{itemize}
 \item \alert{50\%} CPU usage: 512/1024 \alert{shares}
@@ -286,7 +293,7 @@ sudo cgset -r memory.limit_in_bytes=10000000000 "$CGROUP_ID"
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org3976870},fragile]{Containers from Scratch: Launching our Alpine Container}
+\begin{frame}[label={sec:org4b0a6c6},fragile]{Containers from Scratch: Launching our Alpine Container}
  \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{itemize}
@@ -325,7 +332,7 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{frame}
 
 
-\begin{frame}[label={sec:org56a42ca}]{Containers from Scratch: Resources}
+\begin{frame}[label={sec:orgb449f49}]{Containers from Scratch: Resources}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Talks}
@@ -357,8 +364,8 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{columns}
 \end{frame}
 \section{Docker Containers}
-\label{sec:org3430dbb}
-\begin{frame}[label={sec:org7ce953d},fragile]{The Docker API for Containers}
+\label{sec:orgd89a0b5}
+\begin{frame}[label={sec:org876f413},fragile]{The Docker API for Containers}
  \only<1>{
 \begin{center}
 \includegraphics[width=.6\columnwidth]{../../img/virt_no_docker.pdf}
@@ -370,7 +377,7 @@ sudo cgdelete cpu,cpuacct,memory:/$CGROUP_ID
 \end{center}
 }
 
-\begin{block}<3>{Reproducing the Alpine Container}
+\begin{block}<3>{Reproducing our Alpine Container}
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 #! /bin/bash
@@ -381,7 +388,7 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:org53356fb},fragile]{The Docker API for Containers}
+\begin{frame}[label={sec:org6be492b},fragile]{The Docker API for Containers}
  Some \alert{API functions}:
 \footnotesize
 \begin{center}
@@ -407,8 +414,8 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \end{itemize}
 \end{frame}
 \section{Dockerfiles}
-\label{sec:org1c6cc92}
-\begin{frame}[label={sec:org49cc5cd}]{Environment Versioning with Dockerfiles}
+\label{sec:org758dfc5}
+\begin{frame}[label={sec:orgd4f5981}]{Environment Versioning with Dockerfiles}
 \only<1>{
 \begin{center}
 \includegraphics[width=.64\columnwidth]{../../img/virt_with_docker.pdf}
@@ -426,12 +433,12 @@ sudo docker container run -it --memory=10g --cpu-shares=512 alpine
 \begin{itemize}
 \item Versions of images from \href{https://hub.docker.com/search?q=\&type=image}{dockerhub}
 \item Environment variables
-\item Install dependencies
+\item Dependencies
 \end{itemize}
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:orgd3df0e1},fragile]{Dockerfiles: A Simple Bulletin Board}
+\begin{frame}[label={sec:org4881db0},fragile]{Dockerfiles: A Simple Bulletin Board}
  \begin{block}{Cloning the Repository}
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -451,7 +458,7 @@ COPY . .
 \end{lstlisting}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org7323d63},fragile]{Dockerfiles: Building and Running}
+\begin{frame}[label={sec:org11931fa},fragile]{Dockerfiles: Building and Running}
  \begin{block}{Building the Image}
 \lstset{language=bash,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
@@ -474,8 +481,8 @@ sudo docker container rm --force bb
 \end{block}
 \end{frame}
 \section{Docker Compose}
-\label{sec:org44dfba5}
-\begin{frame}[label={sec:org3afca24}]{Combining Services with Docker Compose}
+\label{sec:orgdc785c9}
+\begin{frame}[label={sec:org64a24e5}]{Combining Services with Docker Compose}
 \only<1>{
 \begin{center}
 \includegraphics[width=.81\columnwidth]{../../img/virt_with_dockerfile.pdf}
@@ -497,7 +504,7 @@ sudo docker container rm --force bb
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org12b7494},fragile]{Combining Services with Docker Compose: Flask + Redis}
+\begin{frame}[label={sec:org66fab7f},fragile]{Combining Services with Docker Compose: Flask + Redis}
  \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none}
 \begin{lstlisting}
 import time, redis
@@ -524,7 +531,7 @@ def hello():
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[label={sec:org349df3b},fragile]{Combining Services with Docker Compose: Flask + Redis}
+\begin{frame}[label={sec:orgc731492},fragile]{Combining Services with Docker Compose: Flask + Redis}
  \begin{block}{Flask Dockerfile}
 \begin{itemize}
 \item Use an Alpine image, with Python 3.7
@@ -547,7 +554,7 @@ CMD ["flask", "run"]
 \end{block}
 \end{frame}
 
-\begin{frame}[label={sec:orgc307325},fragile]{Combining Services with Docker Compose: Flask + Redis}
+\begin{frame}[label={sec:orgef63f22},fragile]{Combining Services with Docker Compose: Flask + Redis}
  \begin{block}{Docker Compose Configuration}
 \begin{itemize}
 \item Define \alert{service architecture}
@@ -576,16 +583,16 @@ services:
 \end{block}
 \end{frame}
 \section{Conclusion}
-\label{sec:org8342e79}
-\begin{frame}[label={sec:orgc2307d9}]{OS-Level Virtualization: Conclusion}
+\label{sec:org249d7a5}
+\begin{frame}[label={sec:org422efed}]{OS-Level Virtualization: Conclusion}
 \begin{columns}
 \begin{column}{0.4\columnwidth}
 \begin{block}{Take-away}
 \begin{itemize}
 \item You should \alert{use containers}!
 \begin{itemize}
-\item Reproducible builds
 \item Environment versioning
+\item Reproducible builds
 \item It's \alert{easy}
 \end{itemize}
 \item Containers are \alert{processes}

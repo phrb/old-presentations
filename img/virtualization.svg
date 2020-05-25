@@ -12,9 +12,9 @@
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    id="svg8"
    version="1.1"
-   viewBox="0 0 260.04109 51.075135"
-   height="51.075138mm"
-   width="260.04108mm">
+   viewBox="0 0 191.04367 140.33131"
+   height="140.33131mm"
+   width="191.04366mm">
   <defs
      id="defs2">
     <marker
@@ -1529,6 +1529,36 @@
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1"
          transform="matrix(-0.4,0,0,-0.4,-4,0)" />
     </marker>
+    <marker
+       inkscape:collect="always"
+       inkscape:stockid="Arrow2Mend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow2Mend-9"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path950-0"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         transform="scale(-0.6)" />
+    </marker>
+    <marker
+       inkscape:collect="always"
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker1516-9"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(-0.6)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.625;stroke-linejoin:round;stroke-opacity:1"
+         id="path1514-1" />
+    </marker>
   </defs>
   <sodipodi:namedview
      lock-margins="false"
@@ -1543,11 +1573,11 @@
      inkscape:window-width="1920"
      showgrid="false"
      inkscape:document-rotation="0"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g7328"
      inkscape:document-units="mm"
-     inkscape:cy="115.68701"
-     inkscape:cx="562.94448"
-     inkscape:zoom="1"
+     inkscape:cy="129.10088"
+     inkscape:cx="740.06941"
+     inkscape:zoom="0.5"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0.0"
      borderopacity="1.0"
@@ -1571,7 +1601,7 @@
     </rdf:RDF>
   </metadata>
   <g
-     transform="translate(-396.01132,-30.474311)"
+     transform="translate(143.79093,-49.644362)"
      id="layer1"
      inkscape:groupmode="layer"
      inkscape:label="Layer 1">
@@ -1780,24 +1810,22 @@
            x="81.004227"
            y="84.046806"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
-           id="tspan16812"><tspan
-   style="font-weight:bold;fill:#d30000;fill-opacity:1"
-   id="tspan16820">Partially emulates</tspan> a system:</tspan><tspan
+           id="tspan16812">Partially emulates a system:</tspan><tspan
            sodipodi:role="line"
            x="81.004227"
            y="90.461288"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
            id="tspan1217" /><tspan
+           id="tspan20815"
            sodipodi:role="line"
            x="81.004227"
            y="96.875763"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
-           id="tspan939">- Reproducible builds and deployment</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583">- Environment versioning</tspan><tspan
            sodipodi:role="line"
            x="81.004227"
            y="103.29024"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
-           id="tspan937">- Environment versioning</tspan></text>
+           id="tspan937">- Reproducible builds and deployment</tspan></text>
       <path
          id="path7257"
          style="opacity:0.965;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
@@ -1876,11 +1904,11 @@
            y="147.36273"
            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;fill:#006c0d;fill-opacity:1;stroke-width:0.264583"
            id="tspan1335">This talk!</tspan><tspan
+           id="tspan20833"
            sodipodi:role="line"
            x="120.87441"
            y="153.77721"
-           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
-           id="tspan1215-0-3" /><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;fill:#006c0d;fill-opacity:1;stroke-width:0.264583" /><tspan
            sodipodi:role="line"
            x="120.87441"
            y="160.19168"
@@ -1912,6 +1940,176 @@
          inkscape:transform-center-x="0.23637492"
          inkscape:transform-center-y="0.059718743"
          d="m 198.65371,191.95445 c -8.49467,6.55916 -71.69203,6.1452 -80.32301,-0.26009 -8.63099,-6.40527 -8.48183,-53.76076 -0.0157,-60.25284 8.46627,-6.49205 71.79865,-7.09934 80.323,-0.59731 8.52437,6.502 8.51023,54.55108 0.0155,61.11024 z" />
+      <text
+         transform="rotate(-31.195362)"
+         id="text20839"
+         y="127.33164"
+         x="-146.26587"
+         style="font-size:8.9473px;line-height:1.28;font-family:Roboto;-inkscape-font-specification:Roboto;letter-spacing:0px;word-spacing:0px;fill:#d30000;fill-opacity:1;stroke-width:0.264582"
+         xml:space="preserve"><tspan
+           style="font-weight:bold;fill:#d30000;fill-opacity:1;stroke-width:0.264582"
+           y="127.33164"
+           x="-146.26587"
+           id="tspan20837"
+           sodipodi:role="line">Containers?</tspan></text>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow2Mend-9)"
+         d="m -102.3417,104.71697 c -10.55347,6.75318 -29.9217,2.89641 -38.55358,11.52829"
+         id="path1382-7" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.79375;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#marker1516-9)"
+         d="m -94.460899,104.82988 c 4.62981,10.42015 30.75958,2.6274 34.20685,12.40371"
+         id="path1384-7" />
+      <g
+         transform="translate(-220.49706,-6.9938879)"
+         id="g7350-1">
+        <text
+           id="text901-1"
+           y="71.217857"
+           x="81.004227"
+           style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+           xml:space="preserve"><tspan
+             id="tspan907-5"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="71.217857"
+             x="81.004227"
+             sodipodi:role="line">Virtualization</tspan><tspan
+             id="tspan1215-9"
+             style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="77.632332"
+             x="81.004227"
+             sodipodi:role="line" /><tspan
+             id="tspan16812-7"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="84.046806"
+             x="81.004227"
+             sodipodi:role="line">Partially emulates a system:</tspan><tspan
+             id="tspan1217-7"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="90.461288"
+             x="81.004227"
+             sodipodi:role="line" /><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="96.875763"
+             x="81.004227"
+             sodipodi:role="line"
+             id="tspan20815-6">- Environment versioning</tspan><tspan
+             id="tspan937-7"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+             y="103.29024"
+             x="81.004227"
+             sodipodi:role="line">- Reproducible builds and deployment</tspan></text>
+        <path
+           d="m 166.10694,108.2658 c -9.31532,4.80967 -78.618076,4.50612 -88.082883,-0.19071 -9.464807,-4.69683 -9.301246,-39.421411 -0.0172,-44.18187 9.284189,-4.760462 78.734993,-5.205777 88.082873,-0.438008 9.34789,4.767768 9.33238,40.000918 0.017,44.810588 z"
+           inkscape:transform-center-y="0.043784927"
+           inkscape:transform-center-x="0.25917631"
+           style="opacity:0.965;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+           id="path7257-3" />
+      </g>
+      <text
+         id="text901-9-6"
+         y="130.41833"
+         x="-191.24336"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan907-9-5"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="130.41833"
+           x="-191.24336"
+           sodipodi:role="line">Virtual Machines</tspan><tspan
+           id="tspan1215-0-6"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="136.83281"
+           x="-191.24336"
+           sodipodi:role="line" /><tspan
+           id="tspan1213-1-3"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="143.24728"
+           x="-191.24336"
+           sodipodi:role="line">Machine emulation:</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="149.66176"
+           x="-191.24336"
+           sodipodi:role="line"
+           id="tspan1264-9" /><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="156.07623"
+           x="-191.24336"
+           sodipodi:role="line"
+           id="tspan1266-4">- Hardware (helped by OS)</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="162.49071"
+           x="-191.24336"
+           sodipodi:role="line"
+           id="tspan1268-8">- OS</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="168.9052"
+           x="-191.24336"
+           sodipodi:role="line"
+           id="tspan1319-1">- File system</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="175.31967"
+           x="-191.24336"
+           sodipodi:role="line"
+           id="tspan1270-2">- Software stack</tspan></text>
+      <path
+         d="m -121.38493,180.37596 c -7.86711,6.31275 -66.39565,5.91434 -74.389,-0.25033 -7.99336,-6.16465 -7.85522,-51.74114 -0.0145,-57.98933 7.84081,-6.24817 66.49438,-6.83264 74.38899,-0.57487 7.89462,6.25775 7.88152,52.50177 0.0144,58.81453 z"
+         inkscape:transform-center-y="0.057470587"
+         inkscape:transform-center-x="0.21888272"
+         style="opacity:0.965;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="path7257-4-9" />
+      <text
+         id="text901-9-1-3"
+         y="132.89603"
+         x="-99.622643"
+         style="font-style:normal;font-weight:normal;font-size:4.9389px;line-height:1.28;font-family:sans-serif;text-align:start;letter-spacing:0px;word-spacing:0px;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+         xml:space="preserve"><tspan
+           id="tspan907-9-0-9"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="132.89603"
+           x="-99.622643"
+           sodipodi:role="line">OS-Level Virtualization (On Linux)</tspan><tspan
+           id="tspan1335-0"
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1;stroke-width:0.264583"
+           y="139.3105"
+           x="-99.622643"
+           sodipodi:role="line">This talk!</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;fill:#006c0d;fill-opacity:1;stroke-width:0.264583"
+           y="145.72498"
+           x="-99.622643"
+           sodipodi:role="line"
+           id="tspan20833-8" /><tspan
+           id="tspan1213-1-4-8"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="152.13945"
+           x="-99.622643"
+           sodipodi:role="line">Reuses the OS kernel, emulates:</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="158.55392"
+           x="-99.622643"
+           sodipodi:role="line"
+           id="tspan1268-9-5" /><tspan
+           id="tspan1356-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="164.9684"
+           x="-99.622643"
+           sodipodi:role="line">- OS configuration</tspan><tspan
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="171.38289"
+           x="-99.622643"
+           sodipodi:role="line"
+           id="tspan1270-1-9">- File system</tspan><tspan
+           id="tspan3511-6"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Roboto;-inkscape-font-specification:Roboto;text-align:start;text-anchor:start;stroke-width:0.264583"
+           y="177.79736"
+           x="-99.622643"
+           sodipodi:role="line">- Software stack</tspan></text>
+      <path
+         d="m -21.843349,183.90223 c -8.49467,6.55916 -71.69203,6.1452 -80.323011,-0.26009 -8.63099,-6.40527 -8.48183,-53.76076 -0.0157,-60.25284 8.466271,-6.49205 71.798651,-7.09934 80.323001,-0.59731 8.52437,6.502 8.51023,54.55108 0.0155,61.11024 z"
+         inkscape:transform-center-y="0.059718743"
+         inkscape:transform-center-x="0.23637492"
+         style="opacity:0.965;fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.79375;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:markers fill stroke"
+         id="path7257-4-7-3" />
     </g>
     <text
        xml:space="preserve"

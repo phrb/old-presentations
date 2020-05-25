@@ -203,18 +203,24 @@
     [[file:../../img/arch_debian_win7_wii_n64_pw64_flight.pdf]]
     #+latex: }
 ** OS-Level Virtualization
+   #+latex: \only<1>{
    #+ATTR_LATEX: :width .7\columnwidth
    [[file:../../img/virtualization_concept.pdf]]
+   #+latex: }
+   #+latex: \only<2>{
+   #+ATTR_LATEX: :width .7\columnwidth
+   [[file:../../img/virtualization_concept_1.pdf]]
+   #+latex: }
 ** OS-Level Virtualization: Scope of this Talk
-*** Scope                                                     :B_block:BMCOL:
+*** Scope of this Talk                                        :B_block:BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.4
     :BEAMER_env: block
     :END:
     - Why should you *use containers*?
-      - Reproducible builds
       - Environment versioning
-      - It's also *easier*
+      - Reproducible builds
+      - It can be *easier*
     - How do containers *work*?
     - What *tools* are available?
 
@@ -400,7 +406,7 @@
    [[file:../../img/virt_with_docker.pdf]]
    #+latex: }
 
-*** Reproducing the Alpine Container                                :B_block:
+*** Reproducing our Alpine Container                                :B_block:
     :PROPERTIES:
     :BEAMER_act: <3>
     :BEAMER_env: block
@@ -459,7 +465,7 @@
     - Define container *properties*:
       - Versions of images from [[https://hub.docker.com/search?q=&type=image][dockerhub]]
       - Environment variables
-      - Install dependencies
+      - Dependencies
 ** Dockerfiles: A Simple Bulletin Board
 *** Cloning the Repository                                          :B_block:
     :PROPERTIES:
@@ -607,8 +613,8 @@
     :BEAMER_env: block
     :END:
     - You should *use containers*!
-      - Reproducible builds
       - Environment versioning
+      - Reproducible builds
       - It's *easy*
     - Containers are *processes*
     - Many *tools* are available:

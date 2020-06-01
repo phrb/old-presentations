@@ -2,7 +2,7 @@
 
 IMG_DIR="alpine_img"
 IMG_REPO="https://us.images.linuxcontainers.org/images"
-IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200521_13:00/rootfs.tar.xz"
+IMG_URL="$IMG_REPO/alpine/3.11/amd64/default/20200525_15:29/rootfs.tar.xz"
 [ ! -d $IMG_DIR ] && \
     mkdir -p $IMG_DIR && \
     curl $IMG_URL | tar xJ -C $IMG_DIR

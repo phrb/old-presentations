@@ -1,4 +1,4 @@
-OUTPUT=hello_world_nonblocking
+OUTPUT=hello_blocking
 MCC=mpicc
 
 .PHONY: all

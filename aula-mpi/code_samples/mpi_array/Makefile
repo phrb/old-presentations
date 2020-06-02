@@ -1,13 +1,12 @@
-OUTPUT=hello_world_blocking
+OUTPUT=mpi_array
 MCC=mpicc
-CC_OPT=-fopenmp
 
 .PHONY: all
 
 all: $(OUTPUT)
 
 $(OUTPUT): $(OUTPUT).c
-	$(MCC) -o $(OUTPUT) $(OUTPUT).c $(CC_OPT)
+	$(MCC) -o $(OUTPUT) $(OUTPUT).c
 
 .PHONY: clean
 clean:

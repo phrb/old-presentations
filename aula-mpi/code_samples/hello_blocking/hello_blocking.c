@@ -25,9 +25,7 @@ int main (int argc, char *argv[])
     if (numtasks % 2 != 0) {
         if (taskid == MASTER)
             printf("Quitting. Need an even number of tasks: numtasks=%d\n", numtasks);
-    }
-
-    else {
+    } else {
         if (taskid == MASTER)
             printf("MASTER: Number of MPI tasks is: %d\n",numtasks);
 
@@ -39,8 +37,7 @@ int main (int argc, char *argv[])
             partner = numtasks/2 + taskid;
             MPI_Send(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD);
             MPI_Recv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &status);
-        }
-        else if (taskid >= numtasks/2) {
+        } else if (taskid >= numtasks/2) {
             partner = taskid - numtasks/2;
             MPI_Recv(&message, 1, MPI_INT, partner, 1, MPI_COMM_WORLD, &status);
             MPI_Send(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD);

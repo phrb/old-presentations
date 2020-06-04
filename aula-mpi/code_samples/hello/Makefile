@@ -1,5 +1,5 @@
 OUTPUT=hello
-MCC=mpicc
+MCC=mpicc --showme
 
 .PHONY: all
 

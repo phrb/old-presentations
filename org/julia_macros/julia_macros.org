@@ -1,0 +1,506 @@
+#+STARTUP: overview indent inlineimages logdrawer
+#+TITLE: Julia Metaprogramming and Macros
+#+AUTHOR:      Pedro Bruel
+#+LANGUAGE:    en
+#+TAGS: noexport(n) Stats(S)
+#+TAGS: Teaching(T) R(R) OrgMode(O) Python(P)
+#+TAGS: Book(b) DOE(D) Code(C) NODAL(N) FPGA(F) Autotuning(A) Arnaud(r)
+#+TAGS: ExportableReports(E)
+#+TAGS: FAPESP(f)
+#+TAGS: DataVis(v) PaperReview(W)
+#+EXPORT_SELECT_TAGS: Blog
+#+OPTIONS:   H:3 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+COLUMNS: %25ITEM %TODO %3PRIORITY %TAGS
+#+SEQ_TODO: TODO(t!) STARTED(s!) WAITING(w@) APPT(a!) | DONE(d!) CANCELLED(c!) DEFERRED(f!)
+
+#+LATEX_CLASS_OPTIONS: [a4paper]
+#+LATEX_HEADER: \usepackage[margin=2cm]{geometry}
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{colortbl}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{algpseudocode}
+#+LATEX_HEADER: \usepackage{algorithm}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{amsfonts}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{float}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{todonotes}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   language=R,
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
+
+* Metaprogramming
+- Don't do it without good reason: https://www.youtube.com/watch?v=mSgXWpvQEHE
+  - https://gist.github.com/MikeInnes/8299575
+- Docs: https://docs.julialang.org/en/v1/manual/metaprogramming/#Program-representation-1
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+prog = "1 + 1"
+#+end_SRC
+
+#+RESULTS:
+: "1 + 1"
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex1 = Meta.parse(prog)
+ex1
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 1)
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+typeof(ex1)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex1.head
+#+end_SRC
+
+#+RESULTS:
+: :call
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex1.args
+#+end_SRC
+
+#+RESULTS:
+: 3-element Array{Any,1}:
+:   :+
+:  1
+:  1
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex2 = Expr(:call, :+, 1, 1)
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 1)
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex1 == ex2
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+dump(ex2)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+:   head: Symbol call
+:   args: Array{Any}((3,))
+:     1: Symbol +
+:     2: Int64 1
+:     3: Int64 1
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+ex3 = Meta.parse("(4 + 4) / 2")
+#+end_SRC
+
+#+RESULTS:
+: :((4 + 4) / 2)
+
+#+begin_SRC julia :eval no-export :exports results :tangle metaprogramming.jl
+Meta.show_sexpr(ex3)
+#+end_SRC
+
+#+RESULTS:
+: (:call, :/, (:call, :+, 4, 4), 2)
+
+** Symbols
+#+begin_SRC julia :eval no-export :exports results :tangle symbols.jl
+:foo
+#+end_SRC
+
+#+RESULTS:
+: :foo
+
+#+begin_SRC julia :eval no-export :exports results :tangle symbols.jl
+typeof(ans)
+#+end_SRC
+
+#+RESULTS:
+: Symbol
+
+#+begin_SRC julia :eval no-export :exports results :tangle symbols.jl
+:foo == Symbol("foo")
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports results :tangle symbols.jl
+Symbol("func", 10)
+#+end_SRC
+
+#+RESULTS:
+: :func10
+
+#+begin_SRC julia :eval no-export :exports results :tangle symbols.jl
+Symbol(:var,'_',"sym")
+#+end_SRC
+
+#+RESULTS:
+: :var_sym
+
+* Expressions
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+ex = :(a+b*c+1)
+#+end_SRC
+
+#+RESULTS:
+: :(a + b * c + 1)
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+:(a + b*c + 1) ==
+    Meta.parse("a + b*c + 1") ==
+    Expr(:call, :+, :a, Expr(:call, :*, :b, :c), 1)
+#+end_SRC
+
+#+RESULTS:
+: true
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+ex = quote
+    x = 1
+    y = 2
+    x + y
+end
+#+end_SRC
+
+#+RESULTS:
+: quote
+:     #= In[35]:2 =#
+:     x = 1
+:     #= In[35]:3 =#
+:     y = 2
+:     #= In[35]:4 =#
+:     x + y
+: end
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+:(1 + 2)
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 2)
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+eval(ans)
+#+end_SRC
+
+#+RESULTS:
+: 3
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+ex = :(a + b)
+#+end_SRC
+
+#+RESULTS:
+: :(a + b)
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: UndefVarError: a not defined
+:
+: Stacktrace:
+:  [1] top-level scope at /home/phrb/.julia/packages/IJulia/DrVMH/src/kernel.jl:52
+:  [2] eval at ./boot.jl:331 [inlined]
+:  [3] eval(::Expr) at ./client.jl:449
+:  [4] top-level scope at In[40]:1
+:END:
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+a = 1; b = 2;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 3
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+ex = :(x = 1)
+#+end_SRC
+
+#+RESULTS:
+: :(x = 1)
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+x
+#+end_SRC
+
+#+RESULTS:
+:RESULTS:
+# [goto error]
+: UndefVarError: x not defined
+:
+: Stacktrace:
+:  [1] top-level scope at In[44]:1
+:END:
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 1
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+x
+#+end_SRC
+
+#+RESULTS:
+: 1
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+a = 1;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+ex = Expr(:call, :+, a, :b)
+#+end_SRC
+
+#+RESULTS:
+: :(1 + b)
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+a = 0; b = 2;
+#+end_SRC
+
+#+RESULTS:
+
+#+begin_SRC julia :eval no-export :exports results :tangle expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 3
+
+** Functions Generating Expressions
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+function math_expr(op, op1, op2)
+    expr = Expr(:call, op, op1, op2)
+    return expr
+end
+#+end_SRC
+
+#+RESULTS:
+: math_expr (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+ex = math_expr(:+, 1, Expr(:call, :*, 4, 5))
+#+end_SRC
+
+#+RESULTS:
+: :(1 + 4 * 5)
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 21
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+function make_expr2(op, opr1, opr2)
+    opr1f, opr2f = map(x -> isa(x, Number) ? 2*x : x, (opr1, opr2))
+    retexpr = Expr(:call, op, opr1f, opr2f)
+    return retexpr
+end
+#+end_SRC
+
+#+RESULTS:
+: make_expr2 (generic function with 1 method)
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+make_expr2(:+, 1, 2)
+#+end_SRC
+
+#+RESULTS:
+: :(2 + 4)
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+ex = make_expr2(:+, 1, Expr(:call, :*, 5, 8))
+#+end_SRC
+
+#+RESULTS:
+: :(2 + 5 * 8)
+
+#+begin_SRC julia :eval no-export :exports results :tangle function_expressions.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: 42
+
+* Macros
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+macro sayhello()
+    return :( println("Hello, world!") )
+end
+#+end_SRC
+
+#+RESULTS:
+: @sayhello (macro with 1 method)
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+@sayhello
+#+end_SRC
+
+#+RESULTS:
+: Hello, world!
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+macro sayhello(name)
+    return :( println("Hello, ", $name) )
+end
+#+end_SRC
+
+#+RESULTS:
+: @sayhello (macro with 2 methods)
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+@sayhello "MAC110"
+#+end_SRC
+
+#+RESULTS:
+: Hello, MAC110
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+ex = macroexpand(Main, :(@sayhello("human")) )
+#+end_SRC
+
+#+RESULTS:
+: :(Main.println("Hello, ", "human"))
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+@macroexpand @sayhello "human"
+#+end_SRC
+
+#+RESULTS:
+: :(Main.println("Hello, ", "human"))
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+@macroexpand @macroexpand @sayhello "human"
+#+end_SRC
+
+#+RESULTS:
+: :(Base.macroexpand(Main, $(QuoteNode(:(#= In[64]:1 =# @sayhello "human"))), recursive = true))
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+macro twostep(arg)
+    println("I execute at parse time. The argument is: ", arg)
+    return :(println("I execute at runtime. The argument is: ", $arg))
+end
+#+end_SRC
+
+#+RESULTS:
+: @twostep (macro with 1 method)
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+ex = macroexpand(Main, :(@twostep :(1, 2, 3)) );
+#+end_SRC
+
+#+RESULTS:
+: I execute at parse time. The argument is: :((1, 2, 3))
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+typeof(ex)
+#+end_SRC
+
+#+RESULTS:
+: Expr
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+ex
+#+end_SRC
+
+#+RESULTS:
+: :(Main.println("I execute at runtime. The argument is: ", $(Expr(:copyast, :($(QuoteNode(:((1, 2, 3)))))))))
+
+#+begin_SRC julia :eval no-export :exports results :tangle macros.jl
+eval(ex)
+#+end_SRC
+
+#+RESULTS:
+: I execute at runtime. The argument is: (1, 2, 3)
+
+* Some Useful Julia Macros
+#+begin_SRC julia :eval no-export :exports results :tangle useful_macros.jl
+
+#+end_SRC

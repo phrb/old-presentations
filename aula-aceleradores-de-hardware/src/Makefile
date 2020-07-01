@@ -1,6 +1,6 @@
 TEMP_DIR = .temptex
 
-NAME = fpgas-gpus-xeonphi
+NAME = fpgas
 
 SRC = $(NAME).tex
 PDF = $(NAME).pdf

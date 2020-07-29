@@ -1,0 +1,2695 @@
+#+TITLE: Design Space Exploration for High Performance Computing
+#+AUTHOR: @@latex: \footnotesize Pedro Bruel, Sitao Huang, Vipin Kumar Kukkala, Sai Rahul Chalamalasetti, Cong Xu, Daniel Dauwe, Darel Emmot, \mbox{Ryan Menhusen}, \mbox{Dejan Milojicic}, \mbox{Alfredo Goldman}@@
+#+EMAIL:     phrb@ime.usp.br
+#+DATE:      @@latex: \scriptsize July 31, 2020@@
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:t toc:nil @:t \n:nil ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   tex:t latex:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:
+#+LINK_HOME:
+
+#+STARTUP: beamer
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+#+LATEX_HEADER: \usepackage{sourcecodepro}
+#+LATEX_HEADER: \usepackage{booktabs}
+#+LATEX_HEADER: \usepackage{array}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[scale=2]{ccicons}
+#+LATEX_HEADER: \usepackage{hyperref}
+# #+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{relsize}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{bm}
+#+LATEX_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{ragged2e}
+#+LATEX_HEADER: \usepackage{textcomp}
+#+LATEX_HEADER: \usepackage{pgfplots}
+#+LATEX_HEADER: \usepackage{appendixnumberbeamer}
+#+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+#+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
+#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Base,bg=normal text.bg}
+#+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
+#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \lstdefinelanguage{Julia}%
+#+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+#+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+#+LATEX_HEADER:       macro,module,quote,return,switch,true,try,catch,type,typealias,%
+#+LATEX_HEADER:       while,<:,+,-,::,/},%
+#+LATEX_HEADER:    sensitive=true,%
+#+LATEX_HEADER:    alsoother={$},%
+#+LATEX_HEADER:    morecomment=[l]\#,%
+#+LATEX_HEADER:    morecomment=[n]{\#=}{=\#},%
+#+LATEX_HEADER:    morestring=[s]{"}{"},%
+#+LATEX_HEADER:    morestring=[m]{'}{'},%
+#+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstdefinelanguage{dockerfile}{
+#+LATEX_HEADER:   keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstdefinelanguage{yaml}{
+#+LATEX_HEADER:   keywords={true,false,null,y,n},
+#+LATEX_HEADER:   ndkeywords={},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morecomment=[s]{/*}{*/},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstset{ %
+#+LATEX_HEADER:   backgroundcolor={},
+#+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
+#+LATEX_HEADER:   breakatwhitespace=true,
+#+LATEX_HEADER:   breaklines=true,
+#+LATEX_HEADER:   captionpos=n,
+#+LATEX_HEADER:   commentstyle=\color{Accent},
+# #+LATEX_HEADER:   escapeinside={\%*}{*)},
+#+LATEX_HEADER:   extendedchars=true,
+#+LATEX_HEADER:   frame=n,
+#+LATEX_HEADER:   keywordstyle=\color{Accent},
+#+LATEX_HEADER:   rulecolor=\color{black},
+#+LATEX_HEADER:   showspaces=false,
+#+LATEX_HEADER:   showstringspaces=false,
+#+LATEX_HEADER:   showtabs=false,
+#+LATEX_HEADER:   stepnumber=2,
+#+LATEX_HEADER:   stringstyle=\color{gray},
+#+LATEX_HEADER:   tabsize=2,
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller[3]\relax}
+#+LATEX_HEADER: \graphicspath{{../../img/}}
+#+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
+
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
+
+* Setup                                            :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+HEADER: :results output :exports none :eval no-export
+  #+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+  #+END_SRC
+
+  #+RESULTS:
+
+* Generating Figures                               :B_ignoreheading:noexport:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+** 49 Years of Processor Data
+*** Load Data
+    #+begin_SRC R :results output :session *R* :eval no-export :exports results
+    library(dplyr)
+    df_freq <- read.csv("../data/wiki_data/frequency.csv", header = TRUE)
+    df_transistor <- read.csv("../data/wiki_data/transistor_count.csv", header = TRUE)
+    #+end_SRC
+
+    #+RESULTS:
+    #+begin_example
+
+    Attaching package: ‘dplyr’
+
+    The following objects are masked from ‘package:stats’:
+
+        filter, lag
+
+    The following objects are masked from ‘package:base’:
+
+        intersect, setdiff, setequal, union
+    #+end_example
+
+    #+begin_SRC R :results output :session *R* :eval no-export :exports results
+    str(df_freq)
+    #+end_SRC
+
+    #+RESULTS:
+    #+begin_example
+    'data.frame':	199 obs. of  12 variables:
+     $ date               : int  1971 1972 1972 1972 1972 1973 1973 1973 1974 1974 ...
+     $ name               : chr  "4004" "PPS-25" "μPD700" "8008" ...
+     $ designer           : chr  "Intel" "Fairchild" "NEC" "Intel" ...
+     $ max_clock_khz      : int  740 400 NA 500 200 NA NA NA 715 NA ...
+     $ max_clock_mhz      : num  NA NA NA NA NA 2 1 1 NA 2 ...
+     $ max_clock_ghz      : num  NA NA NA NA NA NA NA NA NA NA ...
+     $ process_micro_m    : num  10 NA NA 10 NA 7.5 6 NA NA 6 ...
+     $ process_nm         : int  NA NA NA NA NA NA NA NA NA NA ...
+     $ chips              : int  1 2 1 1 1 1 1 1 3 1 ...
+     $ transistor_count   : int  2250 NA NA 3500 NA 2500 2800 NA NA 6000 ...
+     $ transistor_millions: num  NA NA NA NA NA NA NA NA NA NA ...
+     $ logical_cores      : int  1 1 1 1 1 1 1 1 1 1 ...
+    #+end_example
+
+    #+begin_SRC R :results output :session *R* :eval no-export :exports results
+    str(df_transistor)
+    #+end_SRC
+
+    #+RESULTS:
+    : 'data.frame':	151 obs. of  6 variables:
+    :  $ name            : chr  "Intel 4004 " "Intel 8008 " "Toshiba TLCS-12 " "Intel 4040 " ...
+    :  $ transistor_count: num  2250 3500 11000 3000 4100 ...
+    :  $ date            : int  1971 1972 1973 1974 1974 1974 1974 1975 1976 1976 ...
+    :  $ designer        : chr  "Intel" "Intel" "Toshiba" "Intel" ...
+    :  $ process_nm      : int  10000 10000 6000 10000 6000 6000 8000 8000 5000 4000 ...
+    :  $ area_mm         : num  12 14 32 12 16 20 11 21 27 18 ...
+
+*** Plots
+    #+begin_SRC R :results graphics output :session *R* :file "../../../img/49_years_processor_data.pdf" :width 6 :height 5 :eval no-export
+    library(ggplot2)
+    library(extrafont)
+    library(scales)
+
+    point_alpha = 0.4
+    line_alpha = 0.8
+    point_size = 2.0
+    line_size = 1.3
+    legend_point_size = 1.4
+
+    shapes = c(0, 1, 2, 5)
+    #shapes = c(1, 1, 1, 1)
+
+    ggplot() +
+        geom_line(data = df_transistor,
+                  size = line_size,
+                  stat = "smooth",
+                  #method = "lm",
+                  alpha = line_alpha,
+                  #formula = y ~ x + I(x ^ 2),
+                  aes(x = date,
+                      y = process_nm,
+                      color = "Process (nanometers)"),
+                  show.legend = FALSE) +
+        geom_line(data = df_freq,
+                  size = line_size,
+                  stat = "smooth",
+                  #method = "lm",
+                  alpha = line_alpha,
+                  #formula = y ~ x + I(x ^ 2) + I(x ^ 3),
+                  aes(x = date,
+                      y = logical_cores,
+                      shape = "Logical Cores (Count)",
+                      color = "Logical Cores (Count)"),
+                  show.legend = FALSE) +
+        geom_line(data = df_freq,
+                  size = line_size,
+                  stat = "smooth",
+                  #method = "lm",
+                  alpha = line_alpha,
+                  #formula = y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4),
+                  aes(x = date,
+                      y = coalesce(max_clock_khz * 1e-3,
+                                   max_clock_mhz,
+                                   max_clock_ghz * 1e3),
+                      shape = "Frequency (MHz)",
+                      color = "Frequency (MHz)"),
+                  show.legend = FALSE) +
+        geom_line(data = df_freq,
+                  size = line_size,
+                  stat = "smooth",
+                  #method = "lm",
+                  alpha = line_alpha,
+                  #formula = y ~ x + I(x ^ 2) + I(x ^ 3) + I(x ^ 4),
+                  aes(x = date,
+                      y = coalesce(transistor_count * 1e-3,
+                                   transistor_millions * 1e3),
+                      shape = "Transistors (Thousands)",
+                      color = "Transistors (Thousands)"),
+                  show.legend = FALSE) +
+        geom_point(data = df_transistor,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = process_nm,
+                       shape = "Process (nanometers)",
+                       color = "Process (nanometers)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = process_nm,
+                       shape = "Process (nanometers)",
+                       color = "Process (nanometers)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = process_micro_m * 1e3,
+                       shape = "Process (nanometers)",
+                       color = "Process (nanometers)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = logical_cores,
+                       shape = "Logical Cores (Count)",
+                       color = "Logical Cores (Count)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = max_clock_khz * 1e-3,
+                       shape = "Frequency (MHz)",
+                       color = "Frequency (MHz)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = max_clock_mhz,
+                       shape = "Frequency (MHz)",
+                       color = "Frequency (MHz)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = max_clock_ghz * 1e3,
+                       shape = "Frequency (MHz)",
+                       color = "Frequency (MHz)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = transistor_count * 1e-3,
+                       shape = "Transistors (Thousands)",
+                       color = "Transistors (Thousands)")) +
+        geom_point(data = df_freq,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = transistor_millions * 1e3,
+                       shape = "Transistors (Thousands)",
+                       color = "Transistors (Thousands)")) +
+        geom_point(data = df_transistor,
+                   alpha = point_alpha,
+                   size = point_size,
+                   aes(x = date,
+                       y = transistor_count * 1e-3,
+                       shape = "Transistors (Thousands)",
+                       color = "Transistors (Thousands)")) +
+        xlab("Year") +
+        scale_color_brewer(name = element_blank(), palette = "Set1", direction = 1) +
+        scale_shape_manual(name = element_blank(),
+                           values = shapes) +
+        scale_y_log10(breaks = trans_breaks(trans = "log10",
+                                            inv = function(x) 10 ^ x,
+                                            n = 7),
+                      labels = trans_format("log10",
+                                            math_format(10 ^ .x))) +
+        theme_bw(base_size = 18) +
+        theme(axis.title.y = element_blank(),
+              legend.position = c(0.24, 0.86),
+              legend.direction = "horizontal",
+              legend.background = element_rect(fill = "transparent", color = NA),
+              legend.text = element_text(size = 14)) +
+        guides(color = guide_legend(nrow = 4,
+                                    override.aes = list(alpha = 1.0,
+                                                        size = legend_point_size)))
+    #+end_SRC
+
+    #+RESULTS:
+    [[file:../../../img/49_years_processor_data.pdf]]
+
+** TOP500
+*** Loading Data and Packages
+    Load the /csv/:
+
+    #+begin_SRC R :results output :session *R* :exports code :eval no-export
+    library(dplyr)
+    library(tidyr)
+    library(ggplot2)
+
+    df <- read.csv("../data/top500/TOP500_history.csv")
+    #+end_SRC
+
+    #+RESULTS:
+*** Looking at Data
+**** Achieved and Theoretical Performance
+     #+begin_SRC R :results graphics output :session *R* :file "../../../img/top500_rmax_rpeak.pdf" :width 6 :height 5 :exports both :eval no-export
+     library(ggplot2)
+     library(extrafont)
+     library(scales)
+
+     shapes = c(0, 1, 2, 5)
+
+     point_alpha = 0.7
+     line_alpha = 0.8
+     point_size = 1.9
+     line_size = 1.3
+     legend_point_size = 1.4
+
+     plot_df <- df %>%
+         filter(Rank <= 1) %>%
+         mutate(RMaxT = coalesce(RMax / 1e3, Rmax..TFlop.s.),
+                RPeakT = coalesce(RPeak / 1e3, Rpeak..TFlop.s.),
+                Power = coalesce(Power, Power..kW.)) %>%
+         select(Rank,
+                Year,
+                Power,
+                RMaxT,
+                RPeakT) %>%
+         distinct(Rank, Year, .keep_all = TRUE) %>%
+         mutate(Ratio = RMaxT / RPeakT) %>%
+         filter(is.finite(Ratio) & Ratio <= 1.0)
+
+     ggplot() +
+         geom_line(data = plot_df,
+                   size = line_size,
+                   stat = "smooth",
+                   #method = "lm",
+                   alpha = line_alpha,
+                   #formula = y ~ x + I(x ^ 2),
+                   aes(x = Year,
+                       y = RMaxT,
+                       shape = "RMax",
+                       color = "RMax"),
+                   show.legend = FALSE) +
+         geom_point(data = plot_df,
+                    alpha = point_alpha,
+                    size = point_size,
+                    aes(x = Year,
+                        y = RMaxT,
+                        shape = "RMax",
+                        color = "RMax")) +
+         geom_point(data = plot_df,
+                    alpha = point_alpha,
+                    size = point_size,
+                    aes(x = Year,
+                        y = RPeakT,
+                        shape = "RPeak",
+                        color = "RPeak")) +
+         # geom_point(data = plot_df,
+         #            size = point_size,
+         #            aes(x = Year,
+         #                y = Power,
+         #                shape = "Power (kW)",
+         #                color = "Power (kW)")) +
+         scale_x_continuous(breaks = function(x) { seq(floor(min(x)),
+                                                       ceiling(max(x)),
+                                                       4) }) +
+         ylab("Tflops/s") +
+         scale_color_brewer(name = element_blank(), palette = "Set1", direction = 1) +
+         scale_shape_manual(name = element_blank(),
+                            values = shapes) +
+         scale_y_log10(breaks = trans_breaks(trans = "log10",
+                                             inv = function(x) 10 ^ x,
+                                             n = 7),
+                       labels = trans_format("log10",
+                                             math_format(10 ^ .x))) +
+         theme_bw(base_size = 20) +
+         theme(legend.position = c(0.13, 0.86),
+               legend.direction = "horizontal",
+               legend.background = element_rect(fill = "transparent", color = NA),
+               legend.text = element_text(size = 16)) +
+         guides(color = guide_legend(nrow = 4,
+                                     override.aes = list(alpha = 1.0,
+                                                         size = legend_point_size)))
+     #+end_SRC
+
+     #+RESULTS:
+     [[file:../../../img/top500_rmax_rpeak.pdf]]
+** Search Spaces
+*** Load Data
+    #+begin_SRC R :results output :session *R* :eval no-export :exports results
+    library(extrafont)
+
+    df_search_spaces <- read.csv("../data/search_spaces/search_spaces.csv")
+    #+end_SRC
+
+    #+RESULTS:
+
+    #+begin_SRC R :results output :session *R* :eval no-export :exports results
+    str(df_search_spaces)
+    #+end_SRC
+
+    #+RESULTS:
+    #+begin_example
+    'data.frame':	88 obs. of  10 variables:
+     $ name                   : chr  "atax" "gemv" "fdtd4d2d" "gemver" ...
+     $ year                   : int  2012 2012 2012 2012 2012 2012 2012 2012 2012 2012 ...
+     $ dimension              : int  19 49 30 24 11 15 14 12 20 25 ...
+     $ search_space_size      : num  1.65e+14 2.73e+30 7.06e+24 7.26e+17 1.56e+08 ...
+     $ log10_search_space_size: int  14 30 24 17 8 8 12 8 16 19 ...
+     $ domain                 : chr  "Linear Algebra" "Linear Algebra" "Linear Algebra" "Linear Algebra" ...
+     $ author                 : chr  "Balaprakash, P. et al. (2012)" "Balaprakash, P. et al. (2012)" "Balaprakash, P. et al. (2012)" "Balaprakash, P. et al. (2012)" ...
+     $ gscholar_citation      : chr  "balaprakash2012spapt" "balaprakash2012spapt" "balaprakash2012spapt" "balaprakash2012spapt" ...
+     $ thesis                 : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+     $ chapter                : logi  NA NA NA NA NA NA ...
+    #+end_example
+*** Generate Caption
+     #+begin_SRC R :results output :session *R* :eval no-export :exports results
+citations <- unique(df_search_spaces$gscholar_citation)
+citations <- paste(citations[citations != ""], collapse = ",")
+cat(paste("\\nbsp{}\\cite{", citations, "}", sep = ""))
+     #+end_SRC
+
+     #+RESULTS:
+     :
+     : \nbsp{}\cite{balaprakash2012spapt,ansel2014opentuner,byun2012autotuning,petrovivc2020benchmark,balaprakash2018deephyper,bruel2019autotuning,bruel2015autotuning,bruel2017autotuning,mametjanov2015autotuning,abdelfattah2016performance,xu2017parallel,tiwari2009scalable,hutter2009paramils,chu2020improving,tuzov2018tuning,ziegler2019syntunsys,gerndt2018multi,kwon2019learning,wang2019funcytuner,olha2019exploiting,seymour2008comparison}
+
+*** Plots
+    - Geom_label around thesis work
+    - Mark Seymour et al. example
+    #+begin_SRC R :results graphics output :session *R* :file "../../../img/search_spaces.pdf" :width 18 :height 8.7 :eval no-export
+    library(ggplot2)
+    library(dplyr)
+    library(scales)
+    library(RColorBrewer)
+    library(ggrepel)
+    library(patchwork)
+
+    point_alpha = 1.0
+    point_size = 3
+    label_size = 6
+
+    shapes = c(15, 16, 17, 18, 6, 7, 9, 0, 3, 5, 12, 14, 13, 11)
+
+    legend_rows = length(unique(df_search_spaces$domain)) / 2
+    legend_position = c(0.66, 0.12)
+
+    base_size = 25
+
+    x_lims <- c(0, 60)
+    y_lims <- c(1, 50)
+
+    color_palette = colorRampPalette(brewer.pal(9,
+                                                "Set1"))(
+                                                    length(
+                                                        unique(
+                                                            df_search_spaces$domain)))
+
+    x_text = element_text(size = 26)
+    y_text = element_text(size = 26)
+
+    x_label = element_text(size = 28)
+    y_label = element_text(size = 28)
+
+    scientific_10 <- function(x) {
+        print(x)
+        result <- parse(text = gsub("(.*)",
+                                    "10^\\1",
+                                    format(x)))
+        print(result)
+        return(result)
+    }
+
+    p1 <- ggplot(data = df_search_spaces,
+                 aes(x = dimension,
+                     y = log10_search_space_size,
+                     color = domain,
+                     shape = domain)) +
+        geom_rect(aes(xmin = x_lims[1],
+                      xmax = x_lims[2],
+                      ymin = y_lims[1],
+                      ymax = y_lims[2]),
+                  show.legend = FALSE,
+                  fill = NA,
+                  color = "gray35",
+                  linetype = 2) +
+        geom_text(data = data.frame(x = x_lims[2],
+                                    y = y_lims[1],
+                                    label = "Detailed"),
+                  aes(x = x,
+                      y = y,
+                      label = label,
+                      shape = NA),
+                  color = "gray35",
+                  vjust = 1.3,
+                  hjust = 0,
+                  angle = 90,
+                  size = label_size,
+                  show.legend = FALSE) +
+        geom_point(alpha = point_alpha,
+                   size = point_size,
+                   show.legend = FALSE) +
+        geom_text_repel(data = filter(df_search_spaces,
+                                      thesis == FALSE &
+                                      dimension > 40 &
+                                      log10_search_space_size >= 30),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        xlim = c(130, 200),
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = filter(df_search_spaces,
+                                      thesis == TRUE &
+                                      name != "resnet50_weights" &
+                                      name != "gemv" &
+                                      dimension > 40 &
+                                      log10_search_space_size >= 30),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        xlim = c(130, NA),
+                        ylim = c(NA, NA),
+                        nudge_y = 1,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = filter(df_search_spaces,
+                                      thesis == TRUE &
+                                      dimension > 40 &
+                                      log10_search_space_size >= 30) %>%
+                         filter(name == "resnet50_weights"),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(60, NA),
+                        xlim = c(130, NA),
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = filter(df_search_spaces,
+                                      thesis == TRUE &
+                                      dimension > 40 &
+                                      log10_search_space_size >= 30) %>%
+                         filter(name == "gemv"),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(50, NA),
+                        xlim = c(130, NA),
+                        size = label_size,
+                        show.legend = FALSE) +
+        xlab("Dimension") +
+        scale_color_manual(name = element_blank(),
+                           values = color_palette) +
+        scale_shape_manual(name = element_blank(),
+                           values = shapes) +
+        scale_y_continuous(label = scientific_10) +
+        theme_bw(base_size = base_size) +
+        theme(axis.text.x = x_text,
+              axis.text.y = y_text,
+              axis.title.y = element_blank())
+
+    p2 <- ggplot(data = df_search_spaces,
+                 aes(x = dimension,
+                     y = log10_search_space_size,
+                     color = domain,
+                     shape = domain)) +
+        geom_point(alpha = point_alpha,
+                   size = point_size) +
+        geom_text_repel(data = df_search_spaces %>%
+                            filter(dimension > 40 &
+                                   dimension < 60 &
+                                   thesis == FALSE &
+                                   log10_search_space_size >= 30,
+                                   log10_search_space_size < 50),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(30, 50),
+                        xlim = c(NA, 45),
+                        nudge_x = -3,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = df_search_spaces %>%
+                            filter(dimension > 40 &
+                                   dimension < 60 &
+                                   thesis == TRUE &
+                                   log10_search_space_size >= 30,
+                                   log10_search_space_size < 50),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(30, 50),
+                        xlim = c(NA, 45),
+                        nudge_x = -3,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_text_repel(data = df_search_spaces %>%
+                            filter(dimension < 20 &
+                                   thesis == FALSE &
+                                   log10_search_space_size > 19),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(20, 50),
+                        xlim = c(0, 25),
+                        nudge_y = 1.6,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = df_search_spaces %>%
+                            filter(dimension < 20 &
+                                   thesis == TRUE &
+                                   log10_search_space_size > 19),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(20, 50),
+                        xlim = c(0, 25),
+                        nudge_y = 1.6,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_text_repel(data = df_search_spaces %>%
+                            filter(dimension > 30 &
+                                   thesis == FALSE &
+                                   log10_search_space_size < 25),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(15, 50),
+                        xlim = c(30, NA),
+                        nudge_y = 2,
+                        size = label_size,
+                        show.legend = FALSE) +
+        geom_label_repel(data = df_search_spaces %>%
+                            filter(dimension > 30 &
+                                   thesis == TRUE &
+                                   log10_search_space_size < 25),
+                        aes(x = dimension,
+                            y = log10_search_space_size,
+                            label = paste(author, name),
+                            color = domain),
+                        ylim = c(15, 50),
+                        xlim = c(30, NA),
+                        nudge_y = 2,
+                        size = label_size,
+                        show.legend = FALSE) +
+        xlim(x_lims[1], x_lims[2]) +
+        xlab("Dimension") +
+        ylab("Search Space Size") +
+        scale_color_manual(name = element_blank(),
+                           values = color_palette) +
+        scale_shape_manual(name = element_blank(),
+                           values = shapes) +
+        scale_y_continuous(limits = y_lims, label = scientific_10) +
+        theme_bw(base_size = base_size) +
+        theme(axis.text.x = x_text,
+              axis.text.y = y_text,
+              legend.position = legend_position,
+              legend.direction = "horizontal",
+              legend.spacing.x = unit(0.0, 'cm'),
+              legend.spacing.y = unit(0.0, 'cm'),
+              legend.background = element_rect(fill = "transparent", color = NA),
+              legend.text = element_text(size = 15)) +
+        guides(color = guide_legend(nrow = legend_rows,
+                                    override.aes = list(alpha = 1.0,
+                                                        size = 3)))
+
+    p2 * p1
+    #+end_SRC
+
+    #+RESULTS:
+    [[file:../../../img/search_spaces.pdf]]
+** Classification Tree: Simplest Version
+   #+begin_SRC emacs-lisp :eval no-export
+   (setq-local org-latex-pdf-process (list "%latex -interaction nonstopmode -output-directory %o %f" "%latex -interaction nonstopmode -output-directory %o %f" "%latex -interaction nonstopmode -output-directory %o %f"))
+   (setq org-format-latex-header "\\documentclass{standalone}
+   [PACKAGES]
+   [DEFAULT-PACKAGES]
+   \\pagestyle{empty} % do not remove")
+   #+end_SRC
+
+   #+RESULTS:
+   : \documentclass{standalone}
+   : [PACKAGES]
+   : [DEFAULT-PACKAGES]
+   : \pagestyle{empty} % do not remove
+
+   #+HEADER: :headers '("\\usepackage[dvipsnames]{xcolor}" "\\usepackage{tikz}" "\\usepackage{forest}" )
+   #+HEADER: :exports results :results raw :file ../../../img/simplest_tree.pdf
+   #+begin_src latex :eval no-export
+   \begin{forest}
+     for tree={%
+       anchor = north,
+       align = center,
+       %if n children=0{tier=terminal}{},
+       l sep+=1em
+     },
+     [{Minimize $f: \mathcal{X} \mapsto \mathbb{R}$,\\$Y = f(X = (x_1,\dots,x_k) \in \mathcal{X}) + \varepsilon$},
+       draw,
+       [{Constructs surrogate\\estimate $\hat{f}(\cdot, \theta(X))$?},
+         draw,
+         [{Search\\Heuristics},
+           draw,
+           edge label = {node[midway, fill=white, font = \scriptsize]{No}}
+           [{Is $f(X)$ convex?},
+             draw
+             [{\textbf{Genetic}\\\textbf{Algoritms}},
+               draw,
+               edge label = {node[midway, fill=white, font = \scriptsize]{No}}]
+             [{\textbf{Simulated}\\\textbf{Annealing}},
+               draw,
+               edge label = {node[midway, fill=white, font = \scriptsize]{Approx.}}]
+             [{\textbf{Gradient}\\\textbf{Descent}},
+               draw,
+               edge label = {node[midway, fill=white, font = \scriptsize]{Yes}}]]]
+         [{Statistical\\Learning},
+           draw,
+           edge label = {node[midway, fill=white, font = \scriptsize]{Yes}}
+           [{Parametric\\Learning},
+             draw,
+             [{Independent\\Distributions\\for $x_i \in X$},
+               draw
+               [\textbf{Bandit}\\\textbf{Algorithms}, draw]]
+             [{Linear Model\\$\hat{f} = \mathcal{M}(X)\theta{}(X) + \varepsilon$},
+               draw
+               [{\textbf{Experimental}\\\textbf{Design}},
+                 draw]]]
+           [{Nonparametric\\Learning},
+             draw,
+             [{\textbf{Decision}\\\textbf{Trees}},
+               draw]
+             [{\textbf{Gaussian}\\\textbf{Process}\\\textbf{Regression}},
+               draw]
+             [{\textbf{Neural}\\\textbf{Networks}}, draw]]]]]
+   \end{forest}
+   #+end_src
+
+   #+RESULTS:
+   [[file:../../../img/simplest_tree.pdf]]
+
+* Outline
+** Outline
+   1. Design Space Exploration and Autotuning
+   2. Key Results and Current Work
+      - Endpoint Congestion Control
+      - Bit Quantization on Deep Neural Network Layers
+   3. Perspective: Design Space Exploration as a Service
+* Autotuning
+** Optimizing Program Configurations
+*** Architectures for High Performance Computing              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+ATTR_LATEX: :width \columnwidth
+    #+ATTR_ORG: :width 600
+    [[../../../img/architectures_2.png]]
+
+    How to write *efficient code* for each of these?
+
+**** Autotuning                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     #+LATEX: \vspace{.2cm}
+
+     #+begin_export latex
+     The process of automatically finding a \mbox{\alert{configuration}} of a program
+     that optimizes an \mbox{\alert{objective}}
+     #+end_export
+
+*** Configurations                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_COL: 0.5
+    :END:
+    - Algorithms
+      - Sorting, encoding, $\dots$
+    - Implementations
+      - Code transformation, libraries, $\dots$
+    - Context-specific parameters
+      - Compilers, kernels, $\dots$
+
+**** Objectives                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - Execution time
+     - Resource consumption
+     - Binary size
+     - $\dots$
+
+** Defining Autotuning Search Spaces
+*** Search Spaces                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :BEAMER_env: block
+    :END:
+    - *Dimension*: Number of configurable parameters
+    - *Size*: Number of possible combinations of parameters, or configurations
+
+    Represent the *effect* of all possible
+    configurations on target objectives
+
+    #+begin_export latex
+    Can be difficult to explore, with multiple \mbox{\alert{local optima}}
+    and \mbox{\alert{undefined}} \mbox{\alert{regions}}
+    #+end_export
+
+*** Illustration                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/seymour2008comparison.pdf]]
+
+    #+begin_export latex
+    \begin{center}
+    \scriptsize{Seymour K. \emph{et al.}, A Comparison of Search Heuristics \\ for Empirical
+      Code Optimization (CLUSTER 2008)}
+    \end{center}
+    #+end_export
+
+** Most Common Autotuning Approaches
+*** Most Common Approaches                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+LATEX: \footnotesize
+    - \colorbox{red!25}{Exhaustive}
+    - \colorbox{green!25}{Meta-Heuristics}
+    - \colorbox{cyan!25}{Machine Learning}
+    #+LATEX: \normalsize
+    #+LATEX: \vspace{-.4cm}
+    #+LATEX: \input{latex/popular_approaches.tex}
+
+*** Core Assumptions                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - A large number of function evaluations
+    - Good solutions are reachable
+    - Seach space ``smoothness''
+**** After Optimization                                            :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - *Learn ``nothing''* about the search space
+     - *Can't explain* why optimizations work
+**** We have used                                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Search Heuristics
+     - Statistical Learning
+       - Experimental Design
+       - Gaussian Process Regression
+* Key Results and Current Work
+** Summary of Key Results and Current Work
+   #+LATEX: \small
+   #+CAPTION: SH: Search Heuristics, ED: Experimental Design, GPR: Gaussian Process Regression
+   #+ATTR_LATEX: :booktabs t :align p{0.28\columnwidth}p{0.08\columnwidth}p{0.44\columnwidth}
+   |-----------------------------+----------------------+---------------------------------------------|
+   | Domain                      | Method               | Key Result                                  |
+   |-----------------------------+----------------------+---------------------------------------------|
+   | Endpoint Congestion Control | ED                   | /Ongoing/: Models with increased accuracy     |
+   | Quantization for DNNs       | ED, GPR              | /Ongoing/: Up to 2\times model size reduction |
+   |-----------------------------+----------------------+---------------------------------------------|
+   | StST HPC Kernels for GPUs   | ED                   | Consistently finds the global optimum       |
+   | StST HPC Kernels for CPUs   | ED, GPR              | Up to 10\times speedup with a tight budget  |
+   | HLS for FPGAs               | SH                   | Up to 5\times decrease on DSP usage         |
+   | CUDA Compiler               | SH                   | Up to 4\times speedup                       |
+   |-----------------------------+----------------------+---------------------------------------------|
+   | PETSc Library               |                      | /Expected/: Up to 10\times speedups           |
+   | Rustc and GCC               | \multirow{-2}{*}{ED} | /Expected/: Up to 4\times speedups            |
+   |-----------------------------+----------------------+---------------------------------------------|
+** Autotuning for Endpoint Congestion Control
+*** Image                                                             :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.4
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/congestion.pdf]]
+*** Benefits of an Experimental Design Approach               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+    #+latex: \vspace{0.8em}
+
+    The search  space has  regions of  expressive *measurement  variability*.  Our
+    approach uses low-discrepancy sampling and quantile regression to:
+
+    - Reduce *simulation costs*
+    - Build *statistical models*
+    - @@latex: \colorbox{Highlight}{Increase \alert{prediction accuracy}}@@
+
+** A Simplified Congestion Control Problem
+*** Endpoint Congestion Control                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Explicit Congestion Notification
+    - Control Injection rates
+**** Search Space Definition                                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     #+ATTR_LATEX: :booktabs t :align ll
+     |------------------+------------------------|
+     | Parameter        | Value                  |
+     |------------------+------------------------|
+     | Injection Rate 1 | $inj_1 \in [0.0, 1.0]$ |
+     | Injection Rate 2 | $inj_2 \in [0.0, 1.0]$ |
+     |------------------+------------------------|
+*** Objective                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Consider only two adversary applications
+    - *Minimize* execution times $\mathcal{P}_1$ and $\mathcal{P}_2$, and
+    - *Maximize* injection rates $inj_1$ and $inj_2$
+**** Target Performance Metric                                      :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     #+begin_export latex
+     \begin{align*}
+       \mathcal{P}(inj_1,inj_2) =
+       \; & \dfrac{\mathcal{P}_1(inj_1) + \mathcal{P}_2(inj_2)}{2} + \\
+       \; & \left|\left(1  -  \left(\dfrac{inj_1  + inj_2}{2}\right)\right)\right|
+     \end{align*}
+     #+end_export
+** Injection Rate Search Space
+*** Unbiased Sample                                           :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/injection_rates_sobol.pdf]]
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/injection_rates_search_space.pdf]]
+** Experimental Design for Injection Rates
+*** Experimental Design: 15 Samples                           :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/injection_rates_federov.pdf]]
+*** Performance Prediction                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/injection_rates_quantile.pdf]]
+** Experimental Design for a Larger Problem
+*** Search Space Definition                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - T_s: congestion sampling window
+    - T_p: Packet generation delay
+    - PIDT_{0,31}(T_p): Throttling table
+    - F: ECN flagging threshold
+**** Constraints                                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - T_s \geq minimum round-trip time
+     - $PIDT_i < PIDT_{i + 1}$
+*** Target Performance Metrics                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Packet latency
+      - Weighted sum of mean and minimum
+      - Several applications
+    - Link bandwidth
+**** Issues with Measurement Time                                   :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Experiments are expensive
+     - Model-building efforts
+
+** Autotuning DNN Quantization
+*** Image                                                             :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.42
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/haq_quantization.pdf]]
+
+    #+begin_export latex
+    \begin{center}
+    \scriptsize{HAQ: Hardware-Aware Automated Quantization\\with Mixed Precision (CV 2018)}
+    \end{center}
+    #+end_export
+*** Benefits of an Experimental Design Approach               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.58
+    :BEAMER_env: block
+    :END:
+    #+latex: \vspace{0.8em}
+
+    Our approach uses Gaussian Process  Regression (GPR), and in comparison with
+    Reinforcement Learning (RL), achieves:
+
+    - More *consistent results*
+    - @@latex: \colorbox{Highlight}{Trade some accuracy for \alert{up to $2\times$ size reduction}}@@
+** Autotuning DNN Quantization: ResNet50
+*** Search Space Definition for ResNet50                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :align ll
+    |-----------------------+---------------------|
+    | Parameter             | Value               |
+    |-----------------------+---------------------|
+    | Bitwidth for Layer 1  | $q_1 \in [1, 8]$    |
+    | \cdots                | \cdots              |
+    | Bitwidth for Layer 54 | $q_{54} \in [1, 8]$ |
+    |-----------------------+---------------------|
+
+    - $8^{54} \approx$ *$10^{48}$* configurations
+    - *$10$ min+* to measure each
+*** Objective                                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - *Minimize* size in MB $\mathcal{S}$, and
+    - *Maximize* Top1 and Top5 accuracy $\mathcal{A}_{1}$, $\mathcal{A}_{5}$
+**** Target Performance Metric                                      :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     #+begin_export latex
+     \begin{align*}
+       \mathcal{P}(q_1, \dots, q_{54}) =
+       \; & (w_{size}\mathcal{S}(q_1, \dots, q_{54}) + \\
+       \; & w_{Top1}\mathcal{A}_1(q_1, \dots, q_{54}) + \\
+       \; & w_{Top1}\mathcal{A}_5(q_1, \dots, q_{54})) / \\
+       \; & (w_{size} + w_{Top1} + w_{Top5})
+     \end{align*}
+     #+end_export
+** Gaussian Process Regression for DNN Quantization
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../../img/gpr_rloriginal_comparison.png]]
+
+** Gaussian Process Regression for DNN Quantization
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../../img/gpr_rl_comparison.png]]
+
+* Design Space Exploration as a Service
+** Common Design Space Exploration Issues
+*** Specifying an Autotuning Problem                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+latex: \vspace{0.8em}
+
+    For each domain, we must determine:
+
+    - Configurable parameters
+    - Performance metrics
+    - Software dependencies
+    - Optimization method
+
+*** Expected Results                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+latex: \vspace{0.8em}
+
+    In each domain, we expect to find:
+
+    - Best experiments to run
+    - Optimized configuration
+    - A useful *statistical model*
+
+**** Handcrafted Autotuners                                         :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Time-consuming
+     - Domain-specific problems
+
+*** Break Columns                                           :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+begin_export latex
+    \begin{center}
+      \colorbox{Highlight}{A \alert{service-based architecture} can encapsulate common solutions,}
+      \colorbox{Highlight}{while users focus locally on \alert{domain-specific problems}}
+    \end{center}
+    #+end_export
+
+** Design Space Exploration as a Service
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../../img/dse_summary.pdf]]
+** Design Space Exploration as a Service
+   #+ATTR_LATEX: :width \columnwidth
+   [[file:../../../img/dseaas_test.pdf]]
+
+* Ending Title :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+LATEX: \maketitle
+* Backup Slides                                             :B_ignoreheading:
+  :PROPERTIES:
+  :BEAMER_env: ignoreheading
+  :END:
+  #+latex: \appendix
+** Hardware and Performance Trends: The Case for Autotuning
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+
+    #+latex: \only<1>{
+    #+CAPTION: \url{http://wikipedia.org/wiki/Transistor_count}
+    #+CAPTION: \url{http://wikipedia.org/wiki/Microprocessor_chronology}
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/49_years_processor_data.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+CAPTION: \url{https://www.top500.org}
+    #+ATTR_LATEX: :width \columnwidth
+    [[file:../../../img/top500_rmax_rpeak.pdf]]
+    #+latex: }
+
+*** Breakdown of Frequency Scaling                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Power and temperature constraints
+    - Physical limits on frequency
+    - Manufacturing processes continue to scale
+
+**** Sustained Performance Scaling                                  :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :BEAMER_act: <2>
+     :END:
+     - Multicore, accelerators
+     - @@latex: \colorbox{Highlight}{Software optimization: \alert{Autotuning}}@@
+** Overview High Dimensional Autotuning Search Spaces
+   #+ATTR_LATEX: :width \columnwidth
+   [[../../../img/search_spaces.pdf]]
+** High-Dimensional Search Spaces
+*** 1. *Combinatorial Explosion & Sampling*                         :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    - 10 boolean parameters generate $2^{10}$ combinations
+    - 10 continuous parameters in $[0, 1]$  need $(10^{2})^{10}$ points to cover with
+      spacing $10^{-2}$
+    - Sampling a hypercube covers its shell
+
+*** 2. *Geometry*                                             :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Mixing numerical and categorical factors
+    - ``Smoothness''
+    - Interactions
+    - Constraints
+    - Undefined regions
+
+*** 3. *Measurement Time*                                     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Compile time:
+      - FPGA applications
+      - Hardware/Software codesign
+    - Execution time:
+      - Simulations
+      - Neural network training
+
+** Overview of Autotuning Methods
+*** The Autotuning Problem                                    :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Target: $f: \mathcal{X} \mapsto \mathbb{R}$
+    - Parameters: $X = (x_1,\dots,x_k) \in \mathcal{X}$
+    - Performance metric: $Y = f(X) + \varepsilon$
+**** Search Heuristics
+     - Do not estimate a surrogate model
+     - Hard to define underlying hypotheses
+     - Examples: Random Search, Gradient Descent, Genetic Algorithms, \dots
+*** Statistical Learning                                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Estimate a surrogate model
+    - Easy to define hypotheses
+**** Parametric Learning
+     - A finite number of parameters to estimate
+     - Examples: Linear Model, Logistic Regression, Bandit Algorithms, \dots
+**** Non Parametric Learning
+     - An ``infinite'' number of parameters to estimate
+     - Examples: Decision Trees, Gaussian Process Regression, Neural Networks, \dots
+** Overview of Autotuning Methods
+   #+ATTR_LATEX: :width .92\columnwidth
+   [[file:../../../img/simplest_tree.pdf]]
+** Experimental Design: An Example on Agriculture
+*** Crop Yield Example                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+ATTR_LATEX: :width .99\columnwidth
+    [[../../../img/crop_yield_doe_example.pdf]]
+*** Testing all combinations is *inviable*                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.45
+    :END:
+**** Which combinations to test?                                    :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - ED provides a selection method
+     - @@latex: \colorbox{Highlight}{\alert{Parsimony}: decreases experiments}@@
+
+**** Which is the best combination?                                 :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+
+     - ED provides an analysis method
+     - @@latex: \colorbox{Highlight}{\alert{Transparency}: uses statistical tests}@@
+
+** Experimental Design
+*** Terminology                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Factors: program parameters
+    - Levels: possible factor values
+    - Experiment: setting each factor to a level
+    - Design: a selection of experiments to run
+    -
+      #+latex: \uncover<2>{Performance model: guides selection}
+
+**** Analyzing Results Enables:                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Identifying *significant factors*
+     - Finding *candidates* for further exploration
+     - Investigating possible *models*
+
+*** Example                                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    #+LATEX: \vspace{-.2cm}
+    #+LATEX: \begin{center}
+
+    A minimal screening design for $7$ 2-level factors:
+
+    #+LATEX: \end{center}
+    #+LATEX: \vspace{-.2cm}
+
+    #+LATEX: \only<1>{
+    #+LATEX: \input{latex/plackett_burman.tex}
+    #+LATEX: }
+    #+LATEX: \only<2>{
+    #+LATEX: \input{latex/plackett_burman_intercept.tex}
+    #+LATEX: }
+    #+LATEX: \vspace{-.2cm}
+
+    #+latex: \uncover<2>{$$response = \theta{} + \alpha{}A + \beta{}B + \gamma{}C + \dots$$}
+
+** Search Heuristics: HLS for FPGAs
+*** Autotuning HLS for FPGAs
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.4
+    :END:
+
+    - CHStone benchmark
+    - 141 factors, most with multiple levels
+    - *\(10^{128}\)* combinations
+    - *1~10min* to measure
+    - *Multiple objectives*
+    - Search with meta-heuristics:
+      - Unstructured data hinders analysis
+*** Coverage of the Design Space                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :BEAMER_env: block
+    :END:
+
+    #+ATTR_LATEX: :width .85\columnwidth
+    #+ATTR_ORG: :width 600
+    [[../../../img/fpga_space.png]]
+** Results: Targeting Performance
+*** Metric Weights                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.2
+    :BEAMER_env: block
+    :END:
+    #+begin_export latex
+    \begin{table}[htpb]
+      \scriptsize
+      \centering
+      \begin{tabular}{@{}lcccc@{}}
+        \toprule
+        Metric & \textit{Performance} \\ \midrule
+        \textit{LUT} & \cellcolor[HTML]{DD9583} Low \\
+        \textit{Registers} & \cellcolor[HTML]{E3DBB3} Medium \\
+        \textit{BRAMs} & \cellcolor[HTML]{DD9583} Low \\
+        \textit{DSPs} & \cellcolor[HTML]{DD9583} Low \\
+        \textit{FMax} & \cellcolor[HTML]{9B94B6} High \\
+        \textit{Cycles} & \cellcolor[HTML]{DD9583} Low \\ \bottomrule
+      \end{tabular}
+    \end{table}
+    #+end_export
+*** Improvements after 1.5h of Autotuning                     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.8
+    :BEAMER_env: block
+    :END:
+    [[../../../img/heatmap_default_stratixV_perf-eps-converted-to.pdf]]
+
+    #+begin_export latex
+    \begin{center}
+    \scriptsize{Autotuning high-level synthesis for \\ FPGAs using OpenTuner and LegUp (ReConFig 2017)}
+    \end{center}
+    #+end_export
+
+** Comparing Sampling Strategies: $z = \theta + x + x^2 + y + y^2 + \varepsilon$
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .72\textwidth
+   [[../../../img/sampling_comparison.pdf]]
+   #+END_CENTER
+** A Experimental Design Approach to Autotuning
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width .74\linewidth
+   #+ATTR_ORG: :width 400
+   [[../../../img/doe_anova_strategy.pdf]]
+
+   #+LATEX: \vspace{-.2cm}
+   #+END_CENTER
+
+   #+begin_export latex
+   \begin{center}
+   \scriptsize{Autotuning under Tight Budget Constraints: \\ A Transparent Design of Experiments Approach (CCGRID 2019)}
+   \end{center}
+   #+end_export
+** GPU Laplacian Kernel: A Motivating Example
+*** Search Problem                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+
+    - 7 parameters: 6 *numerical*, 1 *boolean*
+    - Good starting performance model
+    - Measured all 23120 configurations
+    - Known *global optimum*
+    - Budget of *125 points*
+
+*** Initial Model                                             :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    #+LATEX: \footnotesize
+    #+LATEX: \begin{align*}
+    #+LATEX:    cost = & \; y\_component\_number + 1 / y\_component\_number \; + \\
+    #+LATEX:           & \; vector\_length + lws\_y + 1 / lws\_y \; + \\
+    #+LATEX:           & \; load\_overlap + temporary\_size \; + \\
+    #+LATEX:           & \; elements\_number + 1 / elements\_number \; + \\
+    #+LATEX:           & \; threads\_number + 1 / threads\_number
+    #+LATEX: \end{align*}
+    #+LATEX: \normalsize
+
+*** Results                                                 :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+HEADER: :file ../../../img/comparison_histogram.pdf :width 14 :height 3
+    #+BEGIN_SRC R :results output graphics :exports none :session *R* :eval no-export
+    library(ggplot2)
+    library(plyr)
+
+    df_all_methods <- read.csv("../data/complete_1000.csv", strip.white = T, header = T)
+
+    df_all_methods$method <- factor(df_all_methods$method, levels = c("RS","LHS","GS","GSR","GA","LM", "LMB", "LMBT", "RQ", "DOPT", "DLM", "DLMT"))
+
+    df_all_methods <- df_all_methods[df_all_methods$method %in% c("RS","LHS","GS","GSR","GA","LM", "DLMT"), ]
+
+    df_mean = ddply(df_all_methods,.(method), summarize,
+                    mean = mean(slowdown))
+
+    df_median = ddply(df_all_methods,.(method), summarize,
+                      median = median(slowdown))
+
+    df_err = ddply(df_all_methods,.(method), summarize,
+                   mean = mean(slowdown), err = 2 * sd(slowdown) / sqrt(length(slowdown)))
+
+    df_max = ddply(df_all_methods,.(method), summarize, max = max(slowdown))
+
+    ggplot(df_all_methods ) +
+      facet_grid(. ~ method) +
+      theme_bw(base_size = 22) +
+      geom_histogram(aes(slowdown), binwidth = 0.2, fill = "gray48", show.legend = F) +
+      geom_curve(data = df_max, aes(x = max + .4, y = 500, xend = max, yend = 5), arrow = arrow(length = unit(0.08, "npc")), curvature = -0.2, show.legend = F) +
+      geom_text( aes(x = max + .7, y = 565, label = "max"), size = 6, data = df_max , show.legend = F) +
+      geom_rect(data = df_err, aes(xmin = mean-err, xmax = mean + err, ymin = 0, ymax = 1000, fill = "red"), alpha = 0.3, show.legend = F) +
+      #geom_vline( aes(xintercept = median), df_median, color = "darkgreen", linetype = 3 ) +
+      geom_vline( aes(xintercept = mean), df_mean, color = "red", size = 0.6, linetype = 2 , show.legend = F) +
+      labs(y = "Frequency", x = "Slowdown") +
+      scale_fill_discrete(name = "",breaks = c("red"), labels = c("Mean error")) +
+      coord_cartesian(xlim = c(.9, 5), ylim = c(0, 1000)) +
+      theme(legend.position = c(0.1, 0.5),
+            strip.background = element_rect(fill="white"),
+            plot.margin = unit(c(0.1,0.1,0.1,0.1), "cm"))
+    #+END_SRC
+
+    #+RESULTS:
+    [[file:../../../img/comparison_histogram.pdf]]
+
+    #+LATEX: \vspace{-.3cm}
+
+    #+begin_export latex
+    \uncover<2>{
+    \begin{center}
+      \colorbox{Highlight}{\parbox[c]{0.72\textwidth}{\centering We were  always close to
+            the \alert{optimum} and used \alert{half of the budget}}}
+    \end{center}
+    }
+    #+end_export
+
+    #+LATEX: \vspace{-.3cm}
+
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/comparison_histogram.pdf]]
+    #+END_CENTER
+** SPAPT: Search Problems in Automatic Performance Tuning
+*** Search Problem                                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.41
+    :BEAMER_env: block
+    :END:
+
+    - *Orio*: source code transformation
+    - Baseline: =gcc -O3=, no transformations
+    - Random sampling (*RS*) vs. D-Optimal approach (*DLMT*)
+    - 10 repetitions: measure *speedup* and *time-to-solution*
+    - Out of 16 kernels:
+      - 3 with small impact
+      - 6 with similar performance gains
+      - @@latex: \colorbox{Highlight}{7 with \alert{gains found faster}}@@
+*** Search Space                                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.59
+    :END:
+
+    #+latex: \vspace{-0.4cm}
+
+    #+BEGIN_CENTER
+    #+ATTR_LATEX: :booktabs t :align llll :font \scriptsize :float t :placement [t]
+    #+NAME: tab:spapt_apps
+    |-------------+---------------------------------+---------+--------------|
+    | Kernel      | Operation                       | Factors | Size         |
+    |-------------+---------------------------------+---------+--------------|
+    | =atax=        | Matrix transp. & vector mult.   |      18 | $2.6 \times 10^{16}$ |
+    | =dgemv3=      | Scalar, vector & matrix mult.   |      49 | $3.8 \times 10^{36}$ |
+    | =gemver=      | Vector mult. & matrix add.      |      24 | $2.6 \times 10^{22}$ |
+    | =gesummv=     | Scalar, vector, & matrix mult.  |      11 | $5.3 \times 10^{9}$  |
+    | =hessian=     | Hessian computation             |       9 | $3.7 \times 10^{7}$  |
+    | =mm=          | Matrix multiplication           |      13 | $1.2 \times 10^{12}$ |
+    | =mvt=         | Matrix vector product & transp. |      12 | $1.1 \times 10^{9}$  |
+    | =tensor=      | Tensor matrix mult.             |      20 | $1.2 \times 10^{19}$ |
+    | =trmm=        | Triangular matrix operations    |      25 | $3.7 \times 10^{23}$ |
+    | =bicg=        | Subkernel of BiCGStab           |      13 | $3.2 \times 10^{11}$ |
+    | =lu=          | LU decomposition                |      14 | $9.6 \times 10^{12}$ |
+    | =adi=         | Matrix sub., mult., & div.      |      20 | $6.0 \times 10^{15}$ |
+    | =jacobi=      | 1-D Jacobi computation          |      11 | $5.3 \times 10^{9}$  |
+    | =seidel=      | Matrix factorization            |      15 | $1.3 \times 10^{14}$ |
+    | =stencil3d=   | 3-D stencil computation         |      29 | $9.7 \times 10^{27}$ |
+    | =correlation= | Correlation computation         |      21 | $4.5 \times 10^{17}$ |
+    |-------------+---------------------------------+---------+--------------|
+
+    #+LATEX: \scriptsize{Balaprakash P, Wild SM, Norris B. SPAPT: Search problems in automatic performance tuning. Procedia Comp. Sci. 2012 Jan 1;9:1959-68.}
+    #+END_CENTER
+
+** SPAPT: Search Problems in Automatic Performance Tuning
+   #+BEGIN_CENTER
+   #+ATTR_LATEX: :width \linewidth
+   [[../../../img/iteration_best_comparison.pdf]]
+   #+END_CENTER
+** SPAPT: Search Problems in Automatic Performance Tuning
+   #+ATTR_LATEX: :width \columnwidth
+   [[../../../img/split_histograms.pdf]]
+** SPAPT: Looking for Structure in /bicgkernel/
+*** ED Methods for /bicgkernel/                                 :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    *Consistently* fixes parameters and levels:
+    - Quickly identifies *global* structure
+    - Restricts to better sub-regions
+
+    Further exploration:
+    - Certain strong effects *``mask''* others
+    - Improving starting model:
+      - Cubic terms were not significant
+*** Figure
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+LATEX: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/bicgkernel_factors.pdf]]
+    #+LATEX: }
+    #+LATEX: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    [[../../../img/bicgkernel_updated.pdf]]
+    #+LATEX: }
+** Laplacian and SPAPT kernels Experiments
+   With these initial experiments, we showed that:
+
+*** Column A                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    - Exploiting *global search space structure* helps finding good configurations
+      fast
+*** Column B                                                          :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    - The ED approach is parsimonious, transparent, and *effective* for autotuning
+*** Row A                                                   :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    #+LATEX: \vspace{0.5cm}
+    In order  to identify  and exploit *local  structures*, we  need:
+
+    - More *modeling ``flexibility''*
+    - *Domain knowledge*
+
+*** Efforts for Reproducibility                                     :B_block:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :END:
+    #+begin_export latex
+    \begin{center}
+    \colorbox{Highlight}{\parbox[c]{0.54\textwidth}{\centering \alert{Source code} \& \alert{data} at github.com/phrb/ccgrid19}}
+    \end{center}
+    #+end_export
+
+
+** Autotuning DNN Quantization
+   #+ATTR_LATEX: :width .7\columnwidth
+   #+ATTR_ORG: :width 600
+   [[../../../img/haq_quantization_II.pdf]]
+
+   #+begin_export latex
+   \begin{center}
+   \scriptsize{HAQ: Hardware-Aware Automated Quantization with Mixed Precision (CV 2018)}
+   \end{center}
+   #+end_export
+
+** A Experimental Design Approach to DNN Quantization :B_ignoreheading:noexport:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+*** Autotuning for DNN Quantization                           :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    #+latex: \vspace{1em}
+
+    In the last 2 months at HPE:
+
+    1. *Smaller* problem:
+       - LeNet + MNIST
+       - Restricted and *complete* search spaces
+       - @@latex: \colorbox{Highlight}{$10^3$ to \alert{$10^7$} configurations}@@
+       - @@latex: \colorbox{Highlight}{\alert{$<$1 min} to measure each}@@
+    2. *Larger* problem:
+       - ResNet50 + ImageNet
+       - @@latex: \colorbox{Highlight}{\alert{$10^{48}$} configurations}@@
+       - @@latex: \colorbox{Highlight}{\alert{$>$10 min} to measure each}@@
+*** DNN Quantization Search Spaces                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - *Many* quantizations with:
+      - Small accuracy loss
+      - Significantly smaller models
+    - Detectable search space *structure*
+    - @@latex: \colorbox{Highlight}{\alert{Opportunity} for the ED approach}@@
+
+* Experiments with LeNet, with Data Provided by Sitao              :noexport:
+** LeNet Experiment: Restricted Bitwidth
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Code and data *provided by Sitao*
+    - 8 layers, 3 bitwidth pairs
+    - 100 samples randomly chosen from MNIST
+    - Measured search space of size *$3^8 = 6561$*
+    - @@latex:\colorbox{Highlight}{\alert{Objective}: $\downarrow$ Bitwidth, $\uparrow$ Accuracy}@@
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\small
+    #+CAPTION: Bitwidths allowed for each layer
+    |--------------+---------------|
+    | /int/ bitwidth | /frac/ bitwidth |
+    |--------------+---------------|
+    |            1 |             3 |
+    |            1 |             4 |
+    |            2 |             4 |
+    |--------------+---------------|
+** LeNet Restricted Bitwidth: Search Space
+*** Histogram                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_restricted.pdf]]
+
+*** Bitwidth Distributions                                            :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/bitwidth_distribuion_restricted.pdf]]
+
+** LeNet Restricted Bitwidth: Modeling the Search Space
+*** Initial Model                                             :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.7
+    :END:
+    - 1 factor with 3 levels
+      - Sum of /int/ and /frac/ bits
+    - @@latex: \colorbox{Highlight}{Modeled by a \alert{polynomial} of degree 2}@@
+    - Compared Random Sampling (RS) to Linear Model (LM)
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align llrr
+    #+CAPTION: Experimental settings
+    |--------+-----------------------------------+--------------------------+-------------|
+    | /Method/ | /Model/                             | /Design Size/              | /Repetitions/ |
+    |--------+-----------------------------------+--------------------------+-------------|
+    | RS     | --                                | \cellcolor{Highlight} *32* |        1000 |
+    | LM     | $Acc = poly(L_{i,int} + L_{i,frac}, 2)$ | \cellcolor{Highlight} *32* |        1000 |
+    |--------+-----------------------------------+--------------------------+-------------|
+
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.3
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\footnotesize
+    #+CAPTION: Bitwidths allowed for each layer
+    |--------------+---------------|
+    | /int/ bitwidth | /frac/ bitwidth |
+    |--------------+---------------|
+    |            1 |             3 |
+    |            1 |             4 |
+    |            2 |             4 |
+    |--------------+---------------|
+** LeNet Restricted Bitwidth: Modeling the Search Space
+*** Experiments                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.4
+    :END:
+    #+latex: \vspace{0.2em}
+    RS (*baseline*):
+    1. Measure 32 *random* quantizations
+    2. Pick best accuracy found
+    LM:
+    1. Measure 32 random quantizations
+    2. *Fit* performance model
+    3. *Predict* & *measure* best accuracy
+    4. Pick best accuracy found
+*** Results                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/rs_lm_restricted.pdf]]
+** LeNet Restricted Bitwidth: Analysis of Variance
+*** Left Column                                                       :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    Looking for *linear* relationships:
+    #+latex: \vspace{-0.5em}
+
+    #+ATTR_LATEX: :width .75\columnwidth
+    [[file:../../../img/lin_impact.pdf]]
+
+    #+latex: \vspace{-1em}
+    Looking for *quadratic* relationships:
+
+    #+ATTR_LATEX: :width .75\columnwidth
+    [[file:../../../img/quad_impact.pdf]]
+
+*** Right Column                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.45
+    :END:
+    #+begin_export latex
+    \begin{table}[t]
+      \centering
+      \footnotesize
+      \begin{tabular}{lr}
+        \toprule
+        Term & Signif. p-value \\
+        \midrule
+        $(L1_{int}+L1_{frac})$ & $3.6 \times 10^{-37}$ \\
+        $(L1_{int}+L1_{frac})^{2}$ & $8.5 \times 10^{-11}$ \\
+        $(L2_{int}+L2_{frac})$ & $0.0$ \\
+        $(L2_{int}+L2_{frac})^{2}$ & $0.0$ \\
+        $(L3_{int}+L3_{frac})$ & $3.7 \times 10^{-188}$ \\
+        $(L3_{int}+L3_{frac})^{2}$ & $7.2 \times 10^{-66}$ \\
+        $(L4_{int}+L4_{frac})$ & $0.0$ \\
+        $(L4_{int}+L4_{frac})^{2}$ & $0.0$ \\
+        $(L5_{int}+L5_{frac})$ & $0.0$ \\
+        $(L5_{int}+L5_{frac})^{2}$ & $2.2 \times 10^{-301}$ \\
+        $(L6_{int}+L6_{frac})$ & $9.2 \times 10^{-293}$ \\
+        $(L6_{int}+L6_{frac})^{2}$ & $4.6 \times 10^{-128}$ \\
+        $(L7_{int}+L7_{frac})$ & $1.0 \times 10^{-10}$ \\
+        $(L7_{int}+L7_{frac})^{2}$ & $1.9 \times 10^{-4}$ \\
+        $(L8_{int}+L8_{frac})$ & $3.0 \times 10^{-75}$ \\
+        $(L8_{int}+L8_{frac})^{2}$ & $2.2 \times 10^{-27}$ \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
+    #+end_export
+** LeNet Restricted Bitwidth: Modeling Interactions
+*** Model with Interactions                                   :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.7
+    :END:
+    - 2 factors with 2 levels
+    - @@latex: \colorbox{Highlight}{Modeled by \alert{linear terms} $+$ \alert{interactions}}@@
+    - Random Sampling (RS), Linear Model (LM)
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align llrr
+    #+CAPTION: Model with interactions
+    |--------+-----------------------------------------+---------------------------+-------------|
+    | /Method/ | /Model/                                   | /Design Size/               | /Repetitions/ |
+    |--------+-----------------------------------------+---------------------------+-------------|
+    | RS     | --                                      | \cellcolor{Highlight} *137* |        1000 |
+    | LM     | $Acc = L_{i,int} + L_{i,frac} + interactions$ | \cellcolor{Highlight} *137* |        1000 |
+    |--------+-----------------------------------------+---------------------------+-------------|
+
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.3
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\footnotesize
+    #+CAPTION: Bitwidths for each layer allowed on the experiment
+    |--------------+---------------|
+    | /int/ bitwidth | /frac/ bitwidth |
+    |--------------+---------------|
+    |            1 |             3 |
+    |            1 |             4 |
+    |            2 |             4 |
+    |--------------+---------------|
+** LeNet Restricted Bitwidth: Modeling Interactions
+*** Experiments                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.4
+    :END:
+    #+latex: \vspace{0.2em}
+    RS (*baseline*):
+    1. Measure 32 *random* quantizations
+    2. Pick best accuracy found
+    LM:
+    1. Measure 32 random quantizations
+    2. *Fit* performance model
+    3. *Predict* & *measure* best accuracy
+    4. Pick best accuracy found
+*** Results                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/rs_lm_restricted_interactions.pdf]]
+** LeNet Restricted Bitwidth: Analysis of Variance
+*** Left Column                                                       :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.45
+    :END:
+    Looking for *linear* relationships:
+
+    #+ATTR_LATEX: :width .83\columnwidth
+    [[file:../../../img/lin_impact.pdf]]
+
+    #+latex: \vspace{-1em}
+    Looking for *interactions*:
+
+    #+begin_SRC R :results graphics output :session *R* :file "../../../img/interactions_impact.pdf" :width 15 :height 7 :eval no-export :exports results
+    library(ggplot2)
+    library(dplyr)
+
+    df <- data.frame(Bitwidth = rep(seq(-4, 3), 2))
+    df$Accuracy <- 40 + (3.15 * df$Bitwidth) + (50 * runif(16))
+    df$Bitwidth <- df$Bitwidth + 5
+
+    df <- df[c(1, 2, 4, 6, 7, 8, 9, 10, 12, 14, 15, 16), ]
+
+    ggplot(df, aes(x = Bitwidth, y = Accuracy)) +
+      geom_smooth(color = "red",
+                  method = "lm",
+                  formula = "y ~ x",
+                  size = 2) +
+      geom_point(size = 6) +
+      scale_y_continuous(breaks = c()) +
+      scale_x_continuous(breaks = c()) +
+      # scale_x_continuous(limits = c(1, 8),
+      #                    breaks = seq(1, 8)) +
+      theme_classic(base_size = 55)
+    #+end_SRC
+
+    #+ATTR_LATEX: :width .83\columnwidth
+    #+RESULTS:
+    [[file:../../../img/interactions_impact.pdf]]
+
+*** Right Column                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+**** Left Subcolumn                                                   :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.4
+     :END:
+     #+begin_export latex
+     \begin{table}[t]
+       \centering
+       \footnotesize
+       \begin{tabular}{lr}
+         \toprule
+         Term & Signif. p-value \\
+         \midrule
+         $L1_{int}$ & $1.1 \times 10^{-44}$ \\
+         $L1_{frac}$ & $1.2 \times 10^{-100}$ \\
+         $L2_{int}$ & $0.0$ \\
+         $L2_{frac}$ & $0.0$ \\
+         $L3_{int}$ & $3.5 \times 10^{-203}$ \\
+         $L3_{frac}$ & $0.0$ \\
+         $L4_{int}$ & $0.0$ \\
+         $L4_{frac}$ & $0.0$ \\
+         $L5_{int}$ & $0.0$ \\
+         $L5_{frac}$ & $0.0$ \\
+         $L6_{int}$ & $7.7 \times 10^{-284}$ \\
+         $L6_{frac}$ & $0.0$ \\
+         $L7_{frac}$ & $4.1 \times 10^{-31}$ \\
+         $L8_{int}$ & $7.4 \times 10^{-80}$ \\
+         $L8_{frac}$ & $1.3 \times 10^{-229}$ \\
+         \bottomrule
+       \end{tabular}
+     \end{table}
+     #+end_export
+**** Right Subcolumn                                                  :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :END:
+
+     #+begin_export latex
+     \vspace{-1em}
+     \begin{table}[t]
+       \centering
+       \footnotesize
+       \begin{tabular}{lr}
+         \toprule
+         Term & Signif. p-value \\
+         \midrule
+         $L2_{int} \times L4_{int}$ & $7.5 \times 10^{-50}$ \\
+         $L2_{int} \times L4_{frac}$ & $3.9 \times 10^{-141}$ \\
+         $L2_{int} \times L5_{int}$ & $5.6 \times 10^{-118}$ \\
+         $L2_{int} \times L5_{frac}$ & $0.0$ \\
+         $L2_{frac} \times L4_{int}$ & $3.9 \times 10^{-141}$ \\
+         $L2_{frac} \times L4_{frac}$ & $0.0$ \\
+         $L2_{frac} \times L5_{int}$ & $0.0$ \\
+         $L2_{frac} \times L5_{frac}$ & $0.0$ \\
+         $L4_{int} \times L6_{frac}$ & $2.1 \times 10^{-63}$ \\
+         $L4_{frac} \times L6_{int}$ & $3.4 \times 10^{-57}$ \\
+         $L4_{frac} \times L6_{frac}$ & $8.6 \times 10^{-179}$ \\
+         \bottomrule
+       \end{tabular}
+     \end{table}
+     #+end_export
+
+** LeNet Restricted Bitwidth: Initial Analysis
+*** Initial Analysis                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Many quantizations with *$Accuracy \geq 90\%$*:
+      - Small uniform random samples find good quantizations
+    - Initial modeling attempts:
+      - Significant *interactions*
+      - Statistically significant, small *improvements* upon RS
+
+*** Histogram                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_restricted.pdf]]
+
+** LeNet Experiment: Bitwidth \in [3, 6]             :B_ignoreheading:noexport:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Code and data *provided by Sitao*
+    - 8 layers, 4 bitwidth values
+    - 100 samples randomly chosen from MNIST
+    - Search space of size *$4^8 = 65,536$*
+    - Objective: \downarrow Bitwidth, \uparrow Accuracy
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align rr
+    #+CAPTION: Bitwidths for each layer allowed on the experiment
+    |--------------+---------------|
+    | /int/ bitwidth | /frac/ bitwidth |
+    |--------------+---------------|
+    | $[3,6]$      | $[3,6]$       |
+    |--------------+---------------|
+** LeNet Bitwidth \in [3, 6]: Exploring the Search Space :B_ignoreheading:noexport:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+*** Histogram                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_3_6_bits.pdf]]
+
+*** Bitwidth Distributions & Sampling                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/bitwidth_distribution_3_6_bits.pdf]]
+
+** LeNet Experiment: Bitwidth \in [1, 8]
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Code and data *provided by Sitao*
+    - 8 layers, 8 bitwidth values
+    - 100 samples randomly chosen from MNIST
+    - Search space of size *$8^8 = 1.68 \times 10^7$*
+    - @@latex:\colorbox{Highlight}{\alert{Objective}: $\downarrow$ Bitwidth, $\uparrow$ Accuracy}@@
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align rr
+    #+CAPTION: Bitwidths for each layer allowed on the experiment
+    |--------------+---------------|
+    | /int/ bitwidth | /frac/ bitwidth |
+    |--------------+---------------|
+    | $[1,8]$      | $[1,8]$       |
+    |--------------+---------------|
+** LeNet Bitwidth \in [1, 8]: Exploring the Search Space
+*** Histogram                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_1_8_bits.pdf]]
+
+*** Bitwidth Distributions & Sampling                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/bitwidth_distribution_1_8_bits.pdf]]
+    #+latex: }
+
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/best_accuracies_sobol_32_samples_20_reps_1_8_bits.pdf]]
+    #+latex: }
+
+** LeNet with MNIST: Initial Analysis
+*** Initial Analysis                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Many quantizations with high accuracy:
+      - Good results with *random sampling*
+      - Small *model size*
+    - Simple *models* can help:
+      - Factor *interactions* are important
+*** Moving to Larger Experiments                              :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Quantization on *larger settings*
+    - Modify MIT's *HAQ* framework:
+      - [[https://github.com/mit-han-lab/haq][github.com/mit-han-lab/haq]]
+
+    #+ATTR_LATEX: :booktabs t :placement [h]\small
+    #+CAPTION: Larger experiments
+    |------------------------------------------+--------------------------|
+    | /Data Set/                                 | /Neural Net/               |
+    |------------------------------------------+--------------------------|
+    | MNIST                                    | LeNet                    |
+    | CIFAR10                                  | AlexNet                  |
+    | CIFAR100                                 | VGG 16/19                |
+    | @@latex: \rowcolor{Highlight}@@ *ImageNet* | *ResNet* 20/\alert{50}/101 |
+    |------------------------------------------+--------------------------|
+* Experiments with HAQ                                             :noexport:
+** ResNet50 + ImageNet Experiment                  :B_ignoreheading:noexport:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Low-discrepancy sampling on HAQ
+    - 54 layers, 8 bitwidth values
+    - Complete *ImageNet* validation set
+    - Search space of size *$8^{54} = 5.84 \times 10^{48}$*
+    - *No retraining*
+    - Bitwidth clustering on layer
+    - *Objective*: \downarrow Bitwidth, \uparrow Accuracy
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align lll
+    #+CAPTION: Bitwidths for each layer allowed on the experiment
+    |--------+--------------------------|
+    | Layers | /Weight/ & /Activation/ bits |
+    |--------+--------------------------|
+    |     54 | $[1,8]$                  |
+    |--------+--------------------------|
+** ResNet50 + ImageNet: Exploring the Search Space :B_ignoreheading:noexport:
+*** Initial Analysis                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - 600 samples of $5.84 \times 10^{48}$ possible
+    - Starting Top1 accuracy of *\sim76%*
+    - No retraining: severe impact on accuracy
+**** Next Steps                                                     :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     - Measure a larger sample
+     - Implement *retraining*
+     - Begin modeling & optimization efforts
+
+*** Histogram                                                         :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_resnet50_600_samples_no_retraining.pdf]]
+
+** ResNet50 + Imagenet: Quantization
+*** Experimental Settings                                     :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+
+    - Low-discrepancy sampling on HAQ
+    - 54 layers, 8 bitwidth values
+    - @@latex: \colorbox{Highlight}{Weights and activations use \alert{same bit}}@@
+    - Complete *ImageNet* validation set
+    - Search space of size *$8^{54} = 5.84 \times 10^{48}$*
+    - *Objective*: \downarrow Bitwidth, \uparrow Accuracy
+*** Constraints                                               :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :booktabs t :placement [h]\small :align lll
+    #+CAPTION: Bitwidths for each layer allowed on the experiment
+    |--------+--------------------------|
+    | Layers | /Weight/ & /Activation/ bits |
+    |--------+--------------------------|
+    |     54 | $[1,8]$                  |
+    |--------+--------------------------|
+** ResNet50 + ImageNet: Exploring the Search Space
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - *600 samples* of $5.84 \times 10^{48}$ possible
+    - With *retraining*
+    - Weights and activations use *same bit*
+**** Initial Analysis                                               :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+    - *Many* quantizations with:
+      - Small accuracy loss
+      - Significantly smaller models
+
+    #+begin_export latex
+    \uncover<2>{
+      \begin{center}
+        \colorbox{Highlight}{\parbox[c]{0.9\columnwidth}{\centering \alert{Accuracy} and \alert{size} of best \\ quantization is similar to HAQ's}}
+        \vspace{0.5em}
+        \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering Optimization cost can be \alert{cheaper}}}
+      \end{center}
+    }
+    #+end_export
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_distribution_resnet50_600_samples_with_retraining_haq.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weights_resnet50_600_samples_with_retraining.pdf]]
+    #+latex: }
+
+** ResNet50 + ImageNet: Exploring the Search Space (Quantize 2 bits)
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - *3000 samples* of $5.84 \times 10^{48}$ possible
+    - With *retraining*
+    - Weights and activations use *different bits*
+**** Initial Analysis                                               :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+    - *Many* quantizations with:
+      - Small accuracy loss
+      - Significantly smaller models
+
+    #+begin_export latex
+    \uncover<2>{
+      \begin{center}
+        \colorbox{Highlight}{\parbox[c]{0.9\columnwidth}{\centering \alert{Accuracy} and \alert{size} of best \\ quantization is similar to HAQ's}}
+        \vspace{0.5em}
+        \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering Optimization cost can be \alert{cheaper}}}
+      \end{center}
+    }
+    #+end_export
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weights_resnet50_3000_2bits_samples_with_retraining.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_3000_2bits_samples_with_retraining.pdf]]
+    #+latex: }
+
+** ResNet50 + ImageNet: Optimization with RS and GPR
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Budget: *200 samples* of $5.84 \times 10^{48}$ possible
+    - With *retraining*
+    - Weights and activations use *different bits*
+    - 10 repetitions
+    - *RS* and *GPR*
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs.pdf]]
+
+** ResNet50 + ImageNet: Optimization with RS and GPR
+   #+latex: \footnotesize
+*** Random Sampling (RS, *baseline*)                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    1. Measure Sobol sample of size *209*
+    2. Pick the quantization with the *best Top5*
+**** Gaussian Process Regression (GPR)                              :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     1. Measure Sobol sample of size *109*:
+        - @@latex:\footnotesize@@ # quantizable bits + 1
+     2. Fit *Gaussian Process*
+     3. Repeat *20 times*:
+        1. @@latex:\footnotesize@@ Generate *large* Sobol sample
+        2. Compute EI for *Top5* and pick *best 2*
+        3. Generate *large ``Sobol'' neighborhood*
+        4. Recompute EI, add *best 3*
+        5. Measure the *5 points* with best EI
+        6. Fit GP with *all measurements*
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_gpr_rs.pdf]]
+    #+latex: }
+
+** ResNet50 + ImageNet: Optimization with RS, GPR, and RL
+   #+latex: \footnotesize
+*** Random Sampling (RS, *baseline*)                            :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    1. Measure Sobol sample of size *209*
+    2. Pick the quantization with the *best Top5*
+**** Gaussian Process Regression (GPR)                              :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     1. Measure Sobol sample of size *109*:
+        - @@latex:\footnotesize@@ # quantizable bits + 1
+     2. Fit *Gaussian Process*
+     3. Repeat *20 times*:
+        1. @@latex:\footnotesize@@ Generate *large* Sobol sample
+        2. Compute EI for *Top5* and pick *best 2*
+        3. Generate *large ``Sobol'' neighborhood*
+        4. Recompute EI, add *best 3*
+        5. Measure the *5 points* with best EI
+        6. Fit GP with *all measurements*
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs_ddpg.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_gpr_rs_ddpg.pdf]]
+    #+latex: }
+
+** ResNet50 + Imagenet: Analysis of Variance
+*** Left Column                                                       :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.45
+    :END:
+    Looking for *linear* relationships:
+    #+begin_SRC R :results graphics output :session *R* :file "../../../img/lin_impact.pdf" :width 15 :height 7 :eval no-export :exports results
+    library(ggplot2)
+    library(dplyr)
+
+    df <- data.frame(Bitwidth = seq(-4, 3))
+    df$Accuracy <- 40 + (3.15 * df$Bitwidth) + (4 * runif(8))
+    df$Bitwidth <- df$Bitwidth + 5
+
+    df <- df[c(1, 2, 4, 6, 7, 8), ]
+
+    ggplot(df, aes(x = Bitwidth, y = Accuracy)) +
+      geom_smooth(color = "red",
+                  method = "lm",
+                  formula = "y ~ x",
+                  size = 2) +
+      geom_point(size = 6) +
+      scale_y_continuous(breaks = c()) +
+      scale_x_continuous(breaks = c()) +
+      # scale_x_continuous(limits = c(1, 8),
+      #                    breaks = seq(1, 8)) +
+      theme_classic(base_size = 55)
+    #+end_SRC
+
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/lin_impact.pdf]]
+
+    #+latex: \vspace{-1em}
+    Looking for *quadratic* relationships:
+
+    #+begin_SRC R :results graphics output :session *R* :file "../../../img/quad_impact.pdf" :width 15 :height 7 :eval no-export :exports results
+    library(ggplot2)
+    library(dplyr)
+
+    df <- data.frame(Bitwidth = seq(-4, 3))
+    df$Accuracy <- 30 + (3.15 * df$Bitwidth) - (1.2 * (df$Bitwidth ^ 2)) + (7 * runif(8))
+    df$Bitwidth <- df$Bitwidth + 5
+
+    df <- df[c(1, 2, 4, 6, 7, 8), ]
+
+    ggplot(df, aes(x = Bitwidth, y = Accuracy)) +
+      geom_smooth(color = "red",
+                  method = "lm",
+                  formula = "y ~ x + I(x ^ 2)",
+                  size = 2) +
+      geom_point(size = 6) +
+      scale_y_continuous(breaks = c()) +
+      scale_x_continuous(breaks = c()) +
+      # scale_x_continuous(limits = c(1, 8),
+      #                    breaks = seq(1, 8)) +
+      theme_classic(base_size = 55)
+    #+end_SRC
+
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/quad_impact.pdf]]
+
+*** Right Column                                                      :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+**** Left Subcolumn                                                   :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+begin_export latex
+     \begin{table}[t]
+       \centering
+       \footnotesize
+       \begin{tabular}{llr}
+         \toprule
+         & Term & Signif. p-value \\
+         \midrule
+         & \cellcolor{gray!25} L1 & \cellcolor{gray!25} $1.1 \times 10^{-31}$ \\
+         &  \cellcolor{gray!25} L1\textsuperscript{2} & \cellcolor{gray!25} $4.4 \times 10^{-16}$ \\
+         & L5 & $4.2 \times 10^{-3}$ \\
+         & L5\textsuperscript{2} & $1.4 \times 10^{-2}$ \\
+         & L7 & $4.7 \times 10^{-3}$ \\
+         & L9\textsuperscript{2} & $3.3 \times 10^{-3}$ \\
+         & L10\textsuperscript{2} & $2.8 \times 10^{-2}$ \\
+         & L14 & $2.2 \times 10^{-2}$ \\
+         \parbox[t]{2mm}{\multirow{-9}{*}{\rotatebox[origin=c]{90}{Initial Layers (1---18)}}} & L15\textsuperscript{2} & $2.2 \times 10^{-3}$ \\
+         \midrule
+         & L24 & $6.2 \times 10^{-3}$ \\
+         & L25\textsuperscript{2} & $6.5 \times 10^{-3}$ \\
+         & L27\textsuperscript{2} & $1.8 \times 10^{-2}$ \\
+         & \cellcolor{gray!25} L29 & \cellcolor{gray!25} $2.4 \times 10^{-5}$ \\
+         & \cellcolor{gray!25} L30\textsuperscript{2} & \cellcolor{gray!25} $1.5 \times 10^{-5}$ \\
+         & L33\textsuperscript{2} & $1.6 \times 10^{-3}$ \\
+         \parbox[t]{2mm}{\multirow{-7}{*}{\rotatebox[origin=c]{90}{Middle Layers (19---36)}}} & L36\textsuperscript{2} & $3.3 \times 10^{-2}$ \\
+         \bottomrule
+       \end{tabular}
+     \end{table}
+     #+end_export
+**** Right Subcolumn                                                  :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+
+     #+begin_export latex
+     \vspace{-1em}
+     \begin{table}[t]
+       \centering
+       \footnotesize
+       \begin{tabular}{llr}
+         \toprule
+         & Term & Signif. p-value \\
+         \midrule
+         & L37 & $2.7 \times 10^{-2}$ \\
+         & L39\textsuperscript{2} & $1.3 \times 10^{-2}$ \\
+         & L44 & $8.1 \times 10^{-4}$ \\
+         & L44\textsuperscript{2} & $1.4 \times 10^{-3}$ \\
+         & \cellcolor{gray!25} L45 & \cellcolor{gray!25} $2.6 \times 10^{-10}$ \\
+         & L45\textsuperscript{2} & $5.1 \times 10^{-4}$ \\
+         & L46 & $9.9 \times 10^{-3}$ \\
+         & \cellcolor{gray!25} L46\textsuperscript{2} & \cellcolor{gray!25} $6.7 \times 10^{-5}$ \\
+         & \cellcolor{gray!25} L47 & \cellcolor{gray!25} $6.5 \times 10^{-6}$ \\
+         & \cellcolor{gray!25} L49 & \cellcolor{gray!25} $4.8 \times 10^{-18}$ \\
+         & L49\textsuperscript{2} & $1.2 \times 10^{-4}$ \\
+         & \cellcolor{gray!25} L52 & \cellcolor{gray!25} $1.4 \times 10^{-10}$ \\
+         & L52\textsuperscript{2} & $4.9 \times 10^{-3}$ \\
+         & \cellcolor{gray!25} L54 & \cellcolor{gray!25} $1.0 \times 10^{-18}$ \\
+         \parbox[t]{2mm}{\multirow{-15}{*}{\rotatebox[origin=c]{90}{Final Layers (37---54)}}} & \cellcolor{gray!25} L54\textsuperscript{2} & \cellcolor{gray!25} $1.7 \times 10^{-5}$ \\
+         \bottomrule
+       \end{tabular}
+     \end{table}
+     #+end_export
+
+** ResNet50 + Imagenet: Initial Analysis
+*** Initial Analysis                                          :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - *Many* quantizations with:
+      - Small accuracy loss
+      - Significantly smaller models
+    - Detectable search space *structure*
+**** With a Small Unbiased Sample (*baseline*):
+     #+begin_export latex
+     \begin{center}
+       \colorbox{Highlight}{\parbox[c]{0.9\columnwidth}{\centering \alert{Accuracy} and \alert{size} of best \\ quantization is similar to HAQ's}}
+       \vspace{0.5em}
+       \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering Optimization cost can be \alert{cheaper}}}
+     \end{center}
+     #+end_export
+
+*** Next Steps                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    - Quantize activation and weight bits
+    - *Exploit* search space structure:
+      - Screening, D-Optimal Designs
+    - Experiment with statistical modeling:
+      - Gaussian Process Regression
+
+* HPE Feb. 12 Update                                               :noexport:
+** ResNet50 + ImageNet: Exploring the Search Space (Quantize 2 bits)
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - *3000 samples* of $5.84 \times 10^{48}$ possible
+    - With *retraining*
+    - Weights and activations use *different bits*
+**** Initial Analysis                                               :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+    - *Many* quantizations with:
+      - Small accuracy loss
+      - Significantly smaller models
+
+    #+begin_export latex
+    \uncover<2>{
+      \begin{center}
+        \colorbox{Highlight}{\parbox[c]{0.9\columnwidth}{\centering \alert{Accuracy} and \alert{size} of best \\ quantization is similar to HAQ's}}
+        \vspace{0.5em}
+        \colorbox{Highlight}{\parbox[c]{0.8\columnwidth}{\centering Optimization cost can be \alert{cheaper}}}
+      \end{center}
+    }
+    #+end_export
+
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weights_resnet50_3000_2bits_samples_with_retraining.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_3000_2bits_samples_with_retraining.pdf]]
+    #+latex: }
+
+** ResNet50 + ImageNet: Optimization with RS and GPR
+*** Experiment                                                :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :BEAMER_env: block
+    :END:
+    - Budget: *200 samples* of $5.84 \times 10^{48}$ possible
+    - With *retraining*
+    - Weights and activations use *different bits*
+    - 10 repetitions
+    - *RS* and *GPR*
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs.pdf]]
+
+** ResNet50 + ImageNet: Optimization with RS and GPR
+   #+latex: \footnotesize
+*** HAQ + Random Sampling (RS, *baseline*)                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    1. Measure Sobol sample of size *209*
+    2. Pick the quantization with the *best Top5*
+**** HAQ + Gaussian Process Regression (GPR)                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     1. Measure Sobol sample of size *109*:
+        - @@latex:\footnotesize@@ # quantizable bits + 1
+     2. Fit *Gaussian Process*, update fit with collected data
+     3. Use model to explore, pick best Top5 quantization
+**** HAQ + Reinforcement Learning (RL)
+     - Reproduce results from the HAQ paper
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_gpr_rs.pdf]]
+    #+latex: }
+
+** ResNet50 + ImageNet: Optimization with RS, GPR, and RL
+   #+latex: \footnotesize
+*** HAQ + Random Sampling (RS, *baseline*)                      :B_block:BMCOL:
+    :PROPERTIES:
+    :BEAMER_env: block
+    :BEAMER_col: 0.5
+    :END:
+    1. Measure Sobol sample of size *209*
+    2. Pick the quantization with the *best Top5*
+**** HAQ + Gaussian Process Regression (GPR)                        :B_block:
+     :PROPERTIES:
+     :BEAMER_env: block
+     :END:
+     1. Measure Sobol sample of size *109*:
+        - @@latex:\footnotesize@@ # quantizable bits + 1
+     2. Fit *Gaussian Process*, update fit with collected data
+     3. Use model to explore, pick best Top5 quantization
+**** HAQ + Reinforcement Learning (RL)
+     - Reproduce results from the HAQ paper
+*** Figures                                                           :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    #+latex: \only<1>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_weight_resnet50_gpr_rs_ddpg.pdf]]
+    #+latex: }
+    #+latex: \only<2>{
+    #+ATTR_LATEX: :width \columnwidth
+    #+RESULTS:
+    [[file:../../../img/accuracy_model_size_resnet50_gpr_rs_ddpg.pdf]]
+    #+latex: }

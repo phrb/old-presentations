@@ -159,8 +159,3 @@
     1. (Des)complicando o GCC: =examples/gcc_subprograms/LEIAME.txt=
     2. $sin(atan(x))$: =examples/sinatan_optimize/LEIAME.txt=
     3. Soma de PA: =examples/arithmetic_progression/LEIAME.txt=
-* Ending Title :B_ignoreheading:
-  :PROPERTIES:
-  :BEAMER_env: ignoreheading
-  :END:
-  #+LATEX: \maketitle

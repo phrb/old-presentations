@@ -1,16 +1,16 @@
-CC=/usr/lib/gcc/x86_64-linux-gnu/10/cc1
+CC=/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/cc1
 CFLAGS=-quiet -I/usr/include/
 ASM=as
 ASMFLAGS=--64
 LD=ld
-LDFLAGS= -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -pie \
-/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/Scrt1.o \
-/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crti.o \
-/usr/lib/gcc/x86_64-linux-gnu/10/crtbeginS.o \
--L/usr/lib/gcc/x86_64-linux-gnu/10 \
+LDFLAGS= -m elf_x86_64 -dynamic-linker /usr/lib/ld-linux-x86-64.so.2 -pie \
+/usr/lib/Scrt1.o \
+/usr/lib/crti.o \
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o \
+-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0 \
 -lc -lgcc \
-/usr/lib/gcc/x86_64-linux-gnu/10/crtendS.o \
-/usr/lib/gcc/x86_64-linux-gnu/10/../../../x86_64-linux-gnu/crtn.o
+/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o \
+/usr/lib/crtn.o
 
 bin: a.o b.o
 	$(LD) $(LDFLAGS) $^ -o $@

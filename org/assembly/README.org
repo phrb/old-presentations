@@ -157,5 +157,5 @@
 ** Observando Otimizações do Compilador
 *** Exemplos fornecidos pelo *Giuliano*!
     1. (Des)complicando o GCC: =examples/gcc_subprograms/LEIAME.txt=
-    2. $sin(atan(x))$: =examples/sinatan_optimize/LEIAME.txt=
-    3. Soma de PA: =examples/arithmetic_progression/LEIAME.txt=
+    2. Soma de PA: =examples/arithmetic_progression/LEIAME.txt=
+    3. $sin(atan(x))$: =examples/sinatan_optimize/LEIAME.txt=

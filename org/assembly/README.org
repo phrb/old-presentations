@@ -2,6 +2,7 @@
 #+AUTHOR: @@latex: \footnotesize Pedro Bruel, Giuliano Belinassi@@
 #+EMAIL:
 #+DATE:      @@latex: \scriptsize 16 de Set, 2020@@
+#+EXPORT_FILE_NAME: presentation.pdf
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -97,7 +98,7 @@
 #+LATEX_HEADER:   stringstyle=\color{gray},
 #+LATEX_HEADER:   tabsize=2,
 #+LATEX_HEADER: }
-#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller[3]\relax}
+#+LATEX_HEADER: \renewcommand*{\UrlFont}{\ttfamily\smaller[2]\relax}
 #+LATEX_HEADER: \graphicspath{{../../img/}}
 #+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
 
@@ -116,10 +117,41 @@
 
 * Introdução
 ** Roteiro
-*** Tópicos
+*** Tópicos dos Exemplos
     1. Gerando assembly com Julia
     2. Gerando assembly com GCC e Clang
     3. Observando otimizações feitas pelo compilador
 *** Repositório no GitHub
     - Slides e código
-    -
+    - Baixe o repositório para acompanhar a aula!
+    - https://github.com/phrb/presentations/tree/master/org/assembly
+** Recursos Adicionais
+*** Grupo na USP: [[https://flusp.ime.usp.br/][FLUSP (FLOSS at USP)]]
+*** Curso no Youtube: [[https://www.youtube.com/playlist?list=PLUl4u3cNGP63VIBQVWguXxZZi0566y7Wf][MIT Performance Engineering for Software Systems]]
+*** Assembly =x64=
+    - Cheat Sheets: [[https://cs.brown.edu/courses/cs033/docs/guides/x64_cheatsheet.pdf][x64]], [[https://devhints.io/makefile][Makefile]]
+    - [[https://www.wiley.com/en-us/Assembly+Language+Step+by+Step%253A+Programming+with+Linux%252C+3rd+Edition+-p-9781118080993][Assembly Language Step-by-Step]], Duntemann
+    - [[https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-instruction-set-reference-manual-325383.pdf][Manual Intel]]
+*** Livros
+    - [[https://www.charlespetzold.com/code/][Code]], Petzold
+    - [[https://nostarch.com/writegreatcode1_2e][Write Great Code]], Hyde
+    - [[https://www.r-5.org/files/books/computers/compilers/writing/Keith_Cooper_Linda_Torczon-Engineering_a_Compiler-EN.pdf][Engineering a Compiler]], Cooper & Torczon
+    - [[https://acs.pub.ro/~cpop/SMPA/Computer%2520Architecture%2520A%2520Quantitative%2520Approach%2520(5th%2520edition).pdf][Computer Architecture]], Hennessy & Patterson
+    - [[https://www.pearson.com/us/higher-education/program/Aho-Compilers-Principles-Techniques-and-Tools-2nd-Edition/PGM167067.html][Compilers]], Aho, Lam, Sethi, Ullman
+** Gerando Assembly com Julia
+*** A linguagem Julia
+   - Compilação *Just-in-Time* usando o LLVM
+   - Podemos olhar o código que será executado com a função =code_native=
+*** Exemplos
+    1. Gerando código para *tipos diferentes*: =examples/julia/simple.jl=
+    2. *``Mágicas''* do compilador? =examples/julia/arithmetic.jl=
+** Gerando Assembly com GCC e Clang
+*** Compilação Interativa
+    1. [[https://godbolt.org/][Compiler Explorer]]
+    2. Usando um script: =examples/interactive_compilation/watch_asm.sh=
+    3. Pode funcionar pra qualquer linguagem
+** Observando Otimizações do Compilador
+*** Exemplos fornecidos pelo *Giuliano*!
+    1. (Des)complicando o GCC: =examples/gcc_subprograms/LEIAME.txt=
+    2. $sin(atan(x))$: =examples/sinatan_optimize/LEIAME.txt=
+    3. Soma de PA: =examples/arithmetic_progression/LEIAME.txt=

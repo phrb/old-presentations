@@ -1,4 +1,4 @@
-% Created 2020-09-16 Wed 18:11
+% Created 2020-09-16 Wed 18:20
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -99,8 +99,15 @@ tabsize=2,
 \maketitle
 
 \section{Introdução}
-\label{sec:org19d9412}
-\begin{frame}[label={sec:orga2dff84}]{Roteiro}
+\label{sec:org055d33d}
+\begin{frame}[label={sec:orgef38c21}]{Roteiro}
+\begin{block}{Objetivo}
+\begin{itemize}
+\item Desenvolver mais familiaridade com o processo de compilação e com seus produtos
+\item Para isso, veremos  exemplos com linguagens de alto-nível,  Makefiles, e com o
+\emph{shell} do Linux
+\end{itemize}
+\end{block}
 \begin{block}{Tópicos dos Exemplos}
 \begin{enumerate}
 \item Gerando assembly com Julia
@@ -116,7 +123,7 @@ tabsize=2,
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org591a745},fragile]{Recursos Adicionais}
+\begin{frame}[label={sec:org7f16386},fragile]{Recursos Adicionais}
  \begin{block}{Grupo na USP: \href{https://flusp.ime.usp.br/}{FLUSP (FLOSS at USP)}}
 \end{block}
 \begin{block}{Curso no Youtube: \href{https://www.youtube.com/playlist?list=PLUl4u3cNGP63VIBQVWguXxZZi0566y7Wf}{MIT Performance Engineering for Software Systems}}
@@ -138,7 +145,7 @@ tabsize=2,
 \end{itemize}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org4197d46},fragile]{Gerando Assembly com Julia}
+\begin{frame}[label={sec:org23951a7},fragile]{Gerando Assembly com Julia}
  \begin{block}{A linguagem Julia}
 \begin{itemize}
 \item Compilação \alert{Just-in-Time} usando o LLVM
@@ -152,7 +159,7 @@ tabsize=2,
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org76d5025},fragile]{Gerando Assembly com GCC e Clang}
+\begin{frame}[label={sec:org5752255},fragile]{Gerando Assembly com GCC e Clang}
  \begin{block}{Compilação Interativa}
 \begin{enumerate}
 \item \href{https://godbolt.org/}{Compiler Explorer}
@@ -161,7 +168,7 @@ tabsize=2,
 \end{enumerate}
 \end{block}
 \end{frame}
-\begin{frame}[label={sec:org71f3f80},fragile]{Observando Otimizações do Compilador}
+\begin{frame}[label={sec:orga68d387},fragile]{Observando Otimizações do Compilador}
  \begin{block}{Exemplos fornecidos pelo \alert{Giuliano}!}
 \begin{enumerate}
 \item (Des)complicando o GCC: \texttt{examples/gcc\_subprograms/LEIAME.txt}
@@ -170,4 +177,5 @@ tabsize=2,
 \end{enumerate}
 \end{block}
 \end{frame}
+\maketitle
 \end{document}

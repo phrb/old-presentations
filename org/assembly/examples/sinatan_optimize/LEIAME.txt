@@ -1,0 +1,47 @@
+# Exemplo 1: Verificando se o compilador otimizou.
+
+Neste pacote temos 2 arquivos: sinatan.c e um Makefile. O primeiro é
+o código implementado de um programa que calcula sin (atan (x)) e o
+segundo contém regras de compilação, gerando os dumps para análise.
+
+
+Primeiro, note o comando da segunda regra:
+	$(CC) $(CFLAGS) -S -masm=intel -fverbose-asm $<
+
+as flags são:
+	-S:              Gere um arquivo assembler (.s) e não um arquivo objeto (.o)
+	-masm=intel      Use a sintaxe da intel no arquivo assembler. Por padrão, o
+	                 GCC usa a sintaxe da GNU.
+	-fverbose-asm    Coloque algumas anotações no arquivo assembler na tentativa
+	                 de facilitar a leitura.
+
+Agora, note o comando da terceira regra:
+	$(CC) $(CFLAGS) -o $@ $< -fdump-tree-gimple -fdump-tree-optimized
+
+Temos duas flags estranhas aqui:
+
+-fdump-tree-gimple:    Despeje no disco a representação interna do compilador,
+                       já processado do arquivo fonte.  Observe a função
+					   sinatan (x). Nada esquisito.
+
+
+-fdump-tree-optimized: Despejo no disco a representação interna do compilador
+                       após os vários passos de otimização. Observe a função
+					   sinatan (x).  Apareceu uma raiz quadrada, uma comparação
+					   a um número enorme 1.3407807e154... pq isso ocorre?
+					   veja [1]
+
+
+Além dessas flags, há também o -fdump-tree-all, que mostra todos os passos de
+otimização do GCC em ação, embora eu acredite que não tenha muita utilidade além
+de debugar o próprio compilador.
+
+# Exercício:
+
+1- Substitua o compilador pelo clang e verifique se a otimização foi
+   realizada.
+
+2- Descubra como fazer o dump da linguagem intermediária do clang.
+   (leia a documentação dele).
+
+[1] https://flusp.ime.usp.br/gcc/making-gcc-optimize-some-trigonometric-functions/

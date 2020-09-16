@@ -1,0 +1,112 @@
+% Created 2020-09-16 Wed 15:47
+% Intended LaTeX compiler: pdflatex
+\documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
+
+\usepackage{booktabs}
+\mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+\usepackage{sourcecodepro}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{xeCJK}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[scale=2]{ccicons}
+\usepackage{hyperref}
+\usepackage{relsize}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{wasysym}
+\usepackage{ragged2e}
+\usepackage{textcomp}
+\usepackage{pgfplots}
+\usepackage{appendixnumberbeamer}
+\usepgfplotslibrary{dateplot}
+\definecolor{Base}{HTML}{191F26}
+\definecolor{Adversarial}{HTML}{FF8D6D}
+\definecolor{Benign}{HTML}{01A982}
+\definecolor{Highlight}{HTML}{ffda99}
+\definecolor{Accent}{HTML}{bb0300}
+\setbeamercolor{alerted text}{fg=Accent}
+\setbeamercolor{frametitle}{fg=Base,bg=normal text.bg}
+\setbeamercolor{normal text}{bg=black!2,fg=Base}
+\setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
+end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
+macro,module,quote,return,switch,true,try,catch,type,typealias,%
+while,<:,+,-,::,/},%
+sensitive=true,%
+alsoother={$},%
+morecomment=[l]\#,%
+morecomment=[n]{\#=}{=\#},%
+morestring=[s]{"}{"},%
+morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+\lstdefinelanguage{dockerfile}{
+keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+sensitive=false,
+comment=[l]{\#},
+morestring=[b]',
+morestring=[b]"
+}
+\lstdefinelanguage{yaml}{
+keywords={true,false,null,y,n},
+ndkeywords={},
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+morestring=[b]',
+morestring=[b]"
+}
+\lstset{ %
+backgroundcolor={},
+basicstyle=\ttfamily\scriptsize,
+breakatwhitespace=true,
+breaklines=true,
+captionpos=n,
+commentstyle=\color{Accent},
+extendedchars=true,
+frame=n,
+keywordstyle=\color{Accent},
+rulecolor=\color{black},
+showspaces=false,
+showstringspaces=false,
+showtabs=false,
+stepnumber=2,
+stringstyle=\color{gray},
+tabsize=2,
+}
+\renewcommand*{\UrlFont}{\ttfamily\smaller[3]\relax}
+\graphicspath{{../../img/}}
+\addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
+\usetheme{default}
+\author{ \footnotesize Pedro Bruel, Giuliano Belinassi}
+\date{ \scriptsize 16 de Set, 2020}
+\title{Exemplos em Assembly}
+\hypersetup{
+ pdfauthor={ \footnotesize Pedro Bruel, Giuliano Belinassi},
+ pdftitle={Exemplos em Assembly},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.2.5)},
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+\section{Introdução}
+\label{sec:orgd46c61e}
+\begin{frame}[label={sec:org62c74c6}]{Roteiro}
+\begin{block}{Tópicos desta aula}
+\begin{itemize}
+\item Gerando assembly com Julia
+\item Gerando assembly com GCC e Clang
+\item Observando otimizações feitas pelo compilador
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}

@@ -13,6 +13,20 @@
 #+LINK_UP:
 #+LINK_HOME:
 
+* Setup (Run this first!)                          :B_ignoreheading:noexport:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+** Use XeLaTeX (Run me first!)
+#+HEADER: :results output :exports none :eval no-export
+#+BEGIN_SRC emacs-lisp
+(setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+#+END_SRC
+
+#+RESULTS:
+
+** Latex Configuration
+:latex_header:
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
 #+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=regular, sectionpage=none]{metropolis}}
@@ -110,18 +124,7 @@
 # #+LATEX_HEADER: \setlength{\metropolis@progressonsectionpage@linewidth}{2pt}
 # #+LATEX_HEADER: \setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
 #+LATEX_HEADER: \makeatother
-
-
-* Setup                                            :B_ignoreheading:noexport:
-:PROPERTIES:
-:BEAMER_env: ignoreheading
-:END:
-#+HEADER: :results output :exports none
-#+BEGIN_SRC emacs-lisp
-  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
-#+END_SRC
-
-#+RESULTS:
+:end:
 
 * Autotuning
 ** Sample Slide 1

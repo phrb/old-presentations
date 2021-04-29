@@ -1,4 +1,4 @@
-% Created 2020-03-11 Wed 19:52
+% Created 2021-04-29 Thu 12:32
 % Intended LaTeX compiler: pdflatex
 \documentclass[10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]{beamer}
 
@@ -8,10 +8,13 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{listings}
+\usepackage{multirow}
+\usepackage{caption}
+\usepackage{xeCJK}
 \usepackage{graphicx}
 \usepackage[english]{babel}
 \usepackage[scale=2]{ccicons}
-\usepackage{url}
+\usepackage{hyperref}
 \usepackage{relsize}
 \usepackage{amsmath}
 \usepackage{bm}
@@ -19,13 +22,11 @@
 \usepackage{ragged2e}
 \usepackage{textcomp}
 \usepackage{pgfplots}
-\usepackage{multirow}
 \usepgfplotslibrary{dateplot}
 \definecolor{Base}{HTML}{191F26}
-\definecolor{Highlight}{HTML}{ffda99}
 \definecolor{Accent}{HTML}{bb0300}
 \setbeamercolor{alerted text}{fg=Accent}
-\setbeamercolor{frametitle}{bg=Base}
+\setbeamercolor{frametitle}{fg=Base,bg=White}
 \setbeamercolor{normal text}{bg=black!2,fg=Base}
 \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
 \lstdefinelanguage{Julia}%
@@ -40,6 +41,22 @@ morecomment=[n]{\#=}{=\#},%
 morestring=[s]{"}{"},%
 morestring=[m]{'}{'},%
 }[keywords,comments,strings]%
+\lstdefinelanguage{dockerfile}{
+keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+sensitive=false,
+comment=[l]{\#},
+morestring=[b]',
+morestring=[b]"
+}
+\lstdefinelanguage{yaml}{
+keywords={true,false,null,y,n},
+ndkeywords={},
+sensitive=false,
+comment=[l]{\#},
+morecomment=[s]{/*}{*/},
+morestring=[b]',
+morestring=[b]"
+}
 \lstset{ %
 backgroundcolor={},
 basicstyle=\ttfamily\scriptsize,
@@ -50,7 +67,6 @@ commentstyle=\color{Accent},
 extendedchars=true,
 frame=n,
 keywordstyle=\color{Accent},
-language=R,
 rulecolor=\color{black},
 showspaces=false,
 showstringspaces=false,
@@ -62,24 +78,18 @@ tabsize=2,
 \renewcommand*{\UrlFont}{\ttfamily\smaller\relax}
 \graphicspath{{../../img/}}
 \addtobeamertemplate{block begin}{}{\justifying}
+\captionsetup[figure]{labelformat=empty}
 \usetheme{default}
 \author{\footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}}
 \date{\scriptsize \today}
 \title{Presentation Stub}
-\hypersetup{
- pdfauthor={\footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}},
- pdftitle={Presentation Stub},
- pdfkeywords={},
- pdfsubject={},
- pdfcreator={Emacs 26.3 (Org mode 9.2.5)},
- pdflang={English}}
 \begin{document}
 
 \maketitle
 
 \section{Autotuning}
-\label{sec:orgb8e70e3}
-\begin{frame}[label={sec:orgd3e887e}]{Sample Slide 1}
+\label{sec:orgd9f0044}
+\begin{frame}[label={sec:org628440b}]{Sample Slide 1}
 \begin{columns}
 \begin{column}{0.5\columnwidth}
 \begin{block}{Sample Column/Block A}

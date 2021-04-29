@@ -1,3 +1,4 @@
+#+STARTUP: beamer overview indent inlineimages logdrawer
 #+TITLE:     Presentation Stub
 #+AUTHOR:    \footnotesize Pedro Bruel \newline \scriptsize \emph{phrb@ime.usp.br}
 #+EMAIL:     phrb@ime.usp.br
@@ -12,7 +13,6 @@
 #+LINK_UP:
 #+LINK_HOME:
 
-#+STARTUP: beamer
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
 #+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
@@ -23,10 +23,14 @@
 #+LATEX_HEADER: \usepackage{booktabs}
 #+LATEX_HEADER: \usepackage{array}
 #+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{multirow}
+#+LATEX_HEADER: \usepackage{caption}
+#+LATEX_HEADER: \usepackage{xeCJK}
 #+LATEX_HEADER: \usepackage{graphicx}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+LATEX_HEADER: \usepackage[scale=2]{ccicons}
-#+LATEX_HEADER: \usepackage{url}
+#+LATEX_HEADER: \usepackage{hyperref}
+# #+LATEX_HEADER: \usepackage{url}
 #+LATEX_HEADER: \usepackage{relsize}
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER: \usepackage{bm}
@@ -34,13 +38,12 @@
 #+LATEX_HEADER: \usepackage{ragged2e}
 #+LATEX_HEADER: \usepackage{textcomp}
 #+LATEX_HEADER: \usepackage{pgfplots}
-#+LATEX_HEADER: \usepackage{multirow}
 #+LATEX_HEADER: \usepgfplotslibrary{dateplot}
 #+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
-#+LATEX_HEADER: \definecolor{Highlight}{HTML}{ffda99}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
 #+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
 #+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
-#+LATEX_HEADER: \setbeamercolor{frametitle}{bg=Base}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Base,bg=White}
 #+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
 #+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
 #+LATEX_HEADER: \lstdefinelanguage{Julia}%
@@ -55,6 +58,22 @@
 #+LATEX_HEADER:    morestring=[s]{"}{"},%
 #+LATEX_HEADER:    morestring=[m]{'}{'},%
 #+LATEX_HEADER: }[keywords,comments,strings]%
+#+LATEX_HEADER: \lstdefinelanguage{dockerfile}{
+#+LATEX_HEADER:   keywords={FROM, RUN, COPY, ADD, ENTRYPOINT, CMD,  ENV, ARG, WORKDIR, EXPOSE, LABEL, USER, VOLUME, STOPSIGNAL, ONBUILD, MAINTAINER},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
+#+LATEX_HEADER: \lstdefinelanguage{yaml}{
+#+LATEX_HEADER:   keywords={true,false,null,y,n},
+#+LATEX_HEADER:   ndkeywords={},
+#+LATEX_HEADER:   sensitive=false,
+#+LATEX_HEADER:   comment=[l]{\#},
+#+LATEX_HEADER:   morecomment=[s]{/*}{*/},
+#+LATEX_HEADER:   morestring=[b]',
+#+LATEX_HEADER:   morestring=[b]"
+#+LATEX_HEADER: }
 #+LATEX_HEADER: \lstset{ %
 #+LATEX_HEADER:   backgroundcolor={},
 #+LATEX_HEADER:   basicstyle=\ttfamily\scriptsize,
@@ -66,7 +85,6 @@
 #+LATEX_HEADER:   extendedchars=true,
 #+LATEX_HEADER:   frame=n,
 #+LATEX_HEADER:   keywordstyle=\color{Accent},
-#+LATEX_HEADER:   language=R,
 #+LATEX_HEADER:   rulecolor=\color{black},
 #+LATEX_HEADER:   showspaces=false,
 #+LATEX_HEADER:   showstringspaces=false,
@@ -79,44 +97,46 @@
 #+LATEX_HEADER: \graphicspath{{../../img/}}
 #+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
 
-* Setup                                            :B_ignoreheading:noexport:
-  :PROPERTIES:
-  :BEAMER_env: ignoreheading
-  :END:
-  #+HEADER: :results output :exports none
-  #+BEGIN_SRC emacs-lisp
-  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
-  #+END_SRC
+#+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
 
-  #+RESULTS:
+* Setup                                            :B_ignoreheading:noexport:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+HEADER: :results output :exports none
+#+BEGIN_SRC emacs-lisp
+  (setq-local org-latex-pdf-process (list "latexmk -xelatex %f"))
+#+END_SRC
+
+#+RESULTS:
 
 * Autotuning
 ** Sample Slide 1
 *** Sample Column/Block A                                     :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_col: 0.5
-    :END:
-    Sample text
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_col: 0.5
+:END:
+Sample text
 
 **** Sample Block 1                                                 :B_block:
-     :PROPERTIES:
-     :BEAMER_env: block
-     :END:
-     Sample *text*
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+Sample *text*
 
 *** Sample Column/Block B                                     :B_block:BMCOL:
-    :PROPERTIES:
-    :BEAMER_env: block
-    :BEAMER_COL: 0.5
-    :END:
+:PROPERTIES:
+:BEAMER_env: block
+:BEAMER_COL: 0.5
+:END:
 
-    Sample list:
+Sample list:
 
-    - Sample item 1
-    - Sample item 2
+- Sample item 1
+- Sample item 2
 * Ending Title :B_ignoreheading:
-  :PROPERTIES:
-  :BEAMER_env: ignoreheading
-  :END:
-  #+LATEX: \maketitle
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+LATEX: \maketitle

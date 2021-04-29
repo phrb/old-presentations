@@ -15,7 +15,7 @@
 
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [10pt, compress, aspectratio=169, xcolor={table,usenames,dvipsnames}]
-#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=smallcaps, sectionpage=none]{metropolis}}
+#+LATEX_HEADER: \mode<beamer>{\usetheme[numbering=fraction, progressbar=none, titleformat=regular, sectionpage=none]{metropolis}}
 
 #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
 
@@ -25,27 +25,33 @@
 #+LATEX_HEADER: \usepackage{listings}
 #+LATEX_HEADER: \usepackage{multirow}
 #+LATEX_HEADER: \usepackage{caption}
-#+LATEX_HEADER: \usepackage{xeCJK}
 #+LATEX_HEADER: \usepackage{graphicx}
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+LATEX_HEADER: \usepackage[scale=2]{ccicons}
 #+LATEX_HEADER: \usepackage{hyperref}
-# #+LATEX_HEADER: \usepackage{url}
 #+LATEX_HEADER: \usepackage{relsize}
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LATEX_HEADER: \usepackage{bm}
-#+LATEX_HEADER: \usepackage{wasysym}
 #+LATEX_HEADER: \usepackage{ragged2e}
 #+LATEX_HEADER: \usepackage{textcomp}
 #+LATEX_HEADER: \usepackage{pgfplots}
 #+LATEX_HEADER: \usepgfplotslibrary{dateplot}
+
 #+LATEX_HEADER: \definecolor{Base}{HTML}{191F26}
 # #+LATEX_HEADER: \definecolor{Accent}{HTML}{157FFF}
-#+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+# #+LATEX_HEADER: \definecolor{Accent}{HTML}{bb0300}
+#+LATEX_HEADER: \definecolor{Accent}{HTML}{b10000}
+
 #+LATEX_HEADER: \setbeamercolor{alerted text}{fg=Accent}
-#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Base,bg=White}
+#+LATEX_HEADER: \setbeamercolor{frametitle}{fg=Accent,bg=White}
 #+LATEX_HEADER: \setbeamercolor{normal text}{bg=black!2,fg=Base}
-#+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+
+# #+LATEX_HEADER: \setsansfont[BoldFont={Source Sans Pro Semibold},Numbers={OldStyle}]{Source Sans Pro}
+#+LATEX_HEADER: \usepackage{newpxtext}
+#+LATEX_HEADER: \usepackage{newpxmath}
+#+LATEX_HEADER: \usefonttheme{serif}
+#+LATEX_HEADER: \usepackage{DejaVuSansMono}
+
 #+LATEX_HEADER: \lstdefinelanguage{Julia}%
 #+LATEX_HEADER:   {morekeywords={abstract,struct,break,case,catch,const,continue,do,else,elseif,%
 #+LATEX_HEADER:       end,export,false,for,function,immutable,mutable,using,import,importall,if,in,%
@@ -98,6 +104,13 @@
 #+LATEX_HEADER: \addtobeamertemplate{block begin}{}{\justifying}
 
 #+LATEX_HEADER: \captionsetup[figure]{labelformat=empty}
+
+#+LATEX_HEADER: \makeatletter
+#+LATEX_HEADER: \setlength{\metropolis@titleseparator@linewidth}{1pt}
+# #+LATEX_HEADER: \setlength{\metropolis@progressonsectionpage@linewidth}{2pt}
+# #+LATEX_HEADER: \setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
+#+LATEX_HEADER: \makeatother
+
 
 * Setup                                            :B_ignoreheading:noexport:
 :PROPERTIES:
